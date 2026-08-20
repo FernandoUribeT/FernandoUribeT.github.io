@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Vehicle inspection with signature and lockout — Fernando Uribe</title>
+<meta name="description" content="Interactive demo: vehicle inspection checklist with digital signature and automatic unit lockout on critical faults.">
+<style>
+:root{--bg:#0a0c11;--bg-2:#0f1218;--card:#12161e;--line:#222835;--line-2:#2d3545;
+--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;
+--ok:#3ddc84;--no:#ff6b6b;--warn:#ffa94d;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid var(--line);background:rgba(10,12,17,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:40}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+nav a{font:600 12px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--fg-faint)}
+nav a:hover{color:var(--accent)}
+header{padding:40px 0 22px}
+h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
+.sub{color:var(--accent);font:600 12.5px/1.5 var(--mono);margin-top:9px}
+.intro{color:var(--fg-dim);max-width:70ch;margin-top:14px}
+.hint{background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.25);border-radius:10px;padding:12px 16px;margin-top:18px;color:var(--fg-dim);font-size:14px;max-width:70ch}
+.hint b{color:var(--accent)}
+
+.estado{display:flex;align-items:center;gap:14px;margin-top:20px;padding:15px 18px;border-radius:12px;border:1px solid var(--line-2);background:var(--card);transition:.3s var(--ease)}
+.estado.libre{border-color:rgba(61,220,132,.45);background:rgba(61,220,132,.07)}
+.estado.bloq{border-color:rgba(255,107,107,.5);background:rgba(255,107,107,.08)}
+.luz{width:14px;height:14px;border-radius:50%;background:var(--fg-faint);flex:none;transition:.3s var(--ease)}
+.estado.libre .luz{background:var(--ok);box-shadow:0 0 0 5px rgba(61,220,132,.16)}
+.estado.bloq .luz{background:var(--no);box-shadow:0 0 0 5px rgba(255,107,107,.16);animation:lat 1.4s infinite}
+@keyframes lat{0%,100%{opacity:1}50%{opacity:.45}}
+.estado .et{display:block;font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;color:var(--fg-faint)}
+.estado b{color:var(--fg);font-weight:600}
+.estado.libre .et{color:var(--ok)} .estado.bloq .et{color:var(--no)}
+.estado span{color:var(--fg-dim);font-size:14px}
+
+.layout{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;margin-top:20px}
+@media(max-width:960px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pbar{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pbar h2{font-size:15px}
+.pbar .cnt{font:600 11px/1 var(--mono);color:var(--fg-faint)}
+.sec{border-bottom:1px solid var(--line)}
+.sec:last-child{border-bottom:0}
+.sec h3{font:700 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--fg-faint);padding:11px 16px 7px}
+.it{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 16px;transition:background .2s var(--ease)}
+.it:hover{background:var(--bg-2)}
+.it .lbl{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--fg-dim)}
+.crit{font:700 8.5px/1 var(--mono);letter-spacing:.09em;color:var(--no);border:1px solid rgba(255,107,107,.4);border-radius:4px;padding:3px 5px;flex:none}
+.opts{display:flex;gap:5px;flex:none}
+.opts button{border:1px solid var(--line-2);background:var(--bg-2);color:var(--fg-faint);border-radius:7px;padding:6px 11px;font:600 11px/1 var(--mono);cursor:pointer;transition:border-color .18s var(--ease)}
+.opts button:hover{border-color:var(--fg-faint)}
+.opts button.si{border-color:var(--ok);background:rgba(61,220,132,.15);color:var(--ok)}
+.opts button.no{border-color:var(--no);background:rgba(255,107,107,.15);color:var(--no)}
+
+.side{display:grid;gap:16px}
+.firma-box{padding:14px 16px}
+canvas{width:100%;height:130px;background:#f7f7f4;border:1px solid var(--line-2);border-radius:9px;touch-action:none;cursor:crosshair;display:block}
+.firma-pie{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:9px}
+.firma-pie span{font-size:12px;color:var(--fg-faint)}
+.mini{background:none;border:1px solid var(--line-2);color:var(--fg-faint);border-radius:7px;padding:6px 10px;font:600 10.5px/1 var(--mono);cursor:pointer}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.cerrar{width:100%;margin-top:12px;border:0;border-radius:9px;padding:12px;font:700 12px/1 var(--mono);letter-spacing:.05em;cursor:pointer;background:var(--accent);color:#1a1204;transition:.2s var(--ease)}
+.cerrar:disabled{background:var(--bg-2);color:var(--fg-faint);cursor:not-allowed;border:1px solid var(--line-2)}
+.log{padding:12px 14px;max-height:250px;overflow:auto;display:flex;flex-direction:column-reverse;gap:8px}
+.li{border-left:2px solid var(--line-2);padding:7px 11px;font-size:13px;color:var(--fg-dim);background:var(--bg-2);border-radius:0 8px 8px 0}
+.li.ok{border-left-color:var(--ok)} .li.no{border-left-color:var(--no)} .li.warn{border-left-color:var(--warn)}
+.li .et{display:block;font:600 10.5px/1.5 var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px;color:var(--fg)}
+.li b{color:var(--fg);font-weight:600}
+.li.ok .et{color:var(--ok)} .li.no .et{color:var(--no)} .li.warn .et{color:var(--warn)}
+.vacio{color:var(--fg-faint);font-size:13px;font-style:italic;padding:4px 2px}
+.notas{margin-top:20px}
+.notas ul{padding:14px 16px 16px 32px;color:var(--fg-dim);font-size:14px}
+.notas li{margin-bottom:9px}
+.notas code{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+footer{border-top:1px solid var(--line);margin-top:36px;padding-top:22px;color:var(--fg-faint);font-size:13.5px}
+
+/* Preferencias de accesibilidad heredadas del portafolio. Las demos comparten
+   los mismos tokens, asi que basta con redefinirlos. */
+html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
+html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
+html.a11y-txt1 body{font-size:18px}
+html.a11y-txt2 body{font-size:20.5px}
+html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
+html.a11y-links a:not(.btn):not(.brand):not(.skip){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.16);border-radius:3px;padding:0 2px}
+html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="/en/">← Portfolio</a><a href="#notas">How it works</a></div></nav>
+<div class="wrap">
+  <header>
+    <h1>Vehicle inspection with signature and lockout</h1>
+    <p class="sub">Interactive demo · a module I am the sole author of</p>
+    <p class="intro">A recreation of the vehicle inspection module I built for a transportation system in production. The driver checks the unit item by item, signs, and if a critical fault appears the unit locks itself: it does not depend on someone remembering to report it.</p>
+    <div class="hint"><b>Mark faults</b> on the checklist items. The ones tagged <b>CRITICAL</b> lock the unit immediately. Sign in the box and try to close the inspection.</div>
+    <div class="estado" id="estado">
+      <span class="luz"></span>
+      <div><span class="et" id="est-t">Not started</span><span id="est-d">Unit 03BD5B · Fleet no. TF13 — the inspection has not started.</span></div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="pbar"><h2>Inspection checklist</h2><span class="cnt" id="cnt">0 / 15 checked</span></div>
+      <div id="lista"></div>
+    </div>
+    <div class="side">
+      <div class="panel">
+        <div class="pbar"><h2>Driver signature</h2></div>
+        <div class="firma-box">
+          <canvas id="firma" width="560" height="260" aria-label="Signature area"></canvas>
+          <div class="firma-pie"><span id="f-est">Not signed</span><button class="mini" id="f-borrar">Clear</button></div>
+          <button class="cerrar" id="cerrar" disabled>Close inspection</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="pbar"><h2>What is happening</h2></div>
+        <div class="log" id="log"><p class="vacio">Mark an item to see the rules in action.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel notas" id="notas">
+    <div class="pbar"><h2>Design decisions</h2></div>
+    <ul>
+      <li><b>The lockout is automatic, not a user action.</b> Nobody decides whether a unit with failing brakes goes on the road: the policy applies itself the moment the fault is marked. Undoing it is not optional either — the unit is only released when the critical item is cleared.</li>
+      <li><b>An incomplete or unsigned inspection cannot be closed.</b> A half-done inspection saved as complete is worse than no inspection at all, because it creates false confidence.</li>
+      <li><b>The rule lives apart from data access.</b> In the real system I split this into a policy layer and a repository layer, in <code>revision_critica_policy.php</code> and <code>revision_critica_repository.php</code>, so the business rule can be read and tested without touching the database.</li>
+      <li>The signature is captured with <code>Pointer Events</code> on a <code>canvas</code>, so it works with a finger on the driver’s phone, which is where it is actually used.</li>
+    </ul>
+  </div>
+  <footer>Written from scratch in JavaScript, no libraries. In the real system the signature and photos are embedded in the inspection PDF, and the lockout is reflected in the unit availability for trip assignment.</footer>
+</div>
+
+<script>
+(function(){
+  var SEC=[
+   {n:'Brakes',items:[['Foot brake',1],['Parking brake',1],['Hydraulic fluid level',0]]},
+   {n:'Lights',items:[['Headlights',1],['Turn signals',1],['Reverse lights',0]]},
+   {n:'Engine',items:[['Visible leaks',1],['Oil level',0],['Coolant level',0]]},
+   {n:'Tires',items:[['Tread depth',1],['All lug nuts present',1],['Pressure',0]]},
+   {n:'Cab',items:[['Seat belt',1],['Dashboard controls',0],['Front bumper',0]]}
+  ];
+  var est={}, id=0, firmado=false;
+  SEC.forEach(function(s){s.items.forEach(function(it){it.push(++id);est[id]=null;});});
+  var TOTAL=id;
+
+  var log=document.getElementById('log');
+  function say(k,t,m){var e=log.querySelector('.vacio');if(e)e.remove();
+    var d=document.createElement('div');d.className='li '+k;d.innerHTML='<span class="et">'+t+'</span>'+m;log.appendChild(d);
+    while(log.children.length>7)log.removeChild(log.firstChild);}
+
+  document.getElementById('lista').innerHTML=SEC.map(function(s){
+    return '<div class="sec"><h3>'+s.n+'</h3>'+s.items.map(function(it){
+      return '<div class="it"><span class="lbl">'+it[0]+(it[1]?' <span class="crit">Critical</span>':'')+'</span>'+
+      '<span class="opts"><button data-id="'+it[2]+'" data-v="1">Pass</button><button data-id="'+it[2]+'" data-v="0">Fail</button></span></div>';
+    }).join('')+'</div>';}).join('');
+
+  function criticasFallando(){
+    var r=[];SEC.forEach(function(s){s.items.forEach(function(it){if(it[1]&&est[it[2]]===0)r.push(it[0]);});});return r;}
+  function revisados(){var n=0;for(var k in est){if(est[k]!==null)n++;}return n;}
+
+  function pinta(){
+    document.querySelectorAll('.opts button').forEach(function(b){
+      var v=est[b.dataset.id];
+      b.classList.toggle('si',v===1&&b.dataset.v==='1');
+      b.classList.toggle('no',v===0&&b.dataset.v==='0');});
+    var n=revisados(); document.getElementById('cnt').textContent=n+' / '+TOTAL+' checked';
+    var cr=criticasFallando(), e=document.getElementById('estado');
+    e.classList.toggle('bloq',cr.length>0);
+    e.classList.toggle('libre',cr.length===0&&n===TOTAL);
+    if(cr.length){
+      document.getElementById('est-t').textContent='Unit locked';
+      document.getElementById('est-d').innerHTML='Unit 03BD5B · Fleet no. TF13 — cannot be assigned to trips. Critical fault on <b>'+cr.join('</b>, <b>')+'</b>.';
+    }else if(n===TOTAL){
+      document.getElementById('est-t').textContent='Unit operational';
+      document.getElementById('est-d').textContent='Unit 03BD5B · Fleet no. TF13 — no critical faults. Available for trip assignment.';
+    }else{
+      document.getElementById('est-t').textContent='Inspection in progress';
+      document.getElementById('est-d').textContent='Unit 03BD5B · Fleet no. TF13 — '+(TOTAL-n)+' items left to check.';
+    }
+    var listo=(n===TOTAL)&&firmado&&cr.length===0;
+    var btn=document.getElementById('cerrar'); btn.disabled=!listo;
+    btn.textContent = cr.length? 'Cannot close: unit is locked' : (n<TOTAL? (TOTAL-n)+' items left' : (!firmado? 'Signature required' : 'Close inspection'));
+  }
+  document.getElementById('lista').addEventListener('click',function(ev){
+    var b=ev.target.closest('button[data-id]'); if(!b)return;
+    var i=b.dataset.id, v=+b.dataset.v, antes=criticasFallando().length;
+    est[i]=v; pinta();
+    var nom=b.closest('.it').querySelector('.lbl').childNodes[0].textContent.trim();
+    var esCrit=!!b.closest('.it').querySelector('.crit');
+    if(v===0&&esCrit) say('no','Automatic lockout','A fault was marked on <b>'+nom+'</b>, which is a critical item. The unit is locked without anyone having to report it.');
+    else if(v===1&&esCrit&&antes>0&&criticasFallando().length===0) say('ok','Unit released','The last critical item was cleared. The unit is available again.');
+    else if(v===0) say('warn','Minor fault','<b>'+nom+'</b> is recorded as a minor fault. It does not lock the unit, but it does show up in the report.');
+  });
+
+  // firma
+  var cv=document.getElementById('firma'), ctx=cv.getContext('2d'), dib=false;
+  ctx.lineWidth=3; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#16181d';
+  function pos(e){var r=cv.getBoundingClientRect();return [(e.clientX-r.left)*(cv.width/r.width),(e.clientY-r.top)*(cv.height/r.height)];}
+  cv.addEventListener('pointerdown',function(e){e.preventDefault();dib=true;var p=pos(e);ctx.beginPath();ctx.moveTo(p[0],p[1]);try{cv.setPointerCapture(e.pointerId);}catch(_){}});
+  cv.addEventListener('pointermove',function(e){if(!dib)return;var p=pos(e);ctx.lineTo(p[0],p[1]);ctx.stroke();
+    if(!firmado){firmado=true;document.getElementById('f-est').textContent='Signed';say('ok','Signature captured','The signature is tied to this inspection and embedded in the PDF.');pinta();}});
+  window.addEventListener('pointerup',function(){dib=false;});
+  document.getElementById('f-borrar').onclick=function(){
+    ctx.clearRect(0,0,cv.width,cv.height); firmado=false;
+    document.getElementById('f-est').textContent='Not signed'; pinta();
+    say('warn','Signature cleared','The inspection cannot be closed without a signature.');};
+  document.getElementById('cerrar').onclick=function(){
+    say('ok','Inspection closed','All '+TOTAL+' items were checked, no critical faults, signature on file. The unit is available for trip assignment.');};
+  pinta();
+})();
+</script>
+<script>
+/* Aplica las preferencias de accesibilidad guardadas en el portafolio. Mismo
+   origen, misma clave, asi que el modo elegido alla sigue vigente aqui. */
+(function(){
+  try{
+    var p=JSON.parse(localStorage.getItem('a11y-prefs')||'{}');
+    var cls=p.cls||[], R=document.documentElement;
+    ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){
+      R.classList.toggle(c, cls.indexOf(c)>-1);
+    });
+    if(p.txt===1)R.classList.add('a11y-txt1');
+    if(p.txt===2)R.classList.add('a11y-txt2');
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)R.classList.add('a11y-quieto');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
