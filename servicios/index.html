@@ -64,15 +64,15 @@ h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--sans);letter-spacing:-.02em;mar
 .intro{color:var(--fg-dim);max-width:62ch;margin-bottom:36px}
 
 /* tarjetas de servicio */
-.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:18px}
-.serv{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px 24px;display:flex;flex-direction:column}
-.serv .ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px}
-.serv .ico svg{width:21px;height:21px}
+.vermas{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);text-align:center;font:700 .875rem/1 var(--sans);color:var(--tono,var(--accent));text-decoration:none;display:block}.vermas span{transition:transform .22s var(--ease);display:inline-block}.serv:hover .vermas span{transform:translateX(4px)}.det{border-top:1px solid var(--line);padding-top:34px;margin-top:34px}.det:first-of-type{border-top:0;padding-top:0;margin-top:0}.det h3{font:800 1.5rem/1.25 var(--sans);letter-spacing:-.02em;margin-bottom:10px}.det>p{color:var(--fg-dim);max-width:64ch;margin-bottom:20px}.det .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start}@media(max-width:720px){.det .cols{grid-template-columns:1fr}}.det ul{list-style:none;display:grid;gap:9px}.det li{font-size:.9375rem;color:var(--fg-dim);padding-left:22px;position:relative}.det li::before{content:'';position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:2px;background:var(--accent)}.plazo{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px}.plazo b{display:block;font:700 .6875rem/1 var(--mono);letter-spacing:.14em;color:var(--fg-faint);margin-bottom:9px}.plazo p{font-size:.9375rem;color:var(--fg-dim);margin-bottom:16px}.plazo a{display:inline-flex;align-items:center;gap:8px;font:700 .875rem/1 var(--sans);background:#25d366;color:#0b2f19;padding:11px 16px;border-radius:9px;text-decoration:none}.rejilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:20px}.serv::before{content:'';position:absolute;inset:0;z-index:-1;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),var(--brillo),transparent 62%)}.serv:hover,.serv:focus-within{transform:translateY(-6px);border-color:var(--tono);box-shadow:0 22px 46px -22px var(--sombra),0 0 0 1px var(--tono)}.serv:hover::before,.serv:focus-within::before{opacity:1}.serv.t-am{--tono:var(--accent);--brillo:rgba(240,180,41,.13)}.serv.t-az{--tono:var(--azul);--brillo:rgba(77,159,255,.13)}.serv.t-ve{--tono:var(--verde);--brillo:rgba(59,165,93,.13)}html.a11y-quieto .serv,html.a11y-quieto .serv .ico{transition:none}html.a11y-quieto .serv:hover{transform:none}
+.serv{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px 26px 28px;display:flex;flex-direction:column;overflow:hidden;isolation:isolate;transition:transform .28s var(--ease),border-color .28s var(--ease),box-shadow .28s var(--ease)}
+.serv .ico{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;transition:transform .28s var(--ease)}
+.serv .ico svg{width:36px;height:36px}.serv:hover .ico,.serv:focus-within .ico{transform:scale(1.08)}
 .i-am{background:rgba(240,180,41,.14);color:var(--accent)}
 .i-az{background:var(--azul-tenue);color:var(--azul)}
 .i-ve{background:rgba(59,165,93,.13);color:var(--verde)}
-.serv h3{font:700 1.1875rem/1.3 var(--sans);letter-spacing:-.01em;margin-bottom:9px}
-.serv p{color:var(--fg-dim);font-size:.9375rem;margin-bottom:16px}
+.serv h3{font:700 1.3125rem/1.3 var(--sans);letter-spacing:-.015em;margin-bottom:10px;text-align:center}
+.serv p{color:var(--fg-dim);font-size:.9375rem;margin-bottom:20px;text-align:center}
 .serv ul{list-style:none;margin-bottom:20px;display:grid;gap:7px}
 .serv li{font-size:.875rem;color:var(--fg-dim);padding-left:20px;position:relative}
 .serv li::before{content:"";position:absolute;left:0;top:.52em;width:9px;height:9px;border-radius:2px;background:var(--accent);opacity:.85}
@@ -175,7 +175,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 
     <div class="rejilla">
 
-      <article class="serv">
+      <article class="serv t-am">
         <div class="ico i-am"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h16v18l-3-2-2 2-2-2-2 2-2-2-3 2Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
         <h3>Facturación electrónica</h3>
         <p>Que tu sistema emita CFDI 4.0 y Carta Porte solo, sin capturar dos veces ni pelear con el SAT.</p>
@@ -185,10 +185,10 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Validación antes de enviar, para que no te rechacen</li>
           <li>Cancelaciones y complementos de pago</li>
         </ul>
-        <p class="precio">Desde $15,000 MXN<small>Proyecto completo. Pago en dos partes.</small></p>
+        <a class="vermas" href="#d-facturacion">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article class="serv">
+      <article class="serv t-az">
         <div class="ico i-az"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h9l3 3h4v13H4Z"/><path d="M9 13l2 2 4-4"/></svg></div>
         <h3>Expedientes digitales</h3>
         <p>Tus proveedores suben su documentación y el sistema revisa que esté completa, vigente y que sea de quien dice ser.</p>
@@ -198,10 +198,10 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Aviso automático de documentos por vencer</li>
           <li>Explica qué falló, no solo que falló</li>
         </ul>
-        <p class="precio">Desde $18,000 MXN<small>Se puede entregar por etapas.</small></p>
+        <a class="vermas" href="#d-expedientes">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article class="serv">
+      <article class="serv t-ve">
         <div class="ico i-ve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 7h11v9H2Z"/><path d="M13 10h4l3 3v3h-7Z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
         <h3>Operación y logística</h3>
         <p>Programación de viajes, revisión de unidades y control de flota, con las reglas de tu negocio aplicadas antes de guardar.</p>
@@ -211,10 +211,10 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Bloqueo automático por falla crítica</li>
           <li>Control de mantenimiento por kilometraje y días</li>
         </ul>
-        <p class="precio">Desde $25,000 MXN<small>El más variable. Depende del tamaño de la flota.</small></p>
+        <a class="vermas" href="#d-operacion">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article class="serv">
+      <article class="serv t-am">
         <div class="ico i-am"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg></div>
         <h3>Sitios y sistemas a medida</h3>
         <p>Desde una página que explique bien a qué te dedicas, hasta un sistema interno para dejar de trabajar en Excel.</p>
@@ -224,10 +224,10 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Panel para que tú mismo cambies el contenido</li>
           <li>Sistemas internos de inventario, clientes o cobranza</li>
         </ul>
-        <p class="precio">Desde $8,000 MXN<small>El sitio informativo. Un sistema interno cuesta más.</small></p>
+        <a class="vermas" href="#d-web">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article class="serv">
+      <article class="serv t-az">
         <div class="ico i-az"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
         <h3>Automatización de procesos</h3>
         <p>Esa tarea que alguien hace a mano todos los días: copiar datos, revisar un portal, mandar reportes.</p>
@@ -237,10 +237,10 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Conexión entre sistemas que hoy no se hablan</li>
           <li>Avisa cuando falla, en vez de fallar en silencio</li>
         </ul>
-        <p class="precio">Desde $6,000 MXN<small>El más barato de empezar y el que más tiempo devuelve.</small></p>
+        <a class="vermas" href="#d-automatizacion">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article class="serv">
+      <article class="serv t-ve">
         <div class="ico i-ve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a9 9 0 0 0-9 9v5a3 3 0 0 0 3 3h1v-7H5v-1a7 7 0 0 1 14 0v1h-2v7h1a3 3 0 0 0 3-3v-5a9 9 0 0 0-9-9Z"/></svg></div>
         <h3>Soporte y mantenimiento</h3>
         <p>Para que lo que ya funciona siga funcionando cuando el SAT cambie las reglas o crezca tu operación.</p>
@@ -250,14 +250,14 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
           <li>Cambios y mejoras pequeñas incluidas</li>
           <li>Atención por WhatsApp</li>
         </ul>
-        <p class="precio">Desde $1,500 MXN al mes<small>Opcional. Se contrata aparte del proyecto.</small></p>
+        <a class="vermas" href="#d-soporte">Ver detalles <span aria-hidden="true">&rarr;</span></a>
       </article>
 
     </div>
   </div>
 </section>
 
-<section id="prueba" class="alterna">
+<section id="detalles" class="alterna"><div class="wrap"><p class="rotulo">CADA SERVICIO A DETALLE</p><h2>Qué incluye exactamente</h2><p class="intro">El precio depende del tamaño de tu operación, así que prefiero decírtelo después de entender qué necesitas. La primera llamada no cuesta y no compromete a nada.</p><div class="det t-am" id="d-facturacion"><h3>Facturación electrónica</h3><p>Conecto tu sistema con un proveedor autorizado por el SAT para que las facturas salgan solas, con los datos que ya tienes capturados. Nada de escribir dos veces.</p><div class="cols"><div><ul><li>Timbrado de CFDI 4.0 desde tu propio sistema</li><li>Carta Porte completa para transporte de carga</li><li>Validación de datos antes de enviar, para evitar rechazos</li><li>Cancelaciones y complementos de pago</li><li>Respaldo de XML y PDF ordenados por mes</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>De tres a seis semanas, según qué tanto haya que conectar.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20facturacion." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div><div class="det t-az" id="d-expedientes"><h3>Expedientes digitales</h3><p>Tus proveedores suben su documentación desde su teléfono y el sistema revisa que esté completa, vigente y que efectivamente sea de quien dice ser.</p><div class="cols"><div><ul><li>Lectura de texto en documentos escaneados o fotografiados</li><li>Clasificación por los marcadores propios de cada documento</li><li>Verificación cruzada contra el registro del titular</li><li>Aviso automático cuando algo está por vencer</li><li>Explica qué falló, no solo que falló</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>De cuatro a ocho semanas. Se puede entregar por etapas.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20expedientes." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div><div class="det t-ve" id="d-operacion"><h3>Operación y logística</h3><p>El sistema aplica las reglas de tu negocio antes de guardar, no después. Si algo no debe pasar, no pasa — y te dice por qué.</p><div class="cols"><div><ul><li>Calendario de asignación de viajes</li><li>Revisión de unidades con firma en pantalla</li><li>Bloqueo automático de unidad por falla crítica</li><li>Control de mantenimiento por kilometraje y días</li><li>Identificadores QR para control físico</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>De dos a tres meses. Es el más variable.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20operacion." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div><div class="det t-am" id="d-web"><h3>Sitios y sistemas a medida</h3><p>Desde una página que explique bien a qué te dedicas, hasta un sistema interno para dejar de trabajar en hojas de cálculo compartidas por WhatsApp.</p><div class="cols"><div><ul><li>Sitio rápido, que se vea bien en celular</li><li>Catálogo, formularios y contacto directo por WhatsApp</li><li>Panel para que tú mismo cambies el contenido</li><li>Sistemas internos de inventario, clientes o cobranza</li><li>Consultas protegidas contra inyección SQL</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>Una o dos semanas el sitio. Un sistema interno, más.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20web." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div><div class="det t-az" id="d-automatizacion"><h3>Automatización de procesos</h3><p>Esa tarea que alguien hace a mano todos los días: copiar datos de un portal, armar un reporte, revisar si llegó algo. Se hace sola y avisa cuando falla.</p><div class="cols"><div><ul><li>Extracción de datos de portales y documentos</li><li>Reportes automáticos por correo o WhatsApp</li><li>Conexión entre sistemas que hoy no se hablan</li><li>Distingue entre no llegué a la fuente y los datos vienen mal</li><li>Registro de cada corrida, para poder auditarla</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>De una a tres semanas. Es lo más rápido de ver funcionando.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20automatizacion." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div><div class="det t-ve" id="d-soporte"><h3>Soporte y mantenimiento</h3><p>Para que lo que ya funciona siga funcionando cuando el SAT cambie las reglas, crezca tu operación o se rompa algo un viernes.</p><div class="cols"><div><ul><li>Actualizaciones cuando cambia la normativa</li><li>Respaldos automáticos y monitoreo</li><li>Cambios y mejoras pequeñas incluidas</li><li>Atención directa por WhatsApp</li><li>Documentación al día, para que no dependas de mí</li></ul></div><div class="plazo"><b>CUÁNTO TARDA</b><p>Mensual, sin plazo forzoso. Se contrata aparte del proyecto.</p><a href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20soporte." target="_blank" rel="noopener">Preguntar por esto</a></div></div></div></div></section><section id="prueba" class="alterna">
   <div class="wrap">
     <p class="rotulo">NO TIENES QUE CREERME</p>
     <h2>Pruébalo tú mismo, ahora</h2>
@@ -364,4 +364,17 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 <a class="wa-fab" href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20quiero%20platicar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Escribirme por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.36 5.1L2 22l5.2-1.52a9.8 9.8 0 0 0 4.84 1.26h.01c5.43 0 9.84-4.4 9.84-9.84C21.9 6.4 17.48 2 12.04 2Zm5.76 14.06c-.24.68-1.4 1.3-1.94 1.34-.5.05-.98.23-3.3-.7-2.78-1.1-4.54-3.94-4.68-4.12-.14-.18-1.12-1.5-1.12-2.86s.72-2.02.98-2.3c.24-.26.54-.32.72-.32h.52c.16 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.14.12.3.02.48-.1.18-.15.3-.3.46-.14.18-.3.4-.44.53-.14.14-.3.3-.13.6.18.28.78 1.28 1.66 2.07 1.14 1.02 2.1 1.34 2.4 1.48.3.14.47.12.64-.08.18-.2.74-.86.94-1.16.2-.3.4-.24.66-.14.26.1 1.66.78 1.94.92.28.14.47.22.54.34.07.12.07.7-.17 1.38Z"/></svg></a>
 
 
+<script>
+(function(){
+  var R=document.documentElement;
+  if(R.classList.contains('a11y-quieto'))return;
+  document.querySelectorAll('.serv').forEach(function(c){
+    c.addEventListener('pointermove',function(e){
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      c.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  });
+})();
+</script>
 </html>
