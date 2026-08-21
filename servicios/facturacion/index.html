@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Facturación electrónica — Fernando Uribe Trujillo</title>
 <meta name="description" content="Que tu sistema emita las facturas solo, y que el SAT no te las rechace.">
-<style>
+<style>@font-face{font-family:'Space Grotesk';src:url('/fuentes/space-grotesk.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
 :root{
   --bg:#04060a; --bg-2:#0a0d13; --card:#1e2530; --line:#333d4c; --line-2:#475268;
   --fg:#eef0f6; --fg-dim:#9aa3b6; --fg-faint:#68718a;
@@ -17,6 +17,7 @@
 html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
 html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
 :root{
+  --display:'Space Grotesk',system-ui,-apple-system,sans-serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --azul:#4d9fff; --azul-tenue:rgba(77,159,255,.12);
   --verde:#3ba55d;
@@ -42,9 +43,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 @media(max-width:640px){.navlinks a:not(.destacado){display:none}}
 
 /* portada */
-.portada{padding:74px 0 58px;border-bottom:1px solid var(--line)}
+.portada{position:relative;overflow:hidden;padding:74px 0 58px;border-bottom:1px solid var(--line)}
 .encima{font:700 .6875rem/1 var(--mono);letter-spacing:.18em;color:var(--accent);margin-bottom:16px}
-h1{font:800 clamp(2.25rem,5.6vw,4.25rem)/1.08 var(--sans);letter-spacing:-.028em;margin-bottom:20px;max-width:16ch}
+h1{font:800 clamp(2.25rem,5.6vw,4.25rem)/1.08 var(--display);letter-spacing:-.028em;margin-bottom:20px;max-width:16ch}
 h1 em{font-style:normal;color:var(--accent)}
 .bajada{font-size:1.1875rem;color:var(--fg-dim);max-width:56ch;margin-bottom:32px}
 .acciones{display:flex;gap:12px;flex-wrap:wrap}
@@ -60,7 +61,7 @@ h1 em{font-style:normal;color:var(--accent)}
 section{padding:64px 0;border-bottom:1px solid var(--line)}
 section.alterna{background:var(--panel)}
 .rotulo{font:700 .6875rem/1 var(--mono);letter-spacing:.18em;color:var(--fg-faint);margin-bottom:12px}
-h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:14px}
+h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--display);letter-spacing:-.02em;margin-bottom:14px}
 .intro{color:var(--fg-dim);max-width:62ch;margin-bottom:36px}
 
 /* tarjetas de servicio */
@@ -71,7 +72,7 @@ h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--sans);letter-spacing:-.02em;mar
 .i-am{background:rgba(240,180,41,.14);color:var(--accent)}
 .i-az{background:var(--azul-tenue);color:var(--azul)}
 .i-ve{background:rgba(59,165,93,.13);color:var(--verde)}
-.serv h3{font:700 1.3125rem/1.3 var(--sans);letter-spacing:-.015em;margin-bottom:10px;text-align:center}
+.serv h3{font:700 1.3125rem/1.3 var(--display);letter-spacing:-.015em;margin-bottom:10px;text-align:center}
 .serv p{color:var(--fg-dim);font-size:.9375rem;margin-bottom:20px;text-align:center}
 .serv ul{list-style:none;margin-bottom:20px;display:grid;gap:7px}
 .serv li{font-size:.875rem;color:var(--fg-dim);padding-left:20px;position:relative}
@@ -114,28 +115,28 @@ footer a{color:var(--fg-dim)}
 .wa-fab:hover,.wa-fab:focus-visible{transform:translateY(-2px) scale(1.04)}
 @media(max-width:640px){.wa-fab{width:48px;height:48px;left:14px;bottom:14px}}
 html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-
+.trama{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(var(--rejaLinea) 1px,transparent 1px),linear-gradient(90deg,var(--rejaLinea) 1px,transparent 1px);background-size:30px 30px;-webkit-mask-image:radial-gradient(72% 62% at 22% 0%,#000 0%,transparent 72%);mask-image:radial-gradient(72% 62% at 22% 0%,#000 0%,transparent 72%)}.modulos{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55}:root{--rejaLinea:rgba(240,180,41,.10)}html.a11y-claro{--rejaLinea:rgba(70,58,32,.11)}html.a11y-contraste .trama,html.a11y-contraste .modulos{display:none}
 :root{--tono:var(--accent)}
 
 .migaja{display:inline-flex;align-items:center;gap:9px;font:700 .875rem/1 var(--sans);
         color:var(--tono);text-decoration:none;margin-bottom:34px}
 .migaja:hover span{transform:translateX(-4px)}
 .migaja span{display:inline-block;transition:transform .22s var(--ease)}
-.cab{padding:52px 0 44px}
-.cab h1{font:800 clamp(2.1rem,5.2vw,3.9rem)/1.06 var(--sans);letter-spacing:-.03em;margin-bottom:18px;max-width:18ch}
-.cab .lema{font:600 clamp(1.0625rem,2.1vw,1.4375rem)/1.4 var(--sans);color:var(--tono);max-width:44ch}
+.cab{position:relative;overflow:hidden;padding:52px 0 44px}
+.cab h1{font:800 clamp(2.1rem,5.2vw,3.9rem)/1.06 var(--display);letter-spacing:-.03em;margin-bottom:18px;max-width:18ch}
+.cab .lema{font:600 clamp(1.0625rem,2.1vw,1.4375rem)/1.4 var(--display);color:var(--tono);max-width:44ch}
 .cuerpo{display:grid;grid-template-columns:1.55fr .95fr;gap:46px;align-items:start;padding-bottom:70px}
 @media(max-width:860px){.cuerpo{grid-template-columns:1fr;gap:34px}}
 .texto p{margin-bottom:18px;color:var(--fg-dim);max-width:62ch}
 .texto p strong{color:var(--fg);font-weight:600}
-.texto h2{font:800 1.4375rem/1.25 var(--sans);letter-spacing:-.02em;margin:38px 0 16px}
+.texto h2{font:800 1.4375rem/1.25 var(--display);letter-spacing:-.02em;margin:38px 0 16px}
 .opts{list-style:none;display:grid;gap:13px}
 .opts li{padding-left:24px;position:relative;color:var(--fg-dim);font-size:.9375rem}
 .opts li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:50%;background:var(--tono)}
 .opts b{color:var(--fg);font-weight:700}
 .lateral{position:sticky;top:82px;display:grid;gap:16px}
 .cta{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 24px}
-.cta h2{font:800 1.375rem/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:11px}
+.cta h2{font:800 1.375rem/1.2 var(--display);letter-spacing:-.02em;margin-bottom:11px}
 .cta p{color:var(--fg-dim);font-size:.9375rem;margin-bottom:20px}
 .cta a.wa{display:flex;align-items:center;justify-content:center;gap:9px;background:#25d366;color:#0b2f19;
           font:700 .9375rem/1 var(--sans);padding:15px 20px;border-radius:11px;text-decoration:none;
@@ -152,8 +153,11 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 .demo b{display:block;font:700 .6875rem/1 var(--mono);letter-spacing:.14em;color:var(--tono);margin-bottom:9px}
 .demo p{font-size:.9375rem;color:var(--fg-dim);margin:0 0 11px}
 .demo em{font:700 .8125rem/1 var(--sans);color:var(--tono);font-style:normal}
+.captura{margin:34px 0 8px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.captura img{display:block;width:100%;height:auto}
+.captura figcaption{padding:13px 18px;font:400 .8125rem/1.5 var(--mono);color:var(--fg-faint);border-top:1px solid var(--line)}
 .otras{padding:52px 0 70px;border-top:1px solid var(--line)}
-.otras h2{font:800 1.375rem/1.2 var(--sans);margin-bottom:20px}
+.otras h2{font:800 1.375rem/1.2 var(--display);margin-bottom:20px}
 .chips{display:flex;gap:11px;flex-wrap:wrap}
 .chips a{border:1px solid var(--line-2);border-radius:10px;padding:11px 16px;font:600 .875rem/1 var(--sans);
          color:var(--fg-dim);text-decoration:none;background:var(--card)}
@@ -186,7 +190,7 @@ html.a11y-quieto .cta a.wa:hover,html.a11y-quieto .demo:hover{transform:none}
   </div>
 </div></nav>
 <div id="main" tabindex="-1"></div>
-<header class="cab"><div class="wrap">
+<header class="cab"><div class="trama" aria-hidden="true"></div><div class="wrap">
   <a class="migaja" href="/servicios/"><span aria-hidden="true">&larr;</span> Volver a servicios</a>
   <h1>Facturación electrónica</h1>
   <p class="lema">Que tu sistema emita las facturas solo, y que el SAT no te las rechace.</p>
@@ -196,6 +200,7 @@ html.a11y-quieto .cta a.wa:hover,html.a11y-quieto .demo:hover{transform:none}
     <p>Si hoy capturas la venta en un lado y la factura en otro, estás haciendo el trabajo dos veces y abriendo la puerta a que los datos no coincidan. <strong>Cada diferencia entre lo que vendiste y lo que facturaste es un problema que aparece meses después</strong>, cuando ya nadie se acuerda.</p><p>Conecto tu sistema con un proveedor autorizado por el SAT para que el CFDI salga con los datos que ya tienes capturados. Y antes de enviarlo, el sistema revisa que esté bien — porque un rechazo del SAT cuesta más tiempo que la validación que lo evita.</p>
     <h2>¿Qué necesitas timbrar?</h2>
     <ul class="opts"><li><b>Facturas de venta</b> — CFDI 4.0 desde tu propio sistema, sin entrar a otro portal.</li><li><b>Carta Porte</b> — Obligatoria para transporte de carga. Es la que más errores genera.</li><li><b>Complementos de pago</b> — Cuando cobras en parcialidades o a crédito.</li><li><b>Nómina</b> — Si tienes personal en nómina.</li><li><b>Cancelaciones</b> — Con el motivo correcto, que desde 2022 el SAT exige.</li></ul>
+    <figure class="captura"><img src="/img/qr.webp" data-base="/img/qr" alt="Identificadores QR para amarrar la unidad física con su registro." width="900" height="495" loading="lazy"><figcaption>Identificadores QR para amarrar la unidad física con su registro.</figcaption></figure>
     <h2>Qué incluye</h2>
     <ul class="opts"><li>Timbrado automático desde tu sistema actual</li><li>Validación de datos antes de enviar, para evitar rechazos</li><li>Carta Porte completa para transporte de carga</li><li>Cancelaciones y complementos de pago</li><li>Respaldo de XML y PDF ordenados por mes</li></ul>
   </div>
@@ -219,5 +224,26 @@ html.a11y-quieto .cta a.wa:hover,html.a11y-quieto .demo:hover{transform:none}
   <a href="/">Ver portafolio técnico</a> ·
   <a href="https://github.com/FernandoUribeT">GitHub</a>
 </div></footer>
+<script>
+/* La captura sigue el tema elegido, igual que en el portafolio. */
+(function(){
+  var imgs=[].slice.call(document.querySelectorAll('img[data-base]'));
+  if(!imgs.length)return;
+  var R=document.documentElement, actual=null;
+  function tema(){
+    if(R.classList.contains('a11y-contraste'))return '-contraste';
+    if(R.classList.contains('a11y-claro'))return '-claro';
+    return '';
+  }
+  function pinta(){
+    var t=tema(); if(t===actual)return; actual=t;
+    imgs.forEach(function(im){im.src=im.dataset.base+t+'.webp';});
+  }
+  pinta();
+  if('MutationObserver' in window){
+    new MutationObserver(pinta).observe(R,{attributes:true,attributeFilter:['class']});
+  }
+})();
+</script>
 <a class="wa-fab" href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20me%20interesa%20facturacion%20para%20mi%20negocio." target="_blank" rel="noopener" aria-label="Escribirme por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.36 5.1L2 22l5.2-1.52a9.8 9.8 0 0 0 4.84 1.26h.01c5.43 0 9.84-4.4 9.84-9.84C21.9 6.4 17.48 2 12.04 2Zm5.76 14.06c-.24.68-1.4 1.3-1.94 1.34-.5.05-.98.23-3.3-.7-2.78-1.1-4.54-3.94-4.68-4.12-.14-.18-1.12-1.5-1.12-2.86s.72-2.02.98-2.3c.24-.26.54-.32.72-.32h.52c.16 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.14.12.3.02.48-.1.18-.15.3-.3.46-.14.18-.3.4-.44.53-.14.14-.3.3-.13.6.18.28.78 1.28 1.66 2.07 1.14 1.02 2.1 1.34 2.4 1.48.3.14.47.12.64-.08.18-.2.74-.86.94-1.16.2-.3.4-.24.66-.14.26.1 1.66.78 1.94.92.28.14.47.22.54.34.07.12.07.7-.17 1.38Z"/></svg></a>
 </html>

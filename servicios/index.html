@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Servicios — Fernando Uribe Trujillo</title>
 <meta name="description" content="Sistemas de facturación electrónica (CFDI 4.0 y Carta Porte), expedientes digitales y operación logística para negocios en México. Precios desde $8,000 MXN.">
-<style>
+<style>@font-face{font-family:'Space Grotesk';src:url('/fuentes/space-grotesk.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
 :root{
   --bg:#04060a; --bg-2:#0a0d13; --card:#1e2530; --line:#333d4c; --line-2:#475268;
   --fg:#eef0f6; --fg-dim:#9aa3b6; --fg-faint:#68718a;
@@ -17,6 +17,7 @@
 html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
 html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
 :root{
+  --display:'Space Grotesk',system-ui,-apple-system,sans-serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --azul:#4d9fff; --azul-tenue:rgba(77,159,255,.12);
   --verde:#3ba55d;
@@ -42,9 +43,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 @media(max-width:640px){.navlinks a:not(.destacado){display:none}}
 
 /* portada */
-.portada{padding:74px 0 58px;border-bottom:1px solid var(--line)}
+.portada{position:relative;overflow:hidden;padding:74px 0 58px;border-bottom:1px solid var(--line)}
 .encima{font:700 .6875rem/1 var(--mono);letter-spacing:.18em;color:var(--accent);margin-bottom:16px}
-h1{font:800 clamp(2.25rem,5.6vw,4.25rem)/1.08 var(--sans);letter-spacing:-.028em;margin-bottom:20px;max-width:16ch}
+h1{font:800 clamp(2.25rem,5.6vw,4.25rem)/1.08 var(--display);letter-spacing:-.028em;margin-bottom:20px;max-width:16ch}
 h1 em{font-style:normal;color:var(--accent)}
 .bajada{font-size:1.1875rem;color:var(--fg-dim);max-width:56ch;margin-bottom:32px}
 .acciones{display:flex;gap:12px;flex-wrap:wrap}
@@ -60,7 +61,7 @@ h1 em{font-style:normal;color:var(--accent)}
 section{padding:64px 0;border-bottom:1px solid var(--line)}
 section.alterna{background:var(--panel)}
 .rotulo{font:700 .6875rem/1 var(--mono);letter-spacing:.18em;color:var(--fg-faint);margin-bottom:12px}
-h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:14px}
+h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--display);letter-spacing:-.02em;margin-bottom:14px}
 .intro{color:var(--fg-dim);max-width:62ch;margin-bottom:36px}
 
 /* tarjetas de servicio */
@@ -71,7 +72,7 @@ h2{font:800 clamp(1.6rem,3.2vw,2.3rem)/1.2 var(--sans);letter-spacing:-.02em;mar
 .i-am{background:rgba(240,180,41,.14);color:var(--accent)}
 .i-az{background:var(--azul-tenue);color:var(--azul)}
 .i-ve{background:rgba(59,165,93,.13);color:var(--verde)}
-.serv h3{font:700 1.3125rem/1.3 var(--sans);letter-spacing:-.015em;margin-bottom:10px;text-align:center}
+.serv h3{font:700 1.3125rem/1.3 var(--display);letter-spacing:-.015em;margin-bottom:10px;text-align:center}
 .serv p{color:var(--fg-dim);font-size:.9375rem;margin-bottom:20px;text-align:center}
 .serv ul{list-style:none;margin-bottom:20px;display:grid;gap:7px}
 .serv li{font-size:.875rem;color:var(--fg-dim);padding-left:20px;position:relative}
@@ -114,7 +115,7 @@ footer a{color:var(--fg-dim)}
 .wa-fab:hover,.wa-fab:focus-visible{transform:translateY(-2px) scale(1.04)}
 @media(max-width:640px){.wa-fab{width:48px;height:48px;left:14px;bottom:14px}}
 html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-</style>
+.trama{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(var(--rejaLinea) 1px,transparent 1px),linear-gradient(90deg,var(--rejaLinea) 1px,transparent 1px);background-size:30px 30px;-webkit-mask-image:radial-gradient(72% 62% at 22% 0%,#000 0%,transparent 72%);mask-image:radial-gradient(72% 62% at 22% 0%,#000 0%,transparent 72%)}.modulos{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55}:root{--rejaLinea:rgba(240,180,41,.10)}html.a11y-claro{--rejaLinea:rgba(70,58,32,.11)}html.a11y-contraste .trama,html.a11y-contraste .modulos{display:none}</style>
 <script>
 /* Aplica las preferencias de accesibilidad guardadas en el portafolio. Mismo
    origen, misma clave, asi que el modo elegido alla sigue vigente aqui. */
@@ -148,7 +149,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 
 <div id="main" tabindex="-1"></div>
 
-<header class="portada">
+<header class="portada"><div class="trama" aria-hidden="true"></div>
   <div class="wrap">
     <p class="encima">MANZANILLO, COLIMA · A TODO MÉXICO</p>
     <h1>Software que le quita <em>trámite</em> a tu negocio.</h1>
