@@ -7,6 +7,9 @@ DEST = "/home/XElCyanX/portafolio/servicios"
 BASE = open(f"{S}/estilo_base.css", encoding="utf-8").read()
 TEMA = open(f"{S}/tema.js", encoding="utf-8").read()
 WA = "https://wa.me/525659304558?text="
+A11Y_HTML = open(f"{S}/a11y_panel.html", encoding="utf-8").read()
+A11Y_JS   = open(f"{S}/a11y_script.js", encoding="utf-8").read()
+LUCES = '<div class="luces" aria-hidden="true"><i></i><i></i><i></i></div>'
 
 EXTRA = """
 .migaja{display:inline-flex;align-items:center;gap:9px;font:700 .875rem/1 var(--sans);
@@ -272,7 +275,7 @@ def pagina(sv):
 <style>{BASE}
 :root{{--tono:{sv['tono']}}}
 {EXTRA}</style>
-{TEMA}
+{LUCES}
 <a class="saltar" href="#main">Saltar al contenido</a>
 <nav><div class="wrap">
   <a class="brand" href="/">FUT<span aria-hidden="true"></span></a>
@@ -318,7 +321,9 @@ def pagina(sv):
   <a href="https://github.com/FernandoUribeT">GitHub</a>
 </div></footer>
 {swap}
+{A11Y_HTML}
 <a class="wa-fab" href="{WA}{msg}" target="_blank" rel="noopener" aria-label="Escribirme por WhatsApp">{ICONO_WA}</a>
+{A11Y_JS}
 </html>"""
 
 for sv in SERVICIOS:
