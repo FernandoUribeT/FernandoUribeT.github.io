@@ -91,10 +91,10 @@ h2{font:800 clamp(1.6rem,1.8vw + 1.16rem,2.3rem)/1.2 var(--display);letter-spaci
 /* preguntas */
 .faq{display:grid;gap:11px;max-width:78ch}
 details{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-summary{padding:17px 22px;cursor:pointer;font:600 1rem/1.4 var(--sans);list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+summary{padding:17px 22px;cursor:pointer;font:600 1rem/1.4 var(--sans);list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:relative}
 summary::-webkit-details-marker{display:none}
-summary::after{content:'';width:1.25rem;height:1.25rem;flex:none;color:var(--accent);background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat,linear-gradient(currentColor,currentColor) center/10% 60% no-repeat;transform-origin:center;transition:transform .5s var(--ease)}
-details[open] summary::after{background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat}summary:hover::after,summary:focus-visible::after{transform:rotate(360deg)}
+summary::before,summary::after{content:'';width:1.25rem;height:1.25rem;flex:none;color:var(--accent);background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat;transform-origin:center;transition:transform .45s var(--ease)}summary::after{transform:rotate(0deg)}summary::before{position:absolute;right:22px;top:17px;transform:rotate(90deg)}
+details[open] summary::before{transform:rotate(0deg)}
 details p{padding:0 22px 19px;color:var(--fg-dim);font-size:.9375rem}
 
 /* llamado final */
