@@ -619,6 +619,27 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
         col[min].push(it); alto[min]+=it.filas;
       });
 
+      /* El reparto codicioso no siempre da el mas parejo. Con dos columnas
+         y pocas tarjetas se puede probar cada reparto posible y quedarse
+         con el que deja menos diferencia. El orden dentro de cada columna
+         se conserva. */
+      if(ncols===2 && regulares.length>1 && regulares.length<=16){
+        var total=0, N=regulares.length;
+        for(var t=0;t<N;t++) total+=regulares[t].filas;
+        var mejorM=null, mejorD=Infinity;
+        for(var m=0;m<(1<<N);m++){
+          var suma=0;
+          for(var b=0;b<N;b++) if(m&(1<<b)) suma+=regulares[b].filas;
+          var d=Math.abs(total-2*suma);
+          if(d<mejorD){ mejorD=d; mejorM=m; }
+        }
+        col=[[],[]]; alto=[0,0];
+        for(var b2=0;b2<N;b2++){
+          var k2=(mejorM&(1<<b2))?0:1;
+          col[k2].push(regulares[b2]); alto[k2]+=regulares[b2].filas;
+        }
+      }
+
       /* Ningun reparto deja las columnas exactamente parejas, asi que el
          sobrante se reparte DENTRO de las tarjetas de la columna corta:
          crecen unos pixeles cada una en vez de dejar un vacio al final. */
