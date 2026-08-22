@@ -93,8 +93,8 @@ h2{font:800 clamp(1.6rem,1.8vw + 1.16rem,2.3rem)/1.2 var(--display);letter-spaci
 details{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 summary{padding:17px 22px;cursor:pointer;font:600 1rem/1.4 var(--sans);list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:relative}
 summary::-webkit-details-marker{display:none}
-summary::before,summary::after{content:'';width:1.25rem;height:1.25rem;flex:none;color:var(--accent);background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat;transform-origin:center;transition:transform .45s var(--ease)}summary::after{transform:rotate(0deg)}summary::before{position:absolute;right:22px;top:17px;transform:rotate(90deg)}
-details[open] summary::before{transform:rotate(0deg)}
+summary::before,summary::after{content:'';width:1.25rem;height:1.25rem;flex:none;color:var(--accent);background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat;transform-origin:center;transition:transform .5s var(--ease)}summary::after{transform:rotate(0deg)}summary::before{position:absolute;right:22px;top:17px;transform:rotate(90deg);transition:transform .5s var(--ease),background-size .16s linear}
+details[open] summary::after{transform:rotate(360deg)}details[open] summary::before{transform:rotate(450deg);background-size:0% 10%}
 details p{padding:0 22px 19px;color:var(--fg-dim);font-size:.9375rem}
 
 /* llamado final */
