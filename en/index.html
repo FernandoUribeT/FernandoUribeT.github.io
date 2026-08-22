@@ -624,7 +624,7 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
          crecen unos pixeles cada una en vez de dejar un vacio al final. */
       var tope=Math.max.apply(null,alto);
       for(var k=0;k<ncols;k++){
-        var falta=tope-alto[k], n=col[k].length;
+        var falta=0, n=col[k].length;/* sin reparto: con align-self:start las tarjetas no crecen, asi que el sobrante se veria como hueco. Las columnas terminan disparejas, que es como se comporta una mamposteria de verdad. */
         if(falta>0&&n){
           col[k].forEach(function(it,j){ it.filas+=Math.floor(falta/n)+(j<falta%n?1:0); });
         }
