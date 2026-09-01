@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Identificador QR de unidades — Fernando Uribe</title>
+<meta name="description" content="Demo interactivo: generador de códigos QR escrito desde cero, con logo, niveles de corrección de errores y el cálculo real de cuánto daño tolera antes de dejar de leerse.">
+<style>
+:root{--bg:#0a0c11;--bg-2:#0f1218;--card:#12161e;--line:#222835;--line-2:#2d3545;
+--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;
+--ok:#3ddc84;--no:#ff6b6b;--warn:#ffa94d;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid var(--line);background:rgba(10,12,17,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:40}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+nav a{font:600 12px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--fg-faint)}
+nav a:hover{color:var(--accent)}
+header{padding:40px 0 22px}
+h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
+.sub{color:var(--accent);font:600 12.5px/1.5 var(--mono);margin-top:9px}
+.intro{color:var(--fg-dim);max-width:70ch;margin-top:14px}
+.hint{display:block;background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.25);border-radius:10px;padding:12px 16px;margin-top:18px;color:var(--fg-dim);font-size:14px;max-width:70ch}
+.hint b{color:var(--accent)}
+
+.layout{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start;margin-top:22px}
+@media(max-width:980px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pbar{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pbar h2{font-size:15px}
+.pbar .cnt{font:600 11px/1 var(--mono);color:var(--fg-faint)}
+@media(max-width:520px){.pbar{flex-direction:column;align-items:flex-start;gap:5px}}
+.lienzo{padding:22px 16px;display:flex;justify-content:center;background:var(--bg-2)}
+canvas{background:#fff;border-radius:10px;image-rendering:pixelated;max-width:100%;height:auto;display:block}
+.side{display:grid;gap:16px}
+.cuerpo{padding:14px 16px;display:grid;gap:14px}
+.campo{display:grid;gap:6px}
+.campo>.et{font:700 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--fg-faint)}
+textarea,input[type=text]{width:100%;background:var(--bg-2);border:1px solid var(--line-2);color:var(--fg);border-radius:8px;padding:9px 11px;font:13px/1.5 var(--mono);resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.grupo{display:flex;gap:5px;flex-wrap:wrap}
+.grupo button{flex:1 1 auto;border:1px solid var(--line-2);background:var(--bg-2);color:var(--fg-faint);border-radius:7px;padding:7px 9px;font:600 11px/1 var(--mono);cursor:pointer;transition:border-color .18s var(--ease),background .18s var(--ease)}
+.grupo button:hover{border-color:var(--fg-faint)}
+.grupo button[aria-pressed=true]{border-color:var(--accent);background:rgba(240,180,41,.15);color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.mini{font-size:12.5px;color:var(--fg-faint);line-height:1.5}
+
+.veredicto{padding:15px 16px;border-top:1px solid var(--line);display:flex;gap:13px;align-items:flex-start;transition:.3s var(--ease)}
+.veredicto .luz{width:13px;height:13px;border-radius:50%;background:var(--fg-faint);flex:none;margin-top:5px;transition:.3s var(--ease)}
+.veredicto .et{display:block;font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px;color:var(--fg-faint)}
+.veredicto p{color:var(--fg-dim);font-size:13.5px}
+.veredicto.si{background:rgba(61,220,132,.07)} .veredicto.si .luz{background:var(--ok);box-shadow:0 0 0 5px rgba(61,220,132,.16)} .veredicto.si .et{color:var(--ok)}
+.veredicto.casi{background:rgba(255,169,77,.07)} .veredicto.casi .luz{background:var(--warn);box-shadow:0 0 0 5px rgba(255,169,77,.16)} .veredicto.casi .et{color:var(--warn)}
+.veredicto.no{background:rgba(255,107,107,.08)} .veredicto.no .luz{background:var(--no);box-shadow:0 0 0 5px rgba(255,107,107,.16);animation:lat 1.4s infinite} .veredicto.no .et{color:var(--no)}
+@keyframes lat{0%,100%{opacity:1}50%{opacity:.45}}
+
+.barra{height:7px;border-radius:4px;background:var(--bg-2);border:1px solid var(--line-2);overflow:hidden;margin-top:9px}
+.barra i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s var(--ease),background .3s var(--ease)}
+.barra.casi i{background:var(--warn)} .barra.no i{background:var(--no)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+td{padding:6px 16px;border-bottom:1px solid var(--line);color:var(--fg-dim);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--fg-faint);font:600 11px/1.5 var(--mono);letter-spacing:.05em;text-transform:uppercase;width:44%}
+td b{color:var(--fg);font-weight:600}
+td .si{color:var(--ok)} td .no{color:var(--no)}
+
+.pantalla{margin:0 16px 16px;background:#0b1a12;border:1px solid rgba(61,220,132,.3);border-radius:10px;padding:13px 15px}
+.pantalla.roto{background:#1a0e0e;border-color:rgba(255,107,107,.35)}
+.pantalla .et{display:block;font:700 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--ok);margin-bottom:8px}
+.pantalla.roto .et{color:var(--no)}
+.pantalla pre{font:12.5px/1.7 var(--mono);color:#c8f5da;white-space:pre-wrap;word-break:break-word}
+.pantalla.roto pre{color:#ffbdbd}
+
+section.notas{margin-top:44px;border-top:1px solid var(--line);padding-top:30px}
+section.notas h2{font-size:20px;letter-spacing:-.01em}
+.nota{margin-top:22px;padding-left:16px;border-left:2px solid var(--line-2);max-width:74ch}
+.nota h3{font-size:15px;margin-bottom:6px}
+.nota p{color:var(--fg-dim);font-size:14px}
+.nota p+p{margin-top:8px}
+.nota code{font:12.5px var(--mono);background:var(--bg-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--accent)}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--fg-faint);font-size:13px;max-width:74ch}
+.mimebox{display:grid;gap:10px;padding:14px 16px;border-top:1px solid var(--line)}
+
+/* Preferencias de accesibilidad heredadas del portafolio. Las demos comparten
+   los mismos tokens, asi que basta con redefinirlos. */
+html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
+html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
+html.a11y-txt1 body{font-size:18px}
+html.a11y-txt2 body{font-size:20.5px}
+html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
+html.a11y-links a:not(.btn):not(.brand):not(.skip){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.16);border-radius:3px;padding:0 2px}
+html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="/">← Portafolio</a><a href="#notas">Cómo funciona</a></div></nav>
+<div class="wrap">
+  <header>
+    <h1>Identificador QR de unidades</h1>
+    <p class="sub">Demo interactivo · codificador escrito desde cero</p>
+    <p class="intro">Recreación del sistema de identificadores QR que estandaricé para camiones y equipos de arrastre en un sistema de transporte en producción. El QR de esta página no viene de ninguna librería: el codificador completo —modo byte, corrección Reed–Solomon sobre GF(256), entrelazado de bloques, las ocho máscaras y su función de penalización— está escrito a mano en el JavaScript de este archivo.</p>
+    <p class="hint"><b>Cambia el contenido, el nivel de corrección y el tamaño del logo.</b> El veredicto de la derecha no es una simulación: cuenta cuántas palabras de código tapa el logo y las compara contra el presupuesto real de corrección de cada bloque.</p>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="pbar"><h2>Etiqueta de la unidad</h2><span class="cnt" id="c-info">—</span></div>
+      <div class="lienzo"><canvas id="cv" width="360" height="360" role="img" aria-label="Código QR generado" ></canvas></div>
+      <div class="pantalla" id="pantalla">
+        <span class="et" id="p-et">Lo que vería el operador al escanear</span>
+        <pre id="p-txt"></pre>
+      </div>
+      <div class="mimebox">
+        <div class="campo">
+          <span class="et">El logo que sube el cliente</span>
+          <div class="grupo" role="group" aria-label="Archivo de logo">
+            <button type="button" data-mime="ok" aria-pressed="true">logo.png (PNG real)</button>
+            <button type="button" data-mime="mal" aria-pressed="false">logo.png (es JPEG)</button>
+          </div>
+        </div>
+        <table><tbody id="t-mime"></tbody></table>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="panel">
+        <div class="pbar"><h2>Controles</h2></div>
+        <div class="cuerpo">
+          <div class="campo">
+            <label class="et" for="txt">Contenido del código</label>
+            <textarea id="txt" rows="3" spellcheck="false">PLACA:03BD5B
+ECO:TF13
+TIPO:TRACTOCAMION</textarea>
+          </div>
+          <div class="campo">
+            <span class="et">Qué guarda el QR</span>
+            <div class="grupo" role="group" aria-label="Tipo de carga útil">
+              <button type="button" data-carga="texto" aria-pressed="true">Texto plano</button>
+              <button type="button" data-carga="url" aria-pressed="false">Una URL</button>
+            </div>
+          </div>
+          <div class="campo">
+            <span class="et">Nivel de corrección de errores</span>
+            <div class="grupo" role="group" aria-label="Nivel de corrección">
+              <button type="button" data-ecl="L" aria-pressed="false">L · 7%</button>
+              <button type="button" data-ecl="M" aria-pressed="false">M · 15%</button>
+              <button type="button" data-ecl="Q" aria-pressed="false">Q · 25%</button>
+              <button type="button" data-ecl="H" aria-pressed="true">H · 30%</button>
+            </div>
+          </div>
+          <div class="campo">
+            <label class="et" for="logo">Logo al centro — <span id="l-val">24</span>% del ancho</label>
+            <input type="range" id="logo" min="0" max="36" step="2" value="24">
+          </div>
+          <div class="campo">
+            <label class="et" for="res">Resolución — <span id="r-val">10</span> px por módulo</label>
+            <input type="range" id="res" min="2" max="16" step="1" value="10">
+            <p class="mini" id="r-nota"></p>
+          </div>
+        </div>
+        <div class="veredicto" id="ver">
+          <span class="luz"></span>
+          <div style="flex:1">
+            <span class="et" id="v-et">—</span>
+            <p id="v-txt"></p>
+            <div class="barra" id="barra"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="pbar"><h2>Lo que hay adentro</h2></div>
+        <table><tbody id="t-det"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <section class="notas" id="notas">
+    <h2>Cómo funciona y por qué está hecho así</h2>
+
+    <div class="nota">
+      <h3>El contenido pesa más que el código</h3>
+      <p>La primera versión guardaba una URL: escaneabas la unidad y el teléfono abría una página del sistema. Se veía bien en la oficina. En el patio no: ahí la señal es mala o no hay, y el operador se quedaba viendo una pantalla en blanco esperando que cargara.</p>
+      <p>Cambié la carga útil a texto plano. Los datos de la unidad viajan dentro del propio código, así que el escáner los muestra en el instante en que lo lee, sin pedirle nada a la red. Prueba el interruptor <b>Texto plano / Una URL</b> y mira la pantalla verde: es la diferencia entre leer la unidad y leer una dirección que todavía tienes que ir a buscar.</p>
+    </div>
+
+    <div class="nota">
+      <h3>El logo se come la corrección de errores</h3>
+      <p>Un QR aguanta daño porque lleva redundancia Reed–Solomon. El nivel <code>L</code> tolera cerca del 7% de los datos dañados; el <code>H</code>, cerca del 30%. Poner un logo encima no es decoración: es daño deliberado, y sale del mismo presupuesto que debería cubrir la mugre, un doblez o una impresión pobre.</p>
+      <p>Por eso el veredicto de arriba no adivina. Cada módulo que tapa el logo pertenece a una palabra de código concreta; el programa vuelve a leer el lienzo ya dibujado, se queda solo con los módulos que de verdad cambiaron de color —un módulo blanco bajo una zona blanca del logo no daña nada—, los agrupa por bloque y compara contra lo que ese bloque puede corregir, que es la mitad de sus palabras de corrección. Sube el logo con el nivel en <code>L</code> y vas a ver el punto exacto donde se rompe.</p>
+    </div>
+
+    <div class="nota">
+      <h3>Resolución: un módulo borroso es un módulo perdido</h3>
+      <p>Las etiquetas se imprimen y se plastifican, y viven pegadas a un camión. Al generarlas con pocos píxeles por módulo, el logo salía pixeleado y los bordes de los módulos quedaban a medias entre negro y blanco; el escáner tenía que adivinar y a veces adivinaba mal. Subir la resolución de salida no fue un detalle estético: le devolvió al código el margen de error que ya había pagado con redundancia.</p>
+    </div>
+
+    <div class="nota">
+      <h3>El bug del logo que mentía sobre lo que era</h3>
+      <p>Un cliente subió su <code>logo.png</code> y las etiquetas empezaron a salir sin logo, sin ningún error a la vista. El archivo se llamaba <code>.png</code>, pero por dentro era un JPEG: alguien le había cambiado la extensión a mano.</p>
+      <p>El código confiaba en la extensión del archivo para decidir cómo abrirlo, así que llamaba al lector de PNG con datos JPEG. Fallaba, y fallaba en silencio, porque la llamada venía con el operador <code>@</code> de PHP delante, que se traga el error. Lo cambié a <code>getimagesize()</code>, que mira los bytes reales del archivo en vez de creerle al nombre, apliqué la misma detección en todos los componentes que generaban descargas, y quité las supresiones que habían mantenido el problema invisible. Prueba los dos botones de <b>El logo que sube el cliente</b>.</p>
+    </div>
+
+    <div class="nota">
+      <h3>Sobre el codificador</h3>
+      <p>Está escrito desde cero para esta demo, no copiado del sistema del cliente. Implementa modo byte con UTF-8, versiones 1 a 10, los cuatro niveles de corrección, aritmética sobre el campo de Galois GF(256) para Reed–Solomon, entrelazado de bloques, las ocho máscaras y la función de penalización que elige la mejor.</p>
+      <p>Lo verifiqué antes de publicarlo: la salida se decodifica correctamente con <b>zxing-cpp</b>, que es la implementación de referencia detrás de los escáneres de teléfono, y en las cargas útiles que llenan la capacidad exacta la matriz sale <b>bit a bit idéntica</b> a la de una librería establecida. Un QR que no se escanea sería justo lo contrario de lo que esta página dice saber hacer.</p>
+    </div>
+  </section>
+
+  <footer>Escrito desde cero en JavaScript, sin librerías. En el sistema real estos identificadores enlazan la unidad con su bitácora de mantenimiento, sus revisiones y sus asignaciones de viaje, y se imprimen en etiquetas que van pegadas al camión y al equipo de arrastre.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Codificador QR desde cero ---------- */
+var EXP=new Array(512),LOG=new Array(256),x=1,i,j;
+for(i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&0x100)x^=0x11d;}
+for(i=255;i<512;i++)EXP[i]=EXP[i-255];
+function mul(a,b){return (a===0||b===0)?0:EXP[LOG[a]+LOG[b]];}
+function genPoly(n){var g=[1];for(var i=0;i<n;i++){var ng=new Array(g.length+1);
+  for(var q=0;q<ng.length;q++)ng[q]=0;
+  for(var j=0;j<g.length;j++){ng[j]^=g[j];ng[j+1]^=mul(g[j],EXP[i]);}g=ng;}return g;}
+function rs(data,n){var res=[],i,j;for(i=0;i<n;i++)res.push(0);var g=genPoly(n);
+  for(i=0;i<data.length;i++){var f=data[i]^res[0];res.shift();res.push(0);
+    if(f!==0)for(j=0;j<n;j++)res[j]^=mul(g[j+1],f);}
+  return res;}
+var T={
+ L:[[26,7,1,19,0,0],[44,10,1,34,0,0],[70,15,1,55,0,0],[100,20,1,80,0,0],[134,26,1,108,0,0],
+    [172,18,2,68,0,0],[196,20,2,78,0,0],[242,24,2,97,0,0],[292,30,2,116,0,0],[346,18,2,68,2,69]],
+ M:[[26,10,1,16,0,0],[44,16,1,28,0,0],[70,26,1,44,0,0],[100,18,2,32,0,0],[134,24,2,43,0,0],
+    [172,16,4,27,0,0],[196,18,4,31,0,0],[242,22,2,38,2,39],[292,22,3,36,2,37],[346,26,4,43,1,44]],
+ Q:[[26,13,1,13,0,0],[44,22,1,22,0,0],[70,18,2,17,0,0],[100,26,2,24,0,0],[134,18,2,15,2,16],
+    [172,24,4,19,0,0],[196,18,2,14,4,15],[242,22,4,18,2,19],[292,20,4,16,4,17],[346,24,6,19,2,20]],
+ H:[[26,17,1,9,0,0],[44,28,1,16,0,0],[70,22,2,13,0,0],[100,16,4,9,0,0],[134,22,2,11,2,12],
+    [172,28,4,15,0,0],[196,26,4,13,1,14],[242,26,4,14,2,15],[292,24,4,12,4,13],[346,28,6,15,2,16]]};
+var ALIGN=[[],[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50]];
+var FMT={L:1,M:0,Q:3,H:2};
+function bits(v,n,out){for(var i=n-1;i>=0;i--)out.push((v>>i)&1);}
+
+function encode(txt,ecl){
+  var by=[],i,c;
+  for(i=0;i<txt.length;i++){c=txt.charCodeAt(i);
+    if(c<128)by.push(c);
+    else if(c<2048){by.push(192|(c>>6));by.push(128|(c&63));}
+    else{by.push(224|(c>>12));by.push(128|((c>>6)&63));by.push(128|(c&63));}}
+  var ver=0,t,cap,cci,need;
+  for(var v=1;v<=10;v++){t=T[ecl][v-1];cap=t[2]*t[3]+t[4]*t[5];cci=(v<10)?8:16;
+    need=Math.ceil((4+cci+by.length*8)/8); if(need<=cap){ver=v;break;}}
+  if(!ver)return null;
+  t=T[ecl][ver-1];
+  var total=t[2]*t[3]+t[4]*t[5],bs=[];
+  bits(4,4,bs); bits(by.length,(ver<10)?8:16,bs);
+  for(i=0;i<by.length;i++)bits(by[i],8,bs);
+  bits(0,Math.min(4,total*8-bs.length),bs);
+  while(bs.length%8)bs.push(0);
+  var dcw=[];for(i=0;i<bs.length;i+=8){var b=0;for(j=0;j<8;j++)b=(b<<1)|bs[i+j];dcw.push(b);}
+  var pad=[0xEC,0x11],p=0;
+  while(dcw.length<total)dcw.push(pad[p++%2]);
+  var blocks=[],off=0;
+  for(i=0;i<t[2];i++){blocks.push(dcw.slice(off,off+t[3]));off+=t[3];}
+  for(i=0;i<t[4];i++){blocks.push(dcw.slice(off,off+t[5]));off+=t[5];}
+  var ecb=[];for(i=0;i<blocks.length;i++)ecb.push(rs(blocks[i],t[1]));
+  var seq=[],owner=[],maxd=Math.max(t[3],t[5]);
+  for(i=0;i<maxd;i++)for(j=0;j<blocks.length;j++)if(i<blocks[j].length){seq.push(blocks[j][i]);owner.push(j);}
+  for(i=0;i<t[1];i++)for(j=0;j<ecb.length;j++){seq.push(ecb[j][i]);owner.push(j);}
+  var fb=[];for(i=0;i<seq.length;i++)bits(seq[i],8,fb);
+  return {ver:ver,bits:fb,ecl:ecl,owner:owner,nb:blocks.length,ec:t[1],datos:total,totalcw:t[0]};
+}
+function build(e){
+  var n=e.ver*4+17,m=[],res=[],own=[],r,c;
+  for(r=0;r<n;r++){m.push([]);res.push([]);own.push([]);
+    for(c=0;c<n;c++){m[r].push(null);res[r].push(false);own[r].push(-1);}}
+  function put(rr,cc,v){if(rr<0||cc<0||rr>=n||cc>=n)return;m[rr][cc]=v;res[rr][cc]=true;}
+  var fp=[[0,0],[0,n-7],[n-7,0]];
+  for(var f=0;f<3;f++)for(r=-1;r<8;r++)for(c=-1;c<8;c++){
+    var rr=fp[f][0]+r,cc=fp[f][1]+c;
+    var on=(r>=0&&r<=6&&(c===0||c===6))||(c>=0&&c<=6&&(r===0||r===6))||(r>=2&&r<=4&&c>=2&&c<=4);
+    put(rr,cc,on?1:0);}
+  for(i=8;i<n-8;i++){put(6,i,i%2===0?1:0);put(i,6,i%2===0?1:0);}
+  var al=ALIGN[e.ver];
+  for(i=0;i<al.length;i++)for(j=0;j<al.length;j++){
+    var ar=al[i],ac=al[j];
+    if((ar<8&&ac<8)||(ar<8&&ac>n-9)||(ar>n-9&&ac<8))continue;
+    for(var r2=-2;r2<=2;r2++)for(var c2=-2;c2<=2;c2++)
+      put(ar+r2,ac+c2,Math.max(Math.abs(r2),Math.abs(c2))!==1?1:0);}
+  put(n-8,8,1);
+  for(i=0;i<9;i++){if(m[8][i]===null)put(8,i,0);if(m[i][8]===null)put(i,8,0);}
+  for(i=0;i<8;i++){if(m[8][n-1-i]===null)put(8,n-1-i,0);if(m[n-1-i][8]===null)put(n-1-i,8,0);}
+  if(e.ver>=7){var d=e.ver<<12;
+    for(i=0;i<6;i++){if(d&(1<<(17-i)))d^=0x1f25<<(5-i);}
+    var vv=(e.ver<<12)|d;
+    for(i=0;i<18;i++){var b=(vv>>i)&1;put(Math.floor(i/3),n-11+(i%3),b);put(n-11+(i%3),Math.floor(i/3),b);}}
+  var bi=0,up=true;
+  for(var col=n-1;col>0;col-=2){ if(col===6)col--;
+    for(var k=0;k<n;k++){ var row=up?(n-1-k):k;
+      for(var c3=0;c3<2;c3++){ var cc2=col-c3;
+        if(m[row][cc2]===null){
+          m[row][cc2]=(bi<e.bits.length)?e.bits[bi]:0;
+          res[row][cc2]=false;
+          own[row][cc2]=(bi<e.bits.length)?Math.floor(bi/8):-1;
+          bi++;}}}
+    up=!up;}
+  return {m:m,res:res,own:own,n:n,ver:e.ver,ecl:e.ecl,enc:e};
+}
+var MASKS=[
+ function(r,c){return (r+c)%2===0;},function(r,c){return r%2===0;},
+ function(r,c){return c%3===0;},function(r,c){return (r+c)%3===0;},
+ function(r,c){return (Math.floor(r/2)+Math.floor(c/3))%2===0;},
+ function(r,c){return ((r*c)%2)+((r*c)%3)===0;},
+ function(r,c){return (((r*c)%2)+((r*c)%3))%2===0;},
+ function(r,c){return (((r+c)%2)+((r*c)%3))%2===0;}];
+function apply(g,k){
+  var n=g.n,out=[],r,c;
+  for(r=0;r<n;r++)out.push(g.m[r].slice());
+  var f=MASKS[k];
+  for(r=0;r<n;r++)for(c=0;c<n;c++)if(!g.res[r][c]&&f(r,c))out[r][c]^=1;
+  var fv=(FMT[g.ecl]<<3)|k,d=fv<<10;
+  for(i=0;i<5;i++){if(d&(1<<(14-i)))d^=0x537<<(4-i);}
+  var fmt=((fv<<10)|d)^0x5412;
+  for(i=0;i<15;i++){var b=(fmt>>(14-i))&1;
+    if(i<6)out[8][i]=b; else if(i<8)out[8][i+1]=b;
+    else if(i===8)out[7][8]=b; else out[14-i][8]=b;
+    if(i<8)out[n-1-i][8]=b; else out[8][n-15+i]=b;}
+  out[n-8][8]=1;
+  return out;}
+function penalty(m,n){
+  var p=0,r,c,run,i2;
+  function scan(a){var s=0,i2,j2,ok1,ok2;
+    var P1=[1,0,1,1,1,0,1,0,0,0,0],P2=[0,0,0,0,1,0,1,1,1,0,1];
+    for(i2=0;i2+11<=a.length;i2++){ok1=true;ok2=true;
+      for(j2=0;j2<11;j2++){if(a[i2+j2]!==P1[j2])ok1=false;if(a[i2+j2]!==P2[j2])ok2=false;}
+      if(ok1)s+=40;if(ok2)s+=40;}return s;}
+  for(r=0;r<n;r++){run=1;for(c=1;c<n;c++){if(m[r][c]===m[r][c-1])run++;else{if(run>=5)p+=3+(run-5);run=1;}}if(run>=5)p+=3+(run-5);p+=scan(m[r]);}
+  for(c=0;c<n;c++){run=1;var col=[m[0][c]];
+    for(r=1;r<n;r++){col.push(m[r][c]);if(m[r][c]===m[r-1][c])run++;else{if(run>=5)p+=3+(run-5);run=1;}}
+    if(run>=5)p+=3+(run-5);p+=scan(col);}
+  for(r=0;r<n-1;r++)for(c=0;c<n-1;c++){var v=m[r][c];if(v===m[r][c+1]&&v===m[r+1][c]&&v===m[r+1][c+1])p+=3;}
+  var dark=0;for(r=0;r<n;r++)for(c=0;c<n;c++)dark+=m[r][c];
+  p+=Math.floor(Math.abs(dark*100/(n*n)-50)/5)*10;
+  return p;}
+function make(txt,ecl){
+  var e=encode(txt,ecl); if(!e)return null;
+  var g=build(e),best=null,bk=0;
+  for(var k=0;k<8;k++){var mm=apply(g,k),s=penalty(mm,g.n);if(best===null||s<best){best=s;bk=k;}}
+  return {matrix:apply(g,bk),size:g.n,version:g.ver,ecl:ecl,mask:bk,own:g.own,res:g.res,enc:e};}
+
+/* ---------- Estado y pintado ---------- */
+var S={carga:'texto',ecl:'H',logo:24,res:10,mime:'ok'};
+var $=function(s){return document.querySelector(s);};
+var cv=$('#cv'),ctx=cv.getContext('2d');
+
+function contenido(){
+  var t=$('#txt').value.replace(/\s+$/,'');
+  if(S.carga==='url'){
+    var eco=(t.match(/ECO:\s*([^\s\n]+)/i)||[])[1]||'TF13';
+    return 'https://siat.example.mx/u/'+encodeURIComponent(eco);
+  }
+  return t||'PLACA:03BD5B';
+}
+function logoOk(){return S.mime==='ok';}
+
+function dibujaLogo(g,px,q,n,L){
+  var lado=L*px, x0=(q+Math.floor((n-L)/2))*px, y0=x0;
+  var rd=Math.max(3,lado*0.14);
+  g.fillStyle='#ffffff';
+  g.beginPath();
+  g.moveTo(x0+rd,y0); g.arcTo(x0+lado,y0,x0+lado,y0+lado,rd);
+  g.arcTo(x0+lado,y0+lado,x0,y0+lado,rd); g.arcTo(x0,y0+lado,x0,y0,rd);
+  g.arcTo(x0,y0,x0+lado,y0,rd); g.closePath(); g.fill();
+  var m=lado*0.2, w=lado-2*m, cx=x0+m, cy=y0+m;
+  g.fillStyle='#12161e';
+  g.fillRect(cx,cy+w*0.22,w*0.56,w*0.42);
+  g.beginPath();
+  g.moveTo(cx+w*0.60,cy+w*0.34); g.lineTo(cx+w*0.84,cy+w*0.34);
+  g.lineTo(cx+w,cy+w*0.50); g.lineTo(cx+w,cy+w*0.64);
+  g.lineTo(cx+w*0.60,cy+w*0.64); g.closePath(); g.fill();
+  g.fillStyle='#f0b429';
+  var rr=w*0.10;
+  g.beginPath(); g.arc(cx+w*0.17,cy+w*0.70,rr,0,6.284); g.fill();
+  g.beginPath(); g.arc(cx+w*0.78,cy+w*0.70,rr,0,6.284); g.fill();
+}
+
+function pinta(){
+  var txt=contenido(), q=4;
+  var r=make(txt,S.ecl);
+  if(!r){
+    $('#c-info').textContent='contenido demasiado largo';
+    $('#v-et').textContent='No se puede generar';
+    $('#v-txt').textContent='El contenido excede la versión 10, que es hasta donde llega este codificador. Acórtalo.';
+    $('#ver').className='veredicto no';
+    return;
+  }
+  var n=r.size, px=S.res;
+  var L=(S.logo>0 && logoOk()) ? Math.round(n*S.logo/100) : 0;
+  if(L>0 && (n-L)%2!==0)L++;
+
+  /* canvas */
+  var lado=(n+2*q)*px;
+  cv.width=lado; cv.height=lado;
+  cv.style.width=Math.min(360,lado)+'px';
+  ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,lado,lado);
+  ctx.fillStyle='#12161e';
+  for(var y=0;y<n;y++)for(var xx=0;xx<n;xx++)
+    if(r.matrix[y][xx])ctx.fillRect((xx+q)*px,(y+q)*px,px,px);
+  if(L>0)dibujaLogo(ctx,px,q,n,L);
+
+  /* daño real: se relee el lienzo y solo cuenta el módulo que de verdad cambió de color.
+     Un módulo blanco tapado por una zona blanca del logo no daña nada. */
+  var tocadas={}, funcion=0, mods=0, cambiados=0;
+  if(L>0){
+    var ini=Math.floor((n-L)/2), fin=ini+L-1;
+    var org=(q+ini)*px, ancho=L*px;
+    var dat=ctx.getImageData(org,org,ancho,ancho).data;
+    for(var rr=ini;rr<=fin;rr++)for(var cc=ini;cc<=fin;cc++){
+      mods++;
+      var sx=(cc-ini)*px+(px>>1), sy=(rr-ini)*px+(px>>1);
+      var o4=((sy*ancho)+sx)*4;
+      var osc=(dat[o4]*0.299+dat[o4+1]*0.587+dat[o4+2]*0.114)<128?1:0;
+      if(osc===r.matrix[rr][cc])continue;
+      cambiados++;
+      if(r.res[rr][cc]){funcion++;continue;}
+      var o=r.own[rr][cc];
+      if(o>=0)tocadas[o]=true;
+    }
+  }
+  var porBloque=[],b;
+  for(b=0;b<r.enc.nb;b++)porBloque.push(0);
+  var ncw=0;
+  for(var k in tocadas){if(tocadas.hasOwnProperty(k)){porBloque[r.enc.owner[k]]++;ncw++;}}
+  var presupuesto=Math.floor(r.enc.ec/2), peor=0;
+  for(b=0;b<porBloque.length;b++)if(porBloque[b]>peor)peor=porBloque[b];
+  var uso=presupuesto>0?peor/presupuesto:0;
+  var lee = peor<=presupuesto && funcion===0;
+
+  cv.setAttribute('aria-label','Código QR versión '+r.version+', nivel de corrección '+S.ecl+
+    ', contenido: '+txt.replace(/\n/g,', ')+(lee?'. Legible.':'. Ilegible por el daño del logo.'));
+
+  /* veredicto */
+  var v=$('#ver'),ba=$('#barra');
+  var et,tx,cl;
+  if(L===0){
+    cl='si'; et='Se lee sin problema';
+    tx='Sin logo encima, toda la redundancia queda disponible para lo que de verdad va a pasar: mugre, dobleces, sol y una impresora mediocre.';
+    uso=0;
+  } else if(!lee && funcion>0){
+    cl='no'; et='Roto';
+    tx='El logo alcanzó '+funcion+' módulo'+(funcion===1?'':'s')+' de los patrones de posición o sincronía. Eso no lo arregla la corrección de errores: el escáner ya ni siquiera encuentra el código.';
+  } else if(!lee){
+    cl='no'; et='Roto';
+    tx='El logo daña hasta '+peor+' palabras de código en un mismo bloque y ese bloque solo puede corregir '+presupuesto+'. Baja el logo o sube el nivel de corrección.';
+  } else if(uso>0.75){
+    cl='casi'; et='Se lee, pero sin margen';
+    tx='Gasta '+peor+' de las '+presupuesto+' palabras que el bloque más cargado puede corregir. En pantalla funciona; pegado a un camión, cualquier raspón lo tumba.';
+  } else {
+    cl='si'; et='Se lee con margen';
+    tx='El logo consume '+peor+' de las '+presupuesto+' palabras corregibles del bloque más cargado. Queda redundancia de sobra para el desgaste real.';
+  }
+  v.className='veredicto '+cl; ba.className='barra '+cl;
+  $('#v-et').textContent=et; $('#v-txt').textContent=tx;
+  ba.firstChild.style.width=Math.min(100,Math.round(uso*100))+'%';
+
+  /* pantalla del escáner */
+  var pa=$('#pantalla'),pt=$('#p-txt');
+  if(!lee){
+    pa.className='pantalla roto'; $('#p-et').textContent='Lo que vería el operador al escanear';
+    pt.textContent='(el escáner no reconoce el código)';
+  } else {
+    pa.className='pantalla'; $('#p-et').textContent='Lo que vería el operador al escanear';
+    if(S.carga==='url'){
+      pt.textContent=txt+'\n\n↳ abrir en el navegador…\n↳ sin señal en patio: la pantalla se queda en blanco';
+    } else {
+      pt.textContent=txt;
+    }
+  }
+
+  /* tabla */
+  var tot=n*n;
+  $('#c-info').textContent='versión '+r.version+' · '+n+'×'+n+' módulos · '+lado+'×'+lado+' px';
+  $('#t-det').innerHTML=
+    fila('Versión / tamaño','<b>'+r.version+'</b> — '+n+'×'+n+' módulos')+
+    fila('Bytes del contenido','<b>'+r.enc.bits.length/8+'</b> palabras de código en total')+
+    fila('Bloques de datos','<b>'+r.enc.nb+'</b> bloque'+(r.enc.nb===1?'':'s')+' × '+r.enc.ec+' palabras de corrección')+
+    fila('Corrige por bloque','hasta <b>'+presupuesto+'</b> palabras dañadas')+
+    fila('Máscara elegida','<b>'+r.mask+'</b> de 8 — la de menor penalización')+
+    fila('Módulos bajo el logo','<b>'+mods+'</b> de '+tot+' — de esos, <b>'+cambiados+'</b> cambian de color')+
+    fila('Palabras dañadas','<b>'+ncw+'</b>, peor bloque: '+peor+'/'+presupuesto)+
+    fila('¿Se lee?','<b class="'+(lee?'si':'no')+'">'+(lee?'Sí':'No')+'</b>');
+  $('#r-nota').textContent = px<5
+    ? 'A esta resolución los bordes de cada módulo caen entre píxeles. En pantalla se disimula; impreso, el escáner tiene que adivinar.'
+    : 'Cada módulo cae en un bloque entero de píxeles. Los bordes salen limpios al imprimir.';
+
+  /* mime */
+  var ok=logoOk();
+  $('#t-mime').innerHTML=
+    fila('Nombre del archivo','<b>logo.png</b>')+
+    fila('Según la extensión','image/png')+
+    fila('Según <code>getimagesize()</code>','<b class="'+(ok?'si':'no')+'">'+(ok?'image/png':'image/jpeg')+'</b>')+
+    fila('Validando por extensión', ok
+      ? 'aceptado — y sí era PNG'
+      : '<b class="no">aceptado</b> — se llama al lector de PNG con datos JPEG, falla, y el <code>@</code> se traga el error')+
+    fila('Validando por bytes reales', ok
+      ? 'aceptado'
+      : '<b class="si">rechazado con mensaje claro</b> antes de generar la etiqueta')+
+    fila('Etiqueta que sale', ok
+      ? 'con logo'
+      : '<b class="no">sin logo, sin aviso</b>');
+}
+function fila(a,b){return '<tr><td>'+a+'</td><td>'+b+'</td></tr>';}
+
+/* ---------- Controles ---------- */
+function grupo(attr,key,fn){
+  var bs=document.querySelectorAll('button['+attr+']');
+  for(var i=0;i<bs.length;i++)(function(b){
+    b.addEventListener('click',function(){
+      for(var j=0;j<bs.length;j++)bs[j].setAttribute('aria-pressed','false');
+      b.setAttribute('aria-pressed','true');
+      S[key]=b.getAttribute(attr);
+      if(fn)fn();
+      pinta();});
+  })(bs[i]);
+}
+grupo('data-carga','carga');
+grupo('data-ecl','ecl');
+grupo('data-mime','mime');
+$('#txt').addEventListener('input',pinta);
+$('#logo').addEventListener('input',function(){S.logo=+this.value;$('#l-val').textContent=this.value;pinta();});
+$('#res').addEventListener('input',function(){S.res=+this.value;$('#r-val').textContent=this.value;pinta();});
+pinta();
+})();
+</script>
+<script>
+/* Aplica las preferencias de accesibilidad guardadas en el portafolio. Mismo
+   origen, misma clave, asi que el modo elegido alla sigue vigente aqui. */
+(function(){
+  try{
+    var p=JSON.parse(localStorage.getItem('a11y-prefs')||'{}');
+    var cls=p.cls||[], R=document.documentElement;
+    ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){
+      R.classList.toggle(c, cls.indexOf(c)>-1);
+    });
+    if(p.txt===1)R.classList.add('a11y-txt1');
+    if(p.txt===2)R.classList.add('a11y-txt2');
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)R.classList.add('a11y-quieto');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

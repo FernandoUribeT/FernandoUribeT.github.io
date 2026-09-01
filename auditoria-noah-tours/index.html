@@ -1,0 +1,388 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Auditoría técnica del sitio de Noah Tours Manzanillo: peso, tiempo de carga, contacto y accesibilidad. Preparada por el Ing. Fernando Uribe.">
+<title>Auditoría Noah Tours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+
+<style>
+:root{
+  --papel:      #f1f5f5;
+  --superficie: #ffffff;
+  --hundido:    #e7eeee;
+  --tinta:      #0f1e21;
+  --cuerpo:     #41595c;
+  --tenue:      #6a8083;
+  --linea:      #d8e3e3;
+  --linea-firme:#b9caca;
+  --marca:      #0a7d76;
+  --marca-suave:#e2f2f0;
+  --alarma:     #a83217;
+  --alarma-suave:#fbeae5;
+  --bien:       #1a6b45;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:      #16272b;
+    --superficie: #1d3338;
+    --hundido:    #243d43;
+    --tinta:      #e8f0f0;
+    --cuerpo:     #b6c8c9;
+    --tenue:      #8ba1a3;
+    --linea:      #2d474d;
+    --linea-firme:#3d585f;
+    --marca:      #8ecdc4;
+    --marca-suave:#1e3f3c;
+    --alarma:     #f0917a;
+    --alarma-suave:#3a231c;
+    --bien:       #8ac4a3;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:      #16272b;
+  --superficie: #1d3338;
+  --hundido:    #243d43;
+  --tinta:      #e8f0f0;
+  --cuerpo:     #b6c8c9;
+  --tenue:      #8ba1a3;
+  --linea:      #2d474d;
+  --linea-firme:#3d585f;
+  --marca:      #8ecdc4;
+  --marca-suave:#1e3f3c;
+  --alarma:     #f0917a;
+  --alarma-suave:#3a231c;
+  --bien:       #8ac4a3;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--papel); color:var(--cuerpo);
+  font:400 17px/1.65 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+.hoja{width:min(72rem, 100% - 2.5rem); margin-inline:auto}
+h1,h2,h3{color:var(--tinta); margin:0; text-wrap:balance}
+h1{font-family:Newsreader, Georgia, serif; font-weight:500;
+  font-size:clamp(2.2rem,4.6vw,3.4rem); line-height:1.08; letter-spacing:-.015em}
+h2{font-family:Newsreader, Georgia, serif; font-weight:500;
+  font-size:clamp(1.5rem,2.6vw,2rem); line-height:1.15; letter-spacing:-.01em}
+h3{font-size:1.0625rem; font-weight:600; line-height:1.35; max-width:52ch}
+p{margin:0; max-width:64ch}
+a{color:var(--marca)}
+a:focus-visible, .liga:focus-visible{outline:2px solid var(--marca); outline-offset:3px; border-radius:3px}
+
+.sello{font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:.875rem; color:var(--tenue)}
+.rotulo{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:.75rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--tenue);
+}
+.dato{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+
+/* ── Encabezado ─────────────────────────────────────────── */
+.cabecera{border-bottom:1px solid var(--linea); padding:2.5rem 0 2rem; margin-bottom:3rem}
+.cabecera .hoja{display:flex; flex-wrap:wrap; gap:1rem 2rem; justify-content:space-between; align-items:baseline}
+.emisor{text-align:right; font-size:.9375rem; line-height:1.5}
+.emisor b{display:block; color:var(--tinta); font-weight:600}
+
+.portada{margin-bottom:3.5rem}
+.portada .sujeto{margin-top:.9rem; font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:.875rem; color:var(--tenue)}
+.portada .sujeto b{color:var(--cuerpo); font-weight:500}
+.portada p{margin-top:1.1rem; font-size:1.1875rem}
+
+/* ── Veredicto: tres cifras ─────────────────────────────── */
+.cifras{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(15rem,1fr)); gap:1px;
+  background:var(--linea); border:1px solid var(--linea); border-radius:10px;
+  overflow:hidden; margin-bottom:3.5rem;
+}
+.cifra{background:var(--superficie); padding:1.6rem 1.5rem}
+.cifra .rotulo{display:block; margin-bottom:.7rem}
+.cifra .n{
+  font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-size:2.4rem; font-weight:600; line-height:1; color:var(--alarma);
+  display:block; margin-bottom:.45rem;
+}
+.cifra p{font-size:.9375rem; color:var(--tenue); max-width:26ch}
+
+/* ── Secciones ──────────────────────────────────────────── */
+section{margin-bottom:3.5rem}
+.intro-seccion{margin:.85rem 0 1.75rem; max-width:62ch}
+
+/* ── Tabla comparativa ──────────────────────────────────── */
+.marco{overflow-x:auto; border:1px solid var(--linea); border-radius:10px;
+  background:var(--superficie); padding:.35rem}
+table{border-collapse:collapse; width:100%; min-width:34rem}
+caption{text-align:left; padding:1.1rem 1.4rem .3rem; color:var(--tenue);
+  font-size:.875rem}
+th,td{padding:.85rem 1.4rem; text-align:left; border-bottom:1px solid var(--linea)}
+thead th{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:.75rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--tenue); border-bottom:1px solid var(--linea-firme); white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--tinta); font-weight:500}
+td.mal{color:var(--alarma)}
+td.bien{color:var(--bien)}
+th[scope="row"]{font-weight:400; color:var(--cuerpo)}
+
+/* ── Hallazgos ──────────────────────────────────────────── */
+.hallazgos{display:grid; gap:1rem}
+.hallazgo{
+  background:var(--superficie); border:1px solid var(--linea); border-radius:10px;
+  padding:1.5rem 1.6rem; display:grid; grid-template-columns:auto 1fr; gap:.35rem 1.2rem;
+ }
+.hallazgo .orden{
+  grid-row:1 / span 3;
+  font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;
+  font-size:.875rem; font-weight:600; color:var(--marca); padding-top:.2rem;
+}
+.hallazgo h3{margin-bottom:.15rem}
+.hallazgo p{font-size:.9875rem}
+.prueba{
+  margin-top:.7rem; padding:.7rem .9rem; border-radius:7px;
+  background:var(--hundido); font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:.8125rem; line-height:1.5; color:var(--cuerpo); overflow-x:auto;
+  white-space:pre-wrap; word-break:break-word;
+}
+.etiqueta{
+  display:inline-block; margin-top:.7rem; padding:.25rem .6rem; border-radius:999px;
+  font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:.6875rem;
+  letter-spacing:.08em; text-transform:uppercase; font-weight:500;
+}
+.et-dinero{background:var(--alarma-suave); color:var(--alarma)}
+.et-confianza{background:var(--marca-suave); color:var(--marca)}
+
+/* ── Método ─────────────────────────────────────────────── */
+.metodo{background:var(--hundido); border-radius:10px; padding:1.75rem 1.8rem}
+.metodo ul{margin:1rem 0 0; padding-left:1.15rem; display:grid; gap:.5rem}
+.metodo li{font-size:.9375rem; max-width:62ch}
+.metodo > p{max-width:62ch}
+.prueba{max-width:62ch}
+.propuesta p{max-width:62ch}
+.precio span{max-width:44ch}
+caption{max-width:62ch}
+
+/* ── Propuesta ──────────────────────────────────────────── */
+.propuesta{
+  background:var(--superficie); border:1px solid var(--linea-firme); border-radius:12px;
+  padding:2rem 1.9rem;
+}
+.propuesta h2{margin-bottom:.7rem}
+.incluye{list-style:none; margin:1.4rem 0 0; padding:0; display:grid; gap:.6rem}
+.incluye li{display:flex; gap:.7rem; align-items:baseline; font-size:.9875rem;
+  max-width:62ch}
+.incluye li::before{content:""; width:.45rem; height:.45rem; border-radius:2px;
+  background:var(--marca); flex:none; transform:translateY(-.15rem)}
+.precio{
+  margin-top:1.6rem; padding-top:1.4rem; border-top:1px solid var(--linea);
+  display:flex; flex-wrap:wrap; gap:.6rem 2rem; align-items:baseline;
+}
+.precio .n{font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric:tabular-nums; font-size:2rem; font-weight:600; color:var(--tinta)}
+.liga{
+  display:inline-flex; align-items:center; gap:.55rem; margin-top:1.5rem;
+  padding:.85rem 1.3rem; border-radius:8px; background:var(--marca); color:var(--papel);
+  font-weight:600; text-decoration:none; min-height:44px;
+  transition:filter .25s ease, transform .25s ease;
+}
+.liga:hover{filter:brightness(1.1); transform:translateY(-1px)}
+
+.nota{
+  margin-top:1.5rem; padding:1rem 1.2rem; border-radius:8px;
+  background:var(--marca-suave); color:var(--marca); font-size:.9375rem; max-width:64ch;
+}
+
+footer{border-top:1px solid var(--linea); margin-top:1rem; padding:2rem 0 3rem;
+  font-size:.875rem; color:var(--tenue)}
+footer .hoja{display:flex; flex-wrap:wrap; gap:.6rem 2rem; justify-content:space-between}
+
+@media (max-width:640px){
+  .cabecera .hoja{flex-direction:column}
+  .emisor{text-align:left}
+  .hallazgo{grid-template-columns:1fr}
+  .hallazgo .orden{grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+}
+</style>
+
+<header class="cabecera">
+  <div class="hoja">
+    <span class="sello">Auditoría técnica · 31 de agosto de 2026</span>
+    <span class="emisor">
+      <b>Ing. Fernando Uribe</b>
+      Desarrollo web · Manzanillo, Colima
+    </span>
+  </div>
+</header>
+
+<main class="hoja">
+
+  <div class="portada">
+    <h1>Su sitio pesa 12.6 MB y no tiene un botón para llamarles</h1>
+    <p class="sujeto">Sitio auditado: <b>noahtoursmanzanillo.com</b> · Noah Tours Manzanillo</p>
+    <p>Este documento reúne lo que se puede medir del sitio actual, con el método de medición al final para que cualquiera lo repita. No es una opinión sobre el diseño: son lecturas, tomadas desde un celular y sin caché.</p>
+  </div>
+
+  <div class="cifras">
+    <div class="cifra">
+      <span class="rotulo">Peso de la portada</span>
+      <span class="n dato">12,900 KB</span>
+      <p>En 18 archivos. Casi todo son imágenes sin optimizar.</p>
+    </div>
+    <div class="cifra">
+      <span class="rotulo">Antes de ver algo</span>
+      <span class="n dato">3.0 s</span>
+      <p>Tiempo hasta que aparece el primer contenido en pantalla.</p>
+    </div>
+    <div class="cifra">
+      <span class="rotulo">Contacto de un toque</span>
+      <span class="n dato">0</span>
+      <p>Ni teléfono, ni correo, ni WhatsApp enlazados.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>La comparación</h2>
+    <p class="intro-seccion">Contra una propuesta construida con su misma información y su misma fotografía de Marina Las Hadas, publicada para que la puedan abrir.</p>
+    <div class="marco">
+      <table>
+        <caption>Mediciones tomadas el 31 de agosto de 2026, viewport de celular, caché vacía.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Medición</th>
+            <th scope="col">Sitio actual</th>
+            <th scope="col">Propuesta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Peso total</th><td class="n mal">12,900 KB</td><td class="n bien">278 KB</td></tr>
+          <tr><th scope="row">Archivos que descarga</th><td class="n mal">18</td><td class="n bien">4</td></tr>
+          <tr><th scope="row">Primer contenido visible</th><td class="n mal">3.0 s</td><td class="n bien">inmediato</td></tr>
+          <tr><th scope="row">Carga completa</th><td class="n mal">4.3 s</td><td class="n bien">0.2 s</td></tr>
+          <tr><th scope="row">Enlaces para llamar</th><td class="n mal">0</td><td class="n bien">4</td></tr>
+          <tr><th scope="row">Enlaces de WhatsApp</th><td class="n mal">0</td><td class="n bien">4</td></tr>
+          <tr><th scope="row">Correo enlazado</th><td class="n mal">0</td><td class="n bien">1</td></tr>
+          <tr><th scope="row">Botones menores a 44 px</th><td class="n mal">27</td><td class="n bien">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Hallazgos</h2>
+    <p class="intro-seccion">Ordenados por lo que le cuestan al negocio, no por lo que se ve peor.</p>
+
+    <div class="hallazgos">
+
+      <article class="hallazgo">
+        <span class="orden dato">01</span>
+        <h3>No hay forma de contactarlos desde un celular</h3>
+        <p>En la sección «Dónde nos puede encontrar» aparecen un ícono de teléfono y uno de correo, pero ninguno de los dos es un enlace. Están puestos como texto. Quien quiera reservar tiene que copiar el número a mano y salir del sitio para marcarlo.</p>
+        <p class="prueba">enlaces tel: …… 0
+enlaces mailto: … 0
+enlaces wa.me: … 0</p>
+        <span class="etiqueta et-dinero">Cuesta reservaciones</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">02</span>
+        <h3>La página tarda 3 segundos en mostrar algo</h3>
+        <p>Pesa 12.6 MB, casi todo en imágenes sin comprimir. Un visitante con datos móviles paga esa descarga y espera esos segundos antes de ver el primer tour. Convertidas al formato actual, esas mismas fotos ocupan una fracción: la propuesta abre con la fotografía de Marina Las Hadas y pesa 278 KB.</p>
+        <span class="etiqueta et-dinero">Cuesta visitantes</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">03</span>
+        <h3>La portada de «Quiénes Somos» es un paisaje de los Alpes italianos</h3>
+        <p>El archivo que se carga detrás de ese título es una fotografía aérea del paso Gardena, en las Dolomitas. Mientras tanto, la fotografía de Marina Las Hadas —de ustedes, de Manzanillo— está guardada en su propia galería sin usarse en ningún lugar destacado.</p>
+        <p class="prueba">dolomites-italy-landscape-at-passo-gardena-aerial-small.jpg</p>
+        <span class="etiqueta et-confianza">Cuesta credibilidad</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">04</span>
+        <h3>Hay marcas de formato sin procesar en el texto publicado</h3>
+        <p>En dos lugares del sitio aparecen asteriscos dobles alrededor de los subtítulos. Son marcas de un formato de texto que quedó sin convertir. Al visitante le indican que nadie revisó la página después de publicarla.</p>
+        <p class="prueba">**Diversidad de Servicios:**
+**Explorando la Cultura Local**</p>
+        <span class="etiqueta et-confianza">Cuesta credibilidad</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">05</span>
+        <h3>Buena parte de la interacción no existe en celular</h3>
+        <p>El sitio tiene 147 reglas de estilo que dependen de pasar el cursor por encima, incluidas las tarjetas que giran para mostrar la descripción de cada tour. En un teléfono no hay cursor: esa información simplemente no se alcanza. A eso se suman 27 botones y enlaces por debajo del tamaño mínimo recomendado para tocarse con el pulgar.</p>
+        <span class="etiqueta et-dinero">Cuesta reservaciones</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">06</span>
+        <h3>La galería no se puede ampliar y el contacto va apretado</h3>
+        <p>Las fotografías de la galería no responden al clic, así que no hay manera de verlas en grande: en la práctica no comunican nada. Y la sección de contacto reúne teléfono, correo y dirección en un solo bloque muy estrecho, donde ninguno de los tres destaca.</p>
+        <span class="etiqueta et-confianza">Cuesta credibilidad</span>
+      </article>
+
+      <article class="hallazgo">
+        <span class="orden dato">07</span>
+        <h3>No hay precios ni forma de reservar</h3>
+        <p>El sitio menciona servicios de distintos rangos de precio, pero ninguna página indica cuánto cuesta un tour, cuánto dura, ni ofrece un formulario de reserva. Quien no encuentra un precio lo busca con otro operador.</p>
+        <span class="etiqueta et-dinero">Cuesta reservaciones</span>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Cómo se midió</h2>
+    <div class="metodo">
+      <p>Cualquiera puede repetir estas mediciones. Se anotan aquí para que las cifras no dependan de mi palabra.</p>
+      <ul>
+        <li><b>Peso y tiempos:</b> Chrome sin extensiones, caché vacía, ventana de 390 × 844 píxeles —el tamaño de un teléfono común—, tomando la mediana de tres cargas. Las cifras salen de la API de tiempos de navegación del propio navegador, no de un cronómetro.</li>
+        <li><b>Enlaces de contacto:</b> conteo directo de elementos <span class="dato">tel:</span>, <span class="dato">mailto:</span> y <span class="dato">wa.me</span> en el documento publicado.</li>
+        <li><b>Tamaño de los botones:</b> medición de la altura real de cada enlace y botón contra el mínimo de 44 píxeles recomendado para uso táctil.</li>
+        <li><b>Dependencia del cursor:</b> conteo de reglas de estilo con <span class="dato">:hover</span> que cambian posición, opacidad o visibilidad.</li>
+        <li><b>Contraste de la propuesta:</b> verificado sobre los píxeles finales de la pantalla, no sobre los valores del código, incluido el texto que va encima de la fotografía.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="propuesta">
+      <h2>La propuesta: sitio completo, catorce páginas</h2>
+      <p>Construido sobre su misma identidad: el turquesa que ya usan, sus fotografías y su información. Puede verse funcionando antes de decidir nada.</p>
+      <ul class="incluye">
+        <li>Portada, Quiénes Somos, Contacto y una página por cada uno de los once tours</li>
+        <li>Teléfono, WhatsApp y correo enlazados en todas las páginas</li>
+        <li>Fotografías convertidas al formato actual, con la misma calidad y una fracción del peso</li>
+        <li>Ficha de negocio para buscadores y mapas</li>
+        <li>Cambio de idioma español e inglés, como el que ya manejan</li>
+        <li>Dos rondas de ajustes después de la entrega</li>
+      </ul>
+      <div class="precio">
+        <span class="n">$15,000 MXN</span>
+        <span>Pago único. El dominio se cotiza aparte y queda a nombre de ustedes.</span>
+      </div>
+      <a class="liga" href="https://fernandouribet.github.io/propuesta-noah-tours/" target="_blank" rel="noopener">
+        Ver la propuesta funcionando
+      </a>
+      <p class="nota">La propuesta publicada es un prototipo: le faltan el cambio a inglés, los precios de cada tour y las otras doce páginas. Los datos de contacto van ocultos a propósito, porque es una página pública y no es información mía.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="hoja">
+    <span>Auditoría preparada para Noah Tours Manzanillo · 31 de agosto de 2026</span>
+    <span>Ing. Fernando Uribe · <a href="https://fernandouribet.github.io/">fernandouribet.github.io</a></span>
+  </div>
+</footer>

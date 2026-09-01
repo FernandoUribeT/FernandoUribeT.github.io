@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Validación de expedientes con OCR — Fernando Uribe</title>
+<meta name="description" content="Demo interactivo: clasificación automática de documentos y validación cruzada contra los datos del contribuyente.">
+<style>
+:root{--bg:#0a0c11;--bg-2:#0f1218;--card:#12161e;--line:#222835;--line-2:#2d3545;
+--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;
+--ok:#3ddc84;--no:#ff6b6b;--warn:#ffa94d;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--ease:cubic-bezier(.22,.61,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid var(--line);background:rgba(10,12,17,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:40}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+nav a{font:600 12px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--fg-faint)}
+nav a:hover{color:var(--accent)}
+header{padding:40px 0 24px}
+h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
+.sub{color:var(--accent);font:600 12.5px/1.5 var(--mono);margin-top:9px}
+.intro{color:var(--fg-dim);max-width:70ch;margin-top:14px}
+.hint{background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.25);border-radius:10px;padding:12px 16px;margin-top:18px;color:var(--fg-dim);font-size:14px;max-width:70ch}
+.hint b{color:var(--accent)}
+
+.modo{display:flex;gap:0;margin-top:20px;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;width:fit-content;max-width:100%}
+.modo button{background:var(--bg-2);border:0;color:var(--fg-faint);padding:11px 18px;font:600 12px/1.3 var(--mono);letter-spacing:.03em;cursor:pointer;transition:.2s var(--ease);text-align:left}
+.modo button.on{background:var(--accent);color:#1a1204}
+.modo button small{display:block;font-size:10px;opacity:.75;font-weight:500;letter-spacing:0}
+
+.layout{display:grid;grid-template-columns:270px 1fr 262px;gap:18px;align-items:start;margin-top:24px}
+@media(max-width:1040px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pbar{padding:13px 16px;border-bottom:1px solid var(--line)}
+.pbar h2{font-size:15px}
+.pbar p{color:var(--fg-faint);font-size:12px;margin-top:2px}
+.docs{padding:12px;display:grid;gap:8px}
+.doc{display:flex;gap:10px;align-items:flex-start;text-align:left;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;transition:.2s var(--ease);width:100%;color:inherit;font:inherit}
+.doc:hover{border-color:var(--accent);transform:translateX(2px)}
+.doc.on{border-color:var(--accent);background:rgba(240,180,41,.08)}
+.doc svg{width:17px;height:17px;flex:none;stroke:var(--fg-faint);margin-top:2px}
+.doc b{display:block;font-size:13.5px;margin-bottom:1px}
+.doc span{display:block;color:var(--fg-faint);font-size:11.5px;line-height:1.35}
+
+.ficha{padding:14px 16px;display:grid;gap:9px}
+.fr{display:grid;grid-template-columns:74px 1fr;gap:8px;font-size:12.5px}
+.fr dt{color:var(--fg-faint);font:600 10px/1.7 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.fr dd{color:var(--fg);font-family:var(--mono);font-size:12px;word-break:break-all}
+
+.res{padding:16px}
+.vacio{color:var(--fg-faint);font-style:italic;text-align:center;padding:50px 20px}
+.paso{border-left:2px solid var(--line-2);padding:0 0 16px 16px;position:relative}
+.paso:last-child{padding-bottom:0}
+.paso::before{content:"";position:absolute;left:-5px;top:5px;width:8px;height:8px;border-radius:50%;background:var(--line-2)}
+.paso.ok{border-left-color:var(--ok)}.paso.ok::before{background:var(--ok)}
+.paso.no{border-left-color:var(--no)}.paso.no::before{background:var(--no)}
+.paso.warn{border-left-color:var(--warn)}.paso.warn::before{background:var(--warn)}
+.paso h3{font:700 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.paso .val{font-size:14.5px;color:var(--fg)}
+.paso .det{color:var(--fg-dim);font-size:13.5px;margin-top:4px}
+.ocr{background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:11px 13px;font:400 11.5px/1.65 var(--mono);color:var(--fg-dim);white-space:pre-wrap;margin-top:6px;max-height:150px;overflow:auto}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--fg-dim);margin-bottom:6px}
+.chk:last-child{margin-bottom:0}
+.chk i{font-style:normal;flex:none;font-weight:700}
+.chk.si i{color:var(--ok)}.chk.no i{color:var(--no)}
+.veredicto{margin-top:16px;border-radius:10px;padding:14px 16px;font-size:14.5px}
+.veredicto .lbl{display:block;font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.veredicto b{color:var(--fg);font-weight:600}
+.veredicto.acepta{background:rgba(61,220,132,.1);border:1px solid rgba(61,220,132,.3)}
+.veredicto.acepta .lbl{color:var(--ok)}
+.veredicto.rechaza{background:rgba(255,107,107,.09);border:1px solid rgba(255,107,107,.3)}
+.veredicto.rechaza .lbl{color:var(--no)}
+.veredicto.cuidado{background:rgba(255,169,77,.1);border:1px solid rgba(255,169,77,.3)}
+.veredicto.cuidado .lbl{color:var(--warn)}
+.veredicto p{color:var(--fg-dim);margin-top:6px;font-size:13.5px}
+
+.notas{margin-top:20px}
+.notas .pbar h2{font-size:15px}
+.notas ul{padding:14px 16px 16px 32px;color:var(--fg-dim);font-size:14px}
+.notas li{margin-bottom:9px}
+.notas code{font-family:var(--mono);font-size:12.5px;color:var(--accent)}
+footer{border-top:1px solid var(--line);margin-top:36px;padding-top:22px;color:var(--fg-faint);font-size:13.5px}
+
+/* Preferencias de accesibilidad heredadas del portafolio. Las demos comparten
+   los mismos tokens, asi que basta con redefinirlos. */
+html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
+html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
+html.a11y-txt1 body{font-size:18px}
+html.a11y-txt2 body{font-size:20.5px}
+html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
+html.a11y-links a:not(.btn):not(.brand):not(.skip){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.16);border-radius:3px;padding:0 2px}
+html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="/">← Portafolio</a><a href="#notas">Cómo funciona</a></div></nav>
+<div class="wrap">
+  <header>
+    <h1>Validación de expedientes con OCR</h1>
+    <p class="sub">Demo interactivo · clasificación y validación cruzada</p>
+    <p class="intro">Recreación del subsistema de expedientes digitales que desarrollé para un sistema de transporte en producción. Un proveedor sube sus documentos y el sistema extrae el texto, decide de qué documento se trata y valida que efectivamente le pertenezca.</p>
+    <div class="hint"><b>Elige un documento</b> de la izquierda. Luego cambia entre validación ingenua y endurecida: los tres primeros documentos son los defectos reales que encontré en producción.</div>
+    <div class="modo">
+      <button id="m-ing">Validación ingenua<small>la que se colaba</small></button>
+      <button id="m-end" class="on">Validación endurecida<small>la que implementé</small></button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="pbar"><h2>Documentos</h2><p>Simulan la carga del proveedor</p></div>
+      <div class="docs" id="docs"></div>
+    </div>
+    <div class="panel">
+      <div class="pbar"><h2>Proceso</h2><p>Extracción, clasificación y validación</p></div>
+      <div class="res" id="res"><p class="vacio">Elige un documento para ver el proceso.</p></div>
+    </div>
+    <div class="panel">
+      <div class="pbar"><h2>Datos del proveedor</h2><p>Contra esto se compara</p></div>
+      <dl class="ficha" id="ficha"></dl>
+    </div>
+  </div>
+
+  <div class="panel notas" id="notas">
+    <div class="pbar"><h2>Qué aprendí construyendo esto</h2></div>
+    <ul>
+      <li><b>Que un documento contenga un dato no significa que sea ese documento.</b> Un acta de nacimiento trae la CURP impresa, y el clasificador ingenuo la tomaba por un documento de CURP. La clasificación se hace por <b>marcadores propios del documento</b>, no por los campos que aparecen dentro.</li>
+      <li><b>Un documento válido puede no ser tuyo.</b> Una INE auténtica de otra persona pasa cualquier validación de formato. Por eso la <b>validación cruzada</b> compara los datos extraídos contra los del contribuyente antes de aceptar.</li>
+      <li><b>La vigencia importa tanto como el contenido.</b> Un comprobante de domicilio de hace dos años es un documento correcto y a la vez inservible.</li>
+      <li>Cuando el texto no se puede extraer —una foto o un escaneo sin capa de texto— el sistema lo <b>dice y ofrece captura manual</b>, en lugar de fallar en silencio.</li>
+    </ul>
+  </div>
+
+  <footer>Escrito desde cero en JavaScript, sin librerías. En el sistema real la extracción de texto usa <code>smalot/pdfparser</code> sobre la capa de texto del PDF, con OCR como respaldo para documentos escaneados.</footer>
+</div>
+
+<script>
+(function(){
+  var PROV={rfc:'XAXX010101000',curp:'XAXX010101HDFXXX00',nombre:'NOMBRE APELLIDO APELLIDO',dom:'CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA'};
+  var HOY=new Date(); HOY.setHours(0,0,0,0);
+  var DOCS=[
+   {id:'acta',n:'Acta de nacimiento',d:'Trae una CURP impresa dentro',
+    txt:'REGISTRO CIVIL DEL ESTADO DE COLIMA\nACTA DE NACIMIENTO\nCURP: XAXX010101HDFXXX00\nNOMBRE: NOMBRE APELLIDO APELLIDO\nFECHA DE REGISTRO: 12/06/2001',
+    campos:{curp:'XAXX010101HDFXXX00',nombre:'NOMBRE APELLIDO APELLIDO'},
+    real:'acta', ingenua:'curp', marcador:'ACTA DE NACIMIENTO'},
+   {id:'acuse',n:'Acuse de movimientos del SAT',d:'Trae un domicilio impreso dentro',
+    txt:'SERVICIO DE ADMINISTRACION TRIBUTARIA\nACUSE DE MOVIMIENTOS DE ACTUALIZACION\nRFC: XAXX010101000\nDOMICILIO: CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA\nFECHA: 25/06/2026',
+    campos:{rfc:'XAXX010101000',dom:'CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA'},
+    real:'acuse', ingenua:'domicilio', marcador:'ACUSE DE MOVIMIENTOS'},
+   {id:'ine-ajena',n:'INE de otra persona',d:'Documento auténtico, titular distinto',
+    txt:'INSTITUTO NACIONAL ELECTORAL\nCREDENCIAL PARA VOTAR\nNOMBRE: MARIA GUADALUPE RAMIREZ SOTO\nCURP: RASM880214MJCMTR03\nCLAVE DE ELECTOR: RMSTMR88021414M700\nVIGENCIA: 2031',
+    campos:{curp:'RASM880214MJCMTR03',nombre:'MARIA GUADALUPE RAMIREZ SOTO',vig:'2031-12-31'},
+    real:'ine', ingenua:'ine', marcador:'INSTITUTO NACIONAL ELECTORAL'},
+   {id:'csf',n:'Constancia de situación fiscal',d:'Documento correcto del titular',
+    txt:'SERVICIO DE ADMINISTRACION TRIBUTARIA\nCONSTANCIA DE SITUACION FISCAL\nRFC: XAXX010101000\nCURP: XAXX010101HDFXXX00\nNOMBRE: NOMBRE APELLIDO APELLIDO\nREGIMEN: SIMPLIFICADO DE CONFIANZA\nDOMICILIO: CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA',
+    campos:{rfc:'XAXX010101000',curp:'XAXX010101HDFXXX00',nombre:'NOMBRE APELLIDO APELLIDO',dom:'CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA'},
+    real:'csf', ingenua:'csf', marcador:'CONSTANCIA DE SITUACION FISCAL'},
+   {id:'cfe-viejo',n:'Recibo de luz vencido',d:'Correcto, pero de hace dos años',
+    txt:'COMISION FEDERAL DE ELECTRICIDAD\nAVISO RECIBO DE CONSUMO\nNOMBRE: NOMBRE APELLIDO APELLIDO\nDOMICILIO: CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA\nPERIODO FACTURADO: JUL 2024',
+    campos:{nombre:'NOMBRE APELLIDO APELLIDO',dom:'CALLE EJEMPLO 000, COL. CENTRO, MANZANILLO, COLIMA',vig:'2024-09-30'},
+    real:'domicilio', ingenua:'domicilio', marcador:'COMISION FEDERAL DE ELECTRICIDAD'},
+   {id:'foto',n:'Foto de la CSF',d:'Escaneada, sin capa de texto',
+    txt:null, campos:{}, real:'csf', ingenua:null, marcador:null}
+  ];
+  var NOM={acta:'Acta de nacimiento',acuse:'Acuse del SAT',ine:'Identificación oficial (INE)',csf:'Constancia de situación fiscal',domicilio:'Comprobante de domicilio',curp:'Documento de CURP'};
+  var modo='end', sel=null;
+
+  var ficha=document.getElementById('ficha');
+  ficha.innerHTML=[['RFC',PROV.rfc],['CURP',PROV.curp],['Nombre',PROV.nombre],['Domicilio',PROV.dom]]
+    .map(function(x){return '<div class="fr"><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>';}).join('');
+
+  var ICON='<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+  document.getElementById('docs').innerHTML=DOCS.map(function(d){
+    return '<button class="doc" data-id="'+d.id+'">'+ICON+'<span><b>'+d.n+'</b><span>'+d.d+'</span></span></button>';}).join('');
+
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  function paso(cls,titulo,valor,detalle){
+    return '<div class="paso '+cls+'"><h3>'+titulo+'</h3><div class="val">'+valor+'</div>'+(detalle?'<div class="det">'+detalle+'</div>':'')+'</div>';
+  }
+  function analiza(d){
+    var h='';
+    // 1. extraccion
+    if(!d.txt){
+      h+=paso('no','Paso 1 · Extracción de texto','No se pudo leer el PDF',
+        'El archivo no contiene capa de texto legible. Suele pasar con documentos escaneados o fotografiados.');
+      h+='<div class="veredicto cuidado"><span class="lbl">Se detiene aquí</span>No se rechaza al proveedor: se le explica el motivo y se le ofrece subir el original descargado o capturar los datos a mano. '+
+         (modo==='ing'?'<p>La versión ingenua guardaba el archivo igual, con los campos vacíos.</p>':'<p>Fallar de forma explícita evita un expediente aprobado con datos en blanco.</p>')+'</div>';
+      return h;
+    }
+    h+=paso('ok','Paso 1 · Extracción de texto','Capa de texto leída correctamente','<div class="ocr">'+esc(d.txt)+'</div>');
+
+    // 2. clasificacion
+    var tipo = modo==='ing' ? d.ingenua : d.real;
+    var acertado = tipo===d.real;
+    if(modo==='ing'){
+      h+=paso(acertado?'ok':'no','Paso 2 · Clasificación', NOM[tipo],
+        acertado ? 'Coincide con el tipo real del documento.'
+        : 'El clasificador se guió por los <b>campos que encontró dentro</b>: vio una '+(d.ingenua==='curp'?'CURP':'dirección')+' y concluyó que era '+NOM[d.ingenua].toLowerCase()+'. En realidad es un '+NOM[d.real].toLowerCase()+'.');
+    }else{
+      h+=paso('ok','Paso 2 · Clasificación', NOM[tipo],
+        'Identificado por su marcador propio: <code style="color:var(--accent);font-family:var(--mono);font-size:12.5px">'+d.marcador+'</code>. No por los campos que contiene.');
+    }
+
+    // 3. validacion cruzada
+    if(modo==='ing'){
+      h+=paso('no','Paso 3 · Validación cruzada','No se realiza',
+        'La versión ingenua sólo comprobaba el formato de los campos. Nunca verificaba que el documento perteneciera al contribuyente.');
+    }else{
+      var chks=[], ok=true;
+      if(d.campos.rfc){var c=d.campos.rfc===PROV.rfc; ok=ok&&c; chks.push([c,'RFC del documento coincide con el del proveedor']);}
+      if(d.campos.curp){var c2=d.campos.curp===PROV.curp; ok=ok&&c2; chks.push([c2,'CURP coincide']);}
+      if(d.campos.nombre){var c3=d.campos.nombre===PROV.nombre; ok=ok&&c3; chks.push([c3,'Nombre del titular coincide']);}
+      if(d.campos.dom){var c4=d.campos.dom===PROV.dom; ok=ok&&c4; chks.push([c4,'Domicilio coincide']);}
+      if(d.campos.vig){var c5=new Date(d.campos.vig)>=HOY; ok=ok&&c5; chks.push([c5,'Vigente al día de hoy ('+d.campos.vig+')']);}
+      h+=paso(ok?'ok':'no','Paso 3 · Validación cruzada', ok?'Todos los cotejos pasan':'Se detectó una inconsistencia',
+        chks.map(function(x){return '<div class="chk '+(x[0]?'si':'no')+'"><i>'+(x[0]?'✓':'✕')+'</i><span>'+x[1]+'</span></div>';}).join(''));
+      d._ok=ok;
+    }
+
+    // veredicto
+    if(modo==='ing'){
+      var mal = !acertado;
+      h+='<div class="veredicto '+(mal?'rechaza':'acepta')+'"><span class="lbl">'+(mal?'Guardado en la casilla equivocada':'Aceptado')+'</span>'+
+        (mal? 'El documento se archivó como <b>'+NOM[d.ingenua].toLowerCase()+'</b>. El expediente queda incompleto y nadie se entera hasta la auditoría.'
+            : (d.id==='ine-ajena' ? 'Aceptado como identificación oficial. <b>Es de otra persona</b>, pero sin validación cruzada nada lo impide.' : 'Aceptado correctamente.'))+'</div>';
+    }else{
+      h+='<div class="veredicto '+(d._ok?'acepta':'rechaza')+'"><span class="lbl">'+(d._ok?'Aceptado':'Rechazado')+'</span>'+
+        (d._ok? 'Clasificado como <b>'+NOM[d.real].toLowerCase()+'</b>, pertenece al proveedor y está vigente. Se guarda en el expediente.'
+              : 'Se explica el motivo al proveedor y se le pide el documento correcto. No se archiva nada dudoso.')+'</div>';
+    }
+    return h;
+  }
+  function pinta(){
+    var res=document.getElementById('res');
+    if(!sel){res.innerHTML='<p class="vacio">Elige un documento para ver el proceso.</p>';return;}
+    res.innerHTML=analiza(DOCS.filter(function(x){return x.id===sel;})[0]);
+  }
+  document.getElementById('docs').addEventListener('click',function(e){
+    var b=e.target.closest('.doc'); if(!b)return;
+    sel=b.dataset.id;
+    document.querySelectorAll('.doc').forEach(function(x){x.classList.toggle('on',x.dataset.id===sel);});
+    pinta();
+  });
+  function setModo(m){
+    modo=m;
+    document.getElementById('m-ing').classList.toggle('on',m==='ing');
+    document.getElementById('m-end').classList.toggle('on',m==='end');
+    pinta();
+  }
+  document.getElementById('m-ing').onclick=function(){setModo('ing');};
+  document.getElementById('m-end').onclick=function(){setModo('end');};
+})();
+</script>
+<script>
+/* Aplica las preferencias de accesibilidad guardadas en el portafolio. Mismo
+   origen, misma clave, asi que el modo elegido alla sigue vigente aqui. */
+(function(){
+  try{
+    var p=JSON.parse(localStorage.getItem('a11y-prefs')||'{}');
+    var cls=p.cls||[], R=document.documentElement;
+    ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){
+      R.classList.toggle(c, cls.indexOf(c)>-1);
+    });
+    if(p.txt===1)R.classList.add('a11y-txt1');
+    if(p.txt===2)R.classList.add('a11y-txt2');
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)R.classList.add('a11y-quieto');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
