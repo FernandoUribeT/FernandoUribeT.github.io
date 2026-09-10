@@ -437,3 +437,26 @@ footer a{color:var(--cobre-hondo);font-weight:600;display:inline-flex;
   if (t) t.textContent = n.telVisible;
 })();
 </script>
+
+<script>
+/* Botones de contacto inertes. Es una propuesta, no el sitio del cliente:
+   sus datos no se publican, asi que un boton que "casi" marca es peor que
+   uno que declara que no marca. Corre despues del script de la pagina. */
+(function(){
+  function apagar(){
+    document.querySelectorAll('a[href^="tel:"],a[href*="wa.me"],a[href^="mailto:"],a[href="#"]').forEach(function(a){
+      if (a.dataset.inerte) return;
+      a.dataset.inerte = "1";
+      a.removeAttribute("href");
+      a.setAttribute("role","button");
+      a.setAttribute("aria-disabled","true");
+      a.style.cursor = "default";
+      a.title = "Demostración: los datos de contacto del negocio no se publican.";
+    });
+  }
+  apagar();
+  document.addEventListener("DOMContentLoaded", apagar);
+  setTimeout(apagar, 0);
+  setTimeout(apagar, 400);
+})();
+</script>

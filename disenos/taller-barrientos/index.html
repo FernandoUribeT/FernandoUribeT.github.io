@@ -145,6 +145,12 @@ footer a{display:inline-flex;align-items:center;min-height:44px;
 </style>
 </head>
 <body>
+<div class="aviso-propuesta" style="background:#14181d;color:#fff;padding:11px 20px;font:400 .9375rem/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center">
+<strong style="font-weight:700">Propuesta de rediseño</strong> del Ing. Fernando Uribe ·
+<span style="color:#c3ccd2">No es el sitio oficial del negocio. Los datos de contacto y las fotografías se omiten a propósito, así que los botones no llaman a nadie.</span>
+<a href="../" style="color:#7fb0ff;font-weight:600;white-space:nowrap">Ver los demás →</a>
+</div>
+
 
 <header class="cabecera">
   <div class="env">
@@ -254,3 +260,26 @@ footer a{display:inline-flex;align-items:center;min-height:44px;
 </script>
 </body>
 </html>
+
+<script>
+/* Botones de contacto inertes. Es una propuesta, no el sitio del cliente:
+   sus datos no se publican, asi que un boton que "casi" marca es peor que
+   uno que declara que no marca. Corre despues del script de la pagina. */
+(function(){
+  function apagar(){
+    document.querySelectorAll('a[href^="tel:"],a[href*="wa.me"],a[href^="mailto:"],a[href="#"]').forEach(function(a){
+      if (a.dataset.inerte) return;
+      a.dataset.inerte = "1";
+      a.removeAttribute("href");
+      a.setAttribute("role","button");
+      a.setAttribute("aria-disabled","true");
+      a.style.cursor = "default";
+      a.title = "Demostración: los datos de contacto del negocio no se publican.";
+    });
+  }
+  apagar();
+  document.addEventListener("DOMContentLoaded", apagar);
+  setTimeout(apagar, 0);
+  setTimeout(apagar, 400);
+})();
+</script>
