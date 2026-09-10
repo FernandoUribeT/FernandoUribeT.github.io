@@ -1,0 +1,439 @@
+<meta charset="utf-8">
+<title>MäDI Studio · Spa · Academia — Manzanillo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Masajes, faciales, epilación, cejas, maquillaje y cursos de belleza en Manzanillo. Precios a la vista y servicio a domicilio. Valle de Las Garzas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;600;700&display=swap">
+
+<script>
+/* Datos del negocio en un solo lugar. En esta propuesta pública los datos de
+   contacto van ocultos a propósito: no se publica nada del cliente. */
+const NEGOCIO = {
+  nombre:"MäDI Studio", ciudad:"Manzanillo, Colima",
+  zona:"Valle de Las Garzas", telVisible:"314 ··· ····",
+  telefono:"", whatsapp:"", agenda:"#", demo:true,
+};
+</script>
+
+<style>
+:root{
+  /* El cobre y el dorado salen de su propio logotipo y de su banner. */
+  --cobre:      #be6e27;
+  --cobre-hondo:#98581f;   /* el mismo cobre, oscurecido para texto sobre claro */
+  --cobre-cl:   #da9e5f;   /* el dorado de la flor, para fondo oscuro */
+  --tinta:      #201a16;
+  --cuerpo:     #4a403a;
+  --tenue:      #6b5f57;
+  --papel:      #ffffff;
+  --banda:      #f4f3f2;   /* neutro con una pizca de tibio; nunca crema */
+  --linea:      #e4dfda;
+  --hondo:      #201a16;   /* superficie oscura: NO se invierte con el tema */
+  --sobre-hondo:#efe8e2;
+  --sobre-hondo-2:#c9bcb2;
+  --sobre-cobre:#ffffff;   /* texto encima del cobre */
+  --exp:        cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --cobre:#da9e5f; --cobre-hondo:#e8b988; --cobre-cl:#e8b988;
+    --tinta:#f3efec; --cuerpo:#c3b8b0; --tenue:#a1958c;
+    --papel:#1a1512; --banda:#221c18; --linea:#352c26;
+  --hondo:#100d0b; --sobre-hondo:#f0e9e3; --sobre-hondo-2:#b9aca2;
+  --sobre-cobre:#1a1512;
+  }
+}
+:root[data-theme="dark"]{
+  --cobre:#da9e5f; --cobre-hondo:#e8b988; --cobre-cl:#e8b988;
+  --tinta:#f3efec; --cuerpo:#c3b8b0; --tenue:#a1958c;
+  --papel:#1a1512; --banda:#221c18; --linea:#352c26;
+  --hondo:#100d0b; --sobre-hondo:#f0e9e3; --sobre-hondo-2:#b9aca2;
+  --sobre-cobre:#1a1512;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:78px;-webkit-text-size-adjust:100%}
+body{background:var(--papel);color:var(--cuerpo);
+  font:400 1.0625rem/1.6 "Karla",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:"Instrument Serif","Karla",Georgia,serif;color:var(--tinta);
+  font-weight:400;line-height:1.05;letter-spacing:-.005em;text-wrap:balance}
+.env{width:min(1080px, 100% - 40px);margin-inline:auto}
+:focus-visible{outline:2.5px solid var(--cobre-hondo);outline-offset:3px;border-radius:3px}
+p,li{max-width:56ch}
+
+/* ── Barra ──────────────────────────────────────────────── */
+.barra{background:var(--papel);border-bottom:1px solid var(--linea);
+  position:sticky;top:0;z-index:60}
+.barra .env{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;
+  justify-content:space-between;padding:12px 0}
+.marca{font-family:"Instrument Serif",serif;font-size:1.6rem;color:var(--tinta);
+  letter-spacing:.01em}
+.marca em{font-style:italic;color:var(--cobre-hondo)}
+.barra nav{display:flex;flex-wrap:wrap;gap:2px}
+.barra nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;
+  font-size:.9375rem;font-weight:500;color:var(--cuerpo);border-radius:3px}
+.barra nav a:hover{color:var(--cobre-hondo)}
+
+/* ── Botones ────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:50px;padding:13px 26px;font-family:"Karla",sans-serif;
+  font-weight:600;font-size:1.0625rem;border:2px solid transparent;border-radius:3px;
+  transition:background-color .3s var(--exp),color .3s var(--exp),border-color .3s var(--exp)}
+.btn-cobre{background:var(--cobre-hondo);color:var(--sobre-cobre);border-color:var(--cobre-hondo)}
+.btn-cobre:hover{background:var(--hondo);border-color:var(--hondo);color:var(--sobre-hondo)}
+.btn-linea{background:transparent;color:var(--tinta);border-color:var(--linea)}
+.btn-linea:hover{border-color:var(--cobre-hondo);color:var(--cobre-hondo)}
+
+/* ── Portada: la tesis es el precio a la vista ──────────── */
+.portada{padding:64px 0 12px}
+.portada .env{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:48px;align-items:center}
+.portada h1{font-size:clamp(2.6rem,6.6vw,4.6rem);max-width:14ch;margin-bottom:18px}
+.portada h1 em{font-style:italic;color:var(--cobre-hondo)}
+.portada .bajada{font-size:1.1875rem;margin-bottom:14px}
+.acciones{display:flex;flex-wrap:wrap;gap:11px;margin-top:24px}
+.pastillas{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;list-style:none}
+.pastillas li{font-size:.875rem;font-weight:500;color:var(--tinta);
+  border:1px solid var(--linea);border-radius:999px;padding:6px 14px;max-width:none}
+
+/* Hueco de foto: no se publica material del cliente en el portafolio */
+.hueco{border-radius:3px;aspect-ratio:4/5;background:var(--banda);
+  border:1.5px dashed var(--linea);display:grid;place-content:center;gap:6px;
+  text-align:center;padding:26px}
+.hueco b{font-size:1.25rem;font-weight:700;
+  color:var(--tinta);line-height:1.15}
+.hueco span{font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue)}
+
+/* ── Secciones ──────────────────────────────────────────── */
+section{padding:66px 0}
+.franja{background:var(--banda)}
+h2{font-size:clamp(2rem,4.6vw,2.9rem);margin-bottom:10px}
+h2 em{font-style:italic;color:var(--cobre-hondo)}
+.intro{font-size:1.125rem;color:var(--tenue);margin-bottom:34px}
+
+/* ── El tablero de precios ──────────────────────────────── */
+.grupo-precio{margin-bottom:38px}
+.grupo-precio:last-child{margin-bottom:0}
+.grupo-precio h3{font-size:1.375rem;margin-bottom:2px}
+.grupo-precio .nota{font-size:.9375rem;color:var(--tenue);margin-bottom:14px}
+.carta{list-style:none;border-top:2px solid var(--tinta)}
+.carta li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;
+  gap:8px 18px;align-items:baseline;padding:13px 0 12px;
+  border-bottom:1px solid var(--linea);max-width:none}
+.carta .qué{font-weight:500;color:var(--tinta);font-size:1.0625rem}
+.carta .cuánto-dura{font-size:.875rem;color:var(--tenue);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.carta .precio{font-size:1.125rem;font-weight:700;
+  color:var(--cobre-hondo);font-variant-numeric:tabular-nums;white-space:nowrap}
+.carta li.destacado .precio{color:var(--tinta)}
+.carta .etiqueta{grid-column:1/-1;font-size:.8125rem;color:var(--tenue);margin-top:-4px}
+
+/* ── La academia ────────────────────────────────────────── */
+.academia{background:var(--hondo);color:var(--sobre-hondo)}
+.academia h2{color:var(--sobre-hondo)}
+.academia h2 em{color:var(--cobre-cl)}
+.academia .intro{color:var(--sobre-hondo-2)}
+.academia .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:40px 56px;align-items:start}
+.academia p{color:var(--sobre-hondo-2)}
+.lista-cursos{list-style:none;display:grid;gap:0;border-top:1px solid rgba(255,255,255,.2)}
+.lista-cursos li{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.2);
+  display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;
+  align-items:baseline;max-width:none}
+.lista-cursos b{font-weight:500;color:var(--sobre-hondo);font-size:1.0625rem}
+.lista-cursos span{font-size:1.125rem;font-weight:600;color:var(--cobre-cl)}
+.pie-cursos{margin-top:16px;font-size:.9375rem;color:var(--sobre-hondo-2)}
+
+/* ── Domicilio ──────────────────────────────────────────── */
+.domicilio .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:40px 56px;align-items:center}
+.domicilio .hueco{aspect-ratio:4/3}
+
+/* ── Dónde y cuándo ─────────────────────────────────────── */
+.cierre .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:36px 56px;align-items:start}
+.ficha{list-style:none;display:grid;gap:0;border-top:2px solid var(--tinta)}
+.ficha li{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;
+  padding:13px 0;border-bottom:1px solid var(--linea);max-width:none}
+.ficha dt,.ficha .rotulo{font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--cobre-hondo);white-space:nowrap;font-weight:600}
+.ficha .valor{color:var(--tinta);font-weight:500}
+.telefonazo{display:block;font-weight:700;font-variant-numeric:tabular-nums;
+  font-size:clamp(2.2rem,6vw,3.4rem);color:var(--tinta);line-height:1.05;margin-bottom:14px}
+
+/* ── Nota de propuesta ──────────────────────────────────── */
+.aviso{margin-top:28px;padding:18px 22px;border:1px solid var(--linea);
+  border-radius:3px;background:var(--papel);color:var(--tinta)}
+.aviso b{color:var(--cobre-hondo)}
+.aviso-propuesta{background:var(--hondo);color:var(--sobre-hondo);padding:11px 20px;
+  font-size:.9375rem;text-align:center}
+.aviso-propuesta strong{font-weight:700}
+.aviso-propuesta span{color:var(--sobre-hondo-2)}
+
+footer{padding:30px 0 36px;border-top:1px solid var(--linea);
+  font-size:.9375rem;color:var(--tenue)}
+footer .env{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between}
+footer a{color:var(--cobre-hondo);font-weight:600;display:inline-flex;
+  align-items:center;min-height:44px}
+
+@media (max-width:860px){
+  .portada .env,.academia .env,.domicilio .env,.cierre .env{grid-template-columns:1fr}
+  .portada{padding:40px 0 8px}
+  section{padding:48px 0}
+  .carta li{grid-template-columns:minmax(0,1fr) auto}
+  .carta .cuánto-dura{grid-column:1;font-size:.8125rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<div class="aviso-propuesta">
+  <strong>Propuesta de rediseño</strong> preparada para MäDI Studio por el Ing. Fernando Uribe ·
+  <span>No es el sitio oficial. Los datos de contacto van ocultos a propósito.</span>
+</div>
+
+<header class="barra">
+  <div class="env">
+    <span class="marca">MäDI <em>Studio</em></span>
+    <nav>
+      <a href="#masajes">Masajes</a>
+      <a href="#belleza">Belleza</a>
+      <a href="#academia">Academia</a>
+      <a href="#domicilio">A domicilio</a>
+      <a href="#donde">Dónde estamos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="portada">
+  <div class="env">
+    <div>
+      <h1>Los precios, <em>a la vista</em>.</h1>
+      <p class="bajada">Masajes, faciales, epilación, cejas, maquillaje y peinado en
+        Valle de Las Garzas. Y cursos, si lo que quiere es aprender a hacerlo usted.</p>
+      <p>Aquí no hay que preguntar cuánto cuesta. Está escrito abajo, con la duración
+        de cada servicio.</p>
+      <div class="acciones">
+        <a class="btn btn-cobre" href="#masajes">Ver precios</a>
+        <a class="btn btn-linea" href="#donde">Cómo llegar</a>
+      </div>
+      <ul class="pastillas">
+        <li>5 estrellas · 14 reseñas</li>
+        <li>Servicio a domicilio</li>
+        <li>Academia de belleza</li>
+      </ul>
+    </div>
+    <div class="hueco" role="img" aria-label="Espacio reservado para una fotografía del estudio">
+      <b>Aquí va una foto de su estudio</b>
+      <span>Foto suya, no de banco</span>
+    </div>
+  </div>
+</section>
+
+<section class="franja" id="masajes">
+  <div class="env">
+    <h2>Masajes</h2>
+    <p class="intro">Todos con su duración y su precio. Sin letras chiquitas.</p>
+
+    <div class="grupo-precio">
+      <h3>En pareja</h3>
+      <p class="nota">Hora y media, los dos al mismo tiempo.</p>
+      <ul class="carta">
+        <li class="destacado"><span class="qué">Experiencia en pareja</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$1,500</span></li>
+        <li><span class="qué">Paquete Relax en pareja</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$1,500</span></li>
+        <li><span class="qué">Paquete Aniversario en pareja</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$1,500</span></li>
+        <li><span class="qué">Masaje de cumpleaños en pareja</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$1,500</span></li>
+        <li><span class="qué">Mascarilla en pareja</span>
+          <span class="cuánto-dura">10 min</span><span class="precio">$100</span>
+          <span class="etiqueta">Se agrega a cualquier experiencia en pareja.</span></li>
+      </ul>
+    </div>
+
+    <div class="grupo-precio">
+      <h3>Individuales</h3>
+      <p class="nota">De media hora a dos horas, según lo que traiga cargando.</p>
+      <ul class="carta">
+        <li><span class="qué">Masaje de dos horas</span>
+          <span class="cuánto-dura">2 h</span><span class="precio">$1,400</span></li>
+        <li><span class="qué">Masaje personalizado</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$750</span></li>
+        <li><span class="qué">Paquete Aniversario individual</span>
+          <span class="cuánto-dura">1 h 10</span><span class="precio">$730</span></li>
+        <li><span class="qué">Masaje descontracturante</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$699</span></li>
+        <li><span class="qué">Masaje de cumpleaños</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$680</span></li>
+        <li><span class="qué">Masaje antiestrés</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$650</span></li>
+        <li><span class="qué">Paquete Relax individual</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$650</span></li>
+        <li><span class="qué">Masaje relajante</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$599</span></li>
+        <li><span class="qué">Masaje digestivo</span>
+          <span class="cuánto-dura">1 h</span><span class="precio">$450</span></li>
+        <li><span class="qué">Masaje de medio cuerpo</span>
+          <span class="cuánto-dura">30 min</span><span class="precio">$450</span></li>
+        <li><span class="qué">Piernas cansadas</span>
+          <span class="cuánto-dura">30 min</span><span class="precio">$450</span></li>
+        <li><span class="qué">Zona de molestia</span>
+          <span class="cuánto-dura">30 min</span><span class="precio">$350</span></li>
+      </ul>
+    </div>
+
+    <div class="grupo-precio">
+      <h3>Embarazo, niños y adolescentes</h3>
+      <p class="nota">Presiones y posiciones distintas. No es el mismo masaje más suave.</p>
+      <ul class="carta">
+        <li><span class="qué">Masaje para embarazada</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$650</span></li>
+        <li><span class="qué">Masaje pre-natal</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$599</span></li>
+        <li><span class="qué">Masaje para adolescentes</span>
+          <span class="cuánto-dura">45 min</span><span class="precio">$450</span></li>
+        <li><span class="qué">Masaje para niños</span>
+          <span class="cuánto-dura">35 min</span><span class="precio">$400</span></li>
+      </ul>
+    </div>
+
+    <div class="grupo-precio">
+      <h3>Promociones entre semana</h3>
+      <p class="nota">Los días que el estudio está más tranquilo.</p>
+      <ul class="carta">
+        <li><span class="qué">Martes y jueves · Masaje relajante</span>
+          <span class="cuánto-dura">45 min</span><span class="precio">$550</span></li>
+        <li><span class="qué">Miércoles y viernes · Masaje personalizado</span>
+          <span class="cuánto-dura">1 h 30</span><span class="precio">$650</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="belleza">
+  <div class="env">
+    <h2>Lo demás <em>del estudio</em></h2>
+    <p class="intro">Seis servicios más, cada uno con su propia página en el sitio final.</p>
+    <ul class="carta">
+      <li><span class="qué">Diseño de cejas</span><span class="cuánto-dura">Cejas</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Faciales</span><span class="cuánto-dura">Cuidado de piel</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Epilación con cera · mujer</span><span class="cuánto-dura">Epilación</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Epilación con cera · hombre</span><span class="cuánto-dura">Epilación</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Maquillaje</span><span class="cuánto-dura">Eventos</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Peinados</span><span class="cuánto-dura">Eventos</span>
+        <span class="precio">$—</span></li>
+      <li><span class="qué">Masajes reductivos y corporales</span><span class="cuánto-dura">Corporales</span>
+        <span class="precio">$—</span></li>
+    </ul>
+    <div class="aviso">
+      <b>Aquí van sus precios.</b> Los dejé en blanco porque en su agenda actual no
+      están capturados: solo los masajes tienen precio. Quien busca una depilación
+      o un facial hoy tiene que escribir para preguntar, y la mayoría no escribe.
+    </div>
+  </div>
+</section>
+
+<section class="academia" id="academia">
+  <div class="env">
+    <div>
+      <h2>La <em>academia</em></h2>
+      <p class="intro">Esto es lo que ningún otro estudio de Manzanillo tiene en su
+        sitio, y hoy está escondido detrás de un menú desplegable.</p>
+      <p>MäDI no solo da servicios: forma gente. Cursos especializados en belleza
+        integral, para quien quiere aprender el oficio y trabajar de esto.</p>
+      <p style="margin-top:12px">Un curso vale varias veces lo que un masaje, y quien
+        lo busca busca distinto: compara programas, pregunta por horarios y quiere
+        saber qué se lleva al terminar. Eso necesita su propia página.</p>
+    </div>
+    <div>
+      <ul class="lista-cursos">
+        <li><b>Cursos de belleza integral</b><span>Programa</span></li>
+        <li><b>Duración y horarios</b><span>Por definir</span></li>
+        <li><b>Qué incluye el curso</b><span>Por definir</span></li>
+        <li><b>Costo y formas de pago</b><span>Por definir</span></li>
+      </ul>
+      <p class="pie-cursos">Esta información
+        me la pasan ustedes y la acomodo. Hoy no aparece en ninguna parte.</p>
+    </div>
+  </div>
+</section>
+
+<section class="franja domicilio" id="domicilio">
+  <div class="env">
+    <div>
+      <h2>También vamos <em>a su casa</em></h2>
+      <p class="intro">Es un servicio que ya ofrecen y que casi nadie sabe que existe.</p>
+      <p>En su agenda actual «Servicios a domicilio» es una categoría más, al final
+        de una lista de once. Merece decirse en la portada: para una embarazada, para
+        alguien que se está recuperando, o para un festejo en casa, esa es la
+        diferencia entre reservar y no reservar.</p>
+      <div class="acciones">
+        <a class="btn btn-cobre" href="#donde">Preguntar por domicilio</a>
+      </div>
+    </div>
+    <div class="hueco" role="img" aria-label="Espacio reservado para una fotografía del servicio a domicilio">
+      <b>Aquí va una foto suya</b>
+      <span>Foto suya, no de banco</span>
+    </div>
+  </div>
+</section>
+
+<section class="cierre" id="donde">
+  <div class="env">
+    <div>
+      <h2>Dónde <em>y cuándo</em></h2>
+      <p class="intro">Valle de Las Garzas, Manzanillo.</p>
+      <ul class="ficha">
+        <li><span class="rotulo">Dirección</span><span class="valor">Av. Elías Zamora 176, Valle de Las Garzas</span></li>
+        <li><span class="rotulo">Horario</span><span class="valor">Aquí va su horario real</span></li>
+        <li><span class="rotulo">Reseñas</span><span class="valor">5 estrellas · 14 opiniones</span></li>
+        <li><span class="rotulo">A domicilio</span><span class="valor">Sí, con cita previa</span></li>
+      </ul>
+    </div>
+    <div>
+      <span class="telefonazo" id="tel">314 ··· ····</span>
+      <p>Para agendar, cambiar una cita o preguntar por un curso.</p>
+      <div class="acciones">
+        <a class="btn btn-cobre" href="#" data-wa>Escribir por WhatsApp</a>
+        <a class="btn btn-linea" href="#" data-agenda>Agendar en línea</a>
+      </div>
+      <div class="aviso">
+        <b>La agenda se queda donde está.</b> El botón manda a la agenda que ya usan.
+        Este sitio no la reemplaza: le pone enfrente los precios, el domicilio y los
+        cursos, que es lo que hoy no se ve.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span>MäDI Studio · Spa · Academia — Valle de Las Garzas, Manzanillo</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  document.querySelectorAll("[data-wa]").forEach(e=>{
+    e.href = n.demo ? "#" : "https://wa.me/" + n.whatsapp;
+    if(!n.demo){ e.target="_blank"; e.rel="noopener"; }
+  });
+  document.querySelectorAll("[data-agenda]").forEach(e=>{ e.href = n.agenda; });
+  const t = document.getElementById("tel");
+  if (t) t.textContent = n.telVisible;
+})();
+</script>

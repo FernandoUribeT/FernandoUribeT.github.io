@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suspensión y Mecánica General · Benjamín Peña 32, Manzanillo · 314 ··· ····</title>
+<meta name="description" content="Taller de suspensión y mecánica general en Calle Benjamín Peña 32, Manzanillo, Colima. Si le brinca, le truena en los topes o se va de lado, lo revisamos. Teléfono 314 ··· ····.">
+<link rel="canonical" href="https://suspensionmanzanillo.mx/">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DATOS DEL NEGOCIO
+     ⚠ TELÉFONO SIN VERIFICAR: viene de la ficha de Google.
+       MÁRCALO antes de mandar nada. (Lección de Barrientos.)
+     ⚠ HORARIO desconocido: no se inventa, no aparece en la página.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:    "Suspensión y Mecánica General",
+  ciudad:    "Manzanillo, Colima",
+  calle:     "Calle Benjamín Peña 32",
+  telefono:  "",
+  telVisible:"314 ··· ····",
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;800&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Nadie llega al taller diciendo "traigo los bujes vencidos".
+   Llegan diciendo "me truena en los topes". Entonces la página
+   está escrita en síntomas —lo que el conductor NOTA— y al lado
+   va lo que el taller hace con eso. Nunca un diagnóstico: ese
+   es su trabajo, no el de una página web.
+
+   Vino: color de rótulo viejo de taller, envejecido, no el rojo
+   de emergencia que ya usa el sitio de las grúas.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --vino:    oklch(34% 0.125 20);
+  --vino-2:  oklch(25% 0.10 20);
+  --piedra:  oklch(89% 0.009 248);
+  --piedra-2:oklch(83% 0.013 248);
+  --tinta:   oklch(19% 0.015 248);
+  --tinta-2: oklch(41% 0.02 248);
+  --claro:   oklch(97% 0.007 20);
+  --claro-2: oklch(86% 0.040 22);
+  --linea:   oklch(73% 0.016 248);
+  --exp:     cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--piedra);color:var(--tinta);
+  font:400 1rem/1.6 Epilogue,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2{font-weight:800;line-height:1.06;letter-spacing:-.03em}
+.env{width:min(1140px,100% - 48px);margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:16px 30px;font-weight:600;font-size:1.25rem;
+  border:2px solid transparent;
+  transition:transform .5s var(--exp),background-color .4s var(--exp),color .4s var(--exp)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--vino);outline-offset:3px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn-vino{background:var(--vino);color:var(--claro)}
+.btn-vino:hover{background:var(--tinta)}
+.btn-claro{background:var(--claro);color:var(--vino)}
+.btn-claro:hover{background:var(--tinta);color:var(--claro)}
+.btn-linea{background:transparent;color:var(--claro);border-color:var(--claro-2)}
+.btn-linea:hover{background:var(--claro);color:var(--vino)}
+
+/* ── Cabecera ─────────────────────────────────────────────── */
+.cabecera{background:var(--vino);color:var(--claro);padding:20px 24px}
+.cabecera .env{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;
+  justify-content:space-between;font-size:1.25rem;font-weight:600}
+.cabecera a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--claro)}
+
+/* ── La pregunta que hace la gente ────────────────────────── */
+.entrada{background:var(--vino);color:var(--claro);padding:20px 24px 78px}
+h1{font-size:clamp(2.4rem,7.4vw,4.75rem);max-width:15ch;margin-bottom:22px}
+.bajada{font-size:1.25rem;max-width:38ch;color:var(--claro-2);
+  margin-bottom:34px;font-weight:500}
+.entrada .acciones{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ── Síntomas: lo que usted nota / lo que aquí se hace ────── */
+.sintomas{padding:72px 24px 76px}
+.sintomas > .env > h2{font-size:clamp(1.7rem,4.2vw,2.5rem);max-width:20ch;
+  margin-bottom:12px}
+.sintomas .intro{color:var(--tinta-2);font-size:1.25rem;max-width:44em;
+  margin-bottom:44px}
+.par{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  gap:12px 64px;align-items:baseline;
+  padding:34px 0 30px;border-top:1px solid var(--linea)}
+.par .dice{font-size:clamp(1.4rem,3.6vw,2.1rem);font-weight:800;
+  letter-spacing:-.028em;line-height:1.2;color:var(--vino)}
+.par .hace{color:var(--tinta-2);font-size:1.25rem;line-height:1.5}
+
+/* ── Lo demás ─────────────────────────────────────────────── */
+.general{background:var(--piedra-2);padding:64px 24px}
+.general .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:22px 64px;align-items:start}
+.general h2{font-size:clamp(1.7rem,4.2vw,2.5rem);max-width:16ch}
+.general p{color:var(--tinta-2);font-size:1.25rem;max-width:34em}
+
+/* ── Dónde y teléfono ─────────────────────────────────────── */
+.remate{background:var(--vino-2);color:var(--claro);padding:76px 24px}
+.remate .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:34px 64px;align-items:center}
+.remate h2{font-size:clamp(1.8rem,4.4vw,2.5rem);max-width:16ch;margin-bottom:12px}
+.remate address{font-style:normal;color:var(--claro-2);font-size:1.25rem}
+.telefonazo{display:block;font-size:clamp(2.4rem,8vw,4.75rem);font-weight:800;
+  letter-spacing:-.04em;line-height:1.04;color:var(--claro);margin-bottom:18px}
+.telefonazo:hover{color:var(--claro-2)}
+
+footer{padding:28px 24px;font-size:1rem;color:var(--tinta-2)}
+footer .env{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--vino);font-weight:600}
+
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;min-height:58px}
+
+@media(max-width:860px){
+  .par{grid-template-columns:1fr;gap:8px}
+  .general .env,.remate .env{grid-template-columns:1fr;gap:18px;align-items:start}
+}
+@media(max-width:720px){
+  .entrada{padding-bottom:56px}
+  .sintomas{padding:52px 24px 56px}
+  .general{padding:48px 24px}
+  .remate{padding:56px 24px}
+  .fija{display:block}
+  body{padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="env">
+    <span id="mMarca">Suspensión y Mecánica General · Manzanillo</span>
+    <a id="aTel"><span id="tTel">314 ··· ····</span></a>
+  </div>
+</header>
+
+<main>
+<section class="entrada">
+  <div class="env">
+    <h1>¿Le truena en los topes?</h1>
+    <p class="bajada">Somos taller de suspensión. Si su carro brinca, rechina o se va de lado, aquí es donde se ve.</p>
+    <div class="acciones">
+      <a class="btn btn-claro" id="aTel2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg>
+        <span id="tTel2">Llamar</span></a>
+      <a class="btn btn-linea" href="#donde">Ver dónde estamos</a>
+    </div>
+  </div>
+</section>
+
+<section class="sintomas">
+  <div class="env">
+    <h2>Usted no tiene que saber cómo se llama la pieza</h2>
+    <p class="intro">Dígalo como lo siente. De aquí para allá es cosa nuestra.</p>
+
+    <div class="par">
+      <p class="dice">«Brinca y no se asienta»</p>
+      <p class="hace">Revisamos amortiguadores, resortes y bujes. Se prueba en el camino, no nada más con el carro parado.</p>
+    </div>
+    <div class="par">
+      <p class="dice">«Truena o rechina en los topes»</p>
+      <p class="hace">Ese ruido tiene varias causas y no se adivina por teléfono. Hay que verlo con el carro arriba.</p>
+    </div>
+    <div class="par">
+      <p class="dice">«Se va de lado, tengo que ir agarrando el volante»</p>
+      <p class="hace">Puede ser alineación o puede ser algo más. Primero se revisa, luego se cotiza.</p>
+    </div>
+    <div class="par">
+      <p class="dice">«Se siente flojo el volante»</p>
+      <p class="hace">Dirección y suspensión trabajan juntas. Se revisan las dos, no una sola.</p>
+    </div>
+    <div class="par">
+      <p class="dice">«No sé qué trae, nada más suena»</p>
+      <p class="hace">Tráigalo. Para eso estamos: para encontrar de dónde viene el ruido y decirle qué es.</p>
+    </div>
+  </div>
+</section>
+
+<section class="general">
+  <div class="env">
+    <h2>Y lo demás también</h2>
+    <p>Además de suspensión hacemos mecánica general. Si lo que trae no es de suspensión, márquenos de todos modos y le decimos si se lo podemos ver.</p>
+  </div>
+</section>
+</main>
+
+<section class="remate" id="donde">
+  <div class="env">
+    <div>
+      <h2>Benjamín Peña 32, Manzanillo</h2>
+      <address id="dDir">Calle Benjamín Peña 32, Manzanillo, Colima</address>
+    </div>
+    <div>
+      <a class="telefonazo" id="aTel3"><span id="tTel3">314 ··· ····</span></a>
+      <a class="btn btn-claro" id="aTel4">Llamar ahora</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span id="fPie">Suspensión y Mecánica General · Manzanillo, Colima</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn btn-vino" id="aTel5">Llamar al taller</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const tel = "tel:+52" + n.telefono;
+  const set = (ids, attr, val) => ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if (e) { if (attr === "text") e.textContent = val; else e.setAttribute(attr, val); }
+  });
+
+  set(["aTel","aTel2","aTel3","aTel4","aTel5"], "href", tel);
+  set(["tTel","tTel2","tTel3"], "text", n.telVisible);
+  set(["mMarca"], "text", n.nombre + " · Manzanillo");
+  set(["dDir"], "text", n.calle + ", " + n.ciudad);
+  set(["fPie"], "text", n.nombre + " · " + n.ciudad);
+
+  var ld = {
+    "@context":"https://schema.org",
+    "@type":"AutoRepair",
+    "name":n.nombre,
+    "description":"Taller de suspensión y mecánica general en " + n.ciudad,
+    "telephone":"+52" + n.telefono,
+    "areaServed":n.ciudad,
+    "address":{"@type":"PostalAddress","streetAddress":n.calle,
+      "addressLocality":"Manzanillo","addressRegion":"Colima","addressCountry":"MX"}
+  };
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

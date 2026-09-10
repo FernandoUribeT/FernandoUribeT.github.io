@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taller Automotriz RMB · Todo el mantenimiento en una sola parada, Manzanillo</title>
+<meta name="description" content="Taller automotriz en Valle de las Garzas, Manzanillo. Aceite, frenos, alineación, rotación, batería, suspensión, dirección y diagnóstico en un solo lugar. Horario corrido de 9 a 6.">
+<link rel="canonical" href="https://tallerrmb.mx/">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DATOS DEL NEGOCIO — cambiar esto cambia el sitio entero
+     Servicios y horario confirmados por el dueño, 28 ago 2026.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:    "Taller Automotriz RMB",
+  corto:     "RMB",
+  ciudad:    "Manzanillo, Colima",
+  calle:     "Av. de las Garzas 5",
+  cp:        "28219",
+  telefono:  "",
+  telVisible:"314 ··· ····",
+  whatsapp:  "",
+  mensaje:   "Hola, quiero llevar mi carro. Necesito:",
+  horario:   "Lunes a sábado, 9:00 a 18:00, corrido",
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;700;900&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Lo que vende este taller no es una hora ni un oficio raro: es
+   que hace TODO el mantenimiento de rutina en una sola parada.
+   Entonces la lista de servicios no va escondida a media página.
+   La lista ES la página.
+   Verde de taller: el color de las herramientas y los bancos.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --cal:       oklch(92% 0.009 135);
+  --cal-2:     oklch(87% 0.013 135);
+  --tinta:     oklch(22% 0.018 150);
+  --tinta-2:   oklch(45% 0.016 150);
+  --verde:     oklch(41% 0.105 158);
+  --verde-alto:oklch(58% 0.13 158);
+  --sobre:     oklch(97.5% 0.008 135);
+  --linea:     oklch(78% 0.014 135);
+  --wa:        oklch(62% 0.16 148);
+  --exp:       cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cal);color:var(--tinta);
+  font:400 1rem/1.6 Chivo,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:900;line-height:1.1;letter-spacing:-.032em}
+.env{width:min(1120px,100% - 48px);margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:52px;padding:15px 28px;font-weight:700;font-size:1rem;
+  border:2px solid transparent;
+  transition:transform .5s var(--exp),background-color .4s var(--exp),color .4s var(--exp)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--verde-alto);outline-offset:3px}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-verde{background:var(--verde);color:var(--sobre)}
+.btn-verde:hover{background:var(--tinta)}
+.btn-wa{background:var(--wa);color:oklch(18% 0.05 150)}
+.btn-wa:hover{background:var(--tinta);color:var(--sobre)}
+.btn-claro{background:var(--sobre);color:var(--verde)}
+.btn-claro:hover{background:var(--tinta);color:var(--sobre)}
+
+/* ── Cabecera ─────────────────────────────────────────────── */
+.cabecera{padding:14px 24px;border-bottom:1px solid var(--linea)}
+.cabecera .env{display:flex;flex-wrap:wrap;gap:10px 24px;
+  align-items:center;justify-content:space-between}
+.logo{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+.logo b{color:var(--verde)}
+.cabecera a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--verde);font-weight:700;font-size:1rem}
+
+/* ── La lista ES la página ────────────────────────────────── */
+.apertura{padding:66px 24px 0}
+h1{font-size:clamp(2.2rem,6vw,3.75rem);max-width:18ch;margin-bottom:18px;
+  text-wrap:balance}
+h1 em{font-style:normal;color:var(--verde)}
+.entrada{font-size:1.25rem;max-width:40ch;color:var(--tinta-2);
+  margin-bottom:34px;font-weight:500}
+.apertura .acciones{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:60px}
+
+.catalogo{border-top:3px solid var(--tinta);
+  columns:2;column-gap:56px;column-rule:1px solid var(--linea)}
+.catalogo li{list-style:none;break-inside:avoid;padding:20px 0 17px;
+  border-bottom:1px solid var(--linea);display:flex;gap:14px;align-items:baseline;
+  font-size:1.25rem;font-weight:700;line-height:1.35}
+.catalogo li::before{content:"";width:11px;height:11px;flex:none;
+  background:var(--verde);transform:translateY(-2px)}
+.nota-catalogo{margin-top:24px;color:var(--tinta-2);max-width:34em}
+
+/* ── Horario ──────────────────────────────────────────────── */
+.horario{background:var(--verde);color:var(--sobre);
+  margin-top:80px;padding:64px 24px}
+.horario .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:28px 64px;align-items:center}
+.horario h2{font-size:clamp(1.8rem,4.6vw,2.75rem);margin-bottom:12px;max-width:16ch}
+.horario p{font-size:1.25rem;max-width:34em}
+.horario .reloj-simple{font-size:clamp(2rem,5.5vw,3.25rem);font-weight:900;
+  letter-spacing:-.035em;line-height:1.1;margin-bottom:8px;max-width:none}
+.horario .reloj-simple small{display:block;font-size:1rem;font-weight:500;
+  letter-spacing:0;line-height:1.5;margin-top:10px}
+
+/* ── Contacto ─────────────────────────────────────────────── */
+.contacto{padding:76px 24px}
+.contacto .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:32px 64px;align-items:center}
+h2{font-size:clamp(1.8rem,4.6vw,2.75rem);margin-bottom:12px}
+.contacto address{font-style:normal;color:var(--tinta-2);font-size:1.25rem;
+  margin-bottom:22px}
+.telefonazo{display:block;font-size:clamp(2rem,6vw,3.5rem);font-weight:900;
+  letter-spacing:-.035em;line-height:1.08;color:var(--verde);margin-bottom:10px}
+.telefonazo:hover{color:var(--tinta)}
+
+footer{padding:30px 24px;border-top:1px solid var(--linea);
+  font-size:.8rem;color:var(--tinta-2)}
+footer .env{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--verde);font-weight:700}
+
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;min-height:58px}
+
+@media(max-width:860px){
+  .catalogo{columns:1;column-rule:0}
+  .horario .env,.contacto .env{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:720px){
+  .apertura{padding-top:44px}
+  .horario{margin-top:56px;padding:48px 24px}
+  .contacto{padding:52px 24px}
+  .fija{display:block}
+  body{padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="env">
+    <span class="logo">Taller Automotriz <b id="mMarca">RMB</b></span>
+    <a id="aTel"><span id="tTel">314 ··· ····</span></a>
+  </div>
+</header>
+
+<main>
+<section class="apertura">
+  <div class="env">
+    <h1>Todo el mantenimiento de su carro, <em>en una sola parada</em></h1>
+    <p class="entrada">Aquí no lo mandamos con la llantera para la alineación y luego a otro lado para el aceite. Lo hacemos completo.</p>
+    <div class="acciones">
+      <a class="btn btn-verde" id="aTel2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg>
+        <span id="tTel2">Llamar</span></a>
+      <a class="btn btn-wa" id="aWa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.3-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4-.1.6.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5s-.2.3-.3.5l-.4.5c-.2.1-.3.3-.1.6.2.3.8 1.3 1.6 2 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.8-.9.9-1.2.2-.3.4-.2.7-.1.2.1 1.6.8 1.9.9.3.1.5.2.5.3.1.1.1.7-.1 1.4Z"/></svg>
+        Preguntar por WhatsApp</a>
+    </div>
+
+    <h2 class="visualmente-oculta" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Servicios</h2>
+    <ul class="catalogo">
+      <li>Servicio de aceite</li>
+      <li>Frenos</li>
+      <li>Alineación</li>
+      <li>Rotación de llantas</li>
+      <li>Suspensión</li>
+      <li>Dirección</li>
+      <li>Baterías</li>
+      <li>Diagnóstico</li>
+      <li>Mecánica en general</li>
+    </ul>
+    <p class="nota-catalogo">Si lo que necesita no aparece aquí, márquenos de todos modos. Casi siempre se puede.</p>
+  </div>
+</section>
+
+<section class="horario">
+  <div class="env">
+    <div>
+      <h2>Horario corrido</h2>
+      <p>No cerramos a la hora de la comida. Si su único rato libre es a las dos de la tarde, aquí hay quien lo atienda.</p>
+    </div>
+    <div>
+      <p class="reloj-simple">9:00 a 18:00
+        <small id="dHorario">Lunes a sábado, 9:00 a 18:00, corrido</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="contacto">
+  <div class="env">
+    <div>
+      <h2>Valle de las Garzas</h2>
+      <address id="dDir">Av. de las Garzas 5, 28219 Manzanillo, Colima</address>
+      <a class="btn btn-verde" id="aWa2" target="_blank" rel="noopener">Preguntar si hay lugar hoy</a>
+    </div>
+    <div>
+      <a class="telefonazo" id="aTel3"><span id="tTel3">314 ··· ····</span></a>
+      <p style="color:var(--tinta-2)">Llame y le decimos si puede traerlo hoy mismo.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <span id="fPie">Taller Automotriz RMB · Valle de las Garzas, Manzanillo</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn btn-wa" id="aWa3" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const tel = "tel:+52" + n.telefono;
+  const wa  = "https://wa.me/" + n.whatsapp + "?text=" + encodeURIComponent(n.mensaje);
+  const set = (ids, attr, val) => ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if (e) { if (attr === "text") e.textContent = val; else e.setAttribute(attr, val); }
+  });
+
+  set(["aTel","aTel2","aTel3"], "href", tel);
+  set(["aWa","aWa2","aWa3"], "href", wa);
+  set(["tTel","tTel2","tTel3"], "text", n.telVisible);
+  set(["mMarca"], "text", n.corto);
+  set(["dDir"], "text", n.calle + ", " + n.cp + " " + n.ciudad);
+  set(["dHorario"], "text", n.horario);
+  set(["fPie"], "text", n.nombre + " · Valle de las Garzas, Manzanillo");
+
+  var ld = {
+    "@context":"https://schema.org",
+    "@type":"AutoRepair",
+    "name":n.nombre,
+    "description":"Taller automotriz en " + n.ciudad + ". Aceite, frenos, alineación, rotación, suspensión, dirección, baterías y diagnóstico.",
+    "telephone":"+52" + n.telefono,
+    "areaServed":n.ciudad,
+    "address":{"@type":"PostalAddress","streetAddress":n.calle,"postalCode":n.cp,
+      "addressLocality":"Manzanillo","addressRegion":"Colima","addressCountry":"MX"},
+    "openingHoursSpecification":{"@type":"OpeningHoursSpecification",
+      "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens":"09:00","closes":"18:00"}
+  };
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

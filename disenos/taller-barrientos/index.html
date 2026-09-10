@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taller Barrientos · Océano Índico 5, Colonia del Mar, Manzanillo · 314 ··· ····</title>
+<meta name="description" content="Taller Barrientos, reparación de automóviles en calle Océano Índico 5, Colonia del Mar, Manzanillo, Colima. Teléfono 314 ··· ····.">
+<link rel="canonical" href="https://tallerbarrientos.mx/">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DATOS DEL NEGOCIO
+     Teléfono, dirección y correo confirmados en su propia página
+     de Facebook (facebook.com/Barrientosgarage), 29 ago 2026.
+     ⚠ HORARIO Y SERVICIOS: sin confirmar. Preguntar al dueño.
+     ⚠ Sin enlace de WhatsApp: no está confirmado que ese número
+       reciba mensajes. No inventarlo.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:    "Taller Barrientos",
+  giro:      "Reparación de automóviles",
+  colonia:   "Colonia del Mar",
+  ciudad:    "Manzanillo, Colima",
+  calle:     "Calle Océano Índico 5",
+  cp:        "28218",
+  telefono:  "",
+  telVisible:"314 ··· ····",
+  correo:    "contacto@ ··· ",
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Este taller no tiene un problema de imagen: tiene un problema
+   de existencia. Su teléfono solo vive detrás del login de una
+   página de Facebook que nadie toca desde 2016.
+
+   Entonces la página no vende: REGISTRA. Es la ficha correcta
+   que no existe en ningún lado, con el dato que falta —el
+   teléfono— tratado como lo más grande de la pantalla.
+
+   Petróleo: el color de los compresores y la maquinaria de taller.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --petroleo:  oklch(37% 0.062 122);
+  --petroleo-2:oklch(27% 0.05 122);
+  --concreto:  oklch(88% 0.014 112);
+  --concreto-2:oklch(82% 0.02 112);
+  --tinta:     oklch(20% 0.02 112);
+  --tinta-2:   oklch(41% 0.03 112);
+  --claro:     oklch(96% 0.012 112);
+  --claro-2:   oklch(85% 0.035 118);
+  --linea:     oklch(72% 0.024 112);
+  --exp:       cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--concreto);color:var(--tinta);
+  font:400 1rem/1.6 "Familjen Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2{font-weight:700;line-height:1.04;letter-spacing:-.028em}
+.env{width:min(1120px,100% - 48px);margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:16px 30px;font-weight:600;font-size:1.25rem;
+  border:2px solid transparent;
+  transition:transform .5s var(--exp),background-color .4s var(--exp),color .4s var(--exp)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--petroleo);outline-offset:3px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn-petroleo{background:var(--petroleo);color:var(--claro)}
+.btn-petroleo:hover{background:var(--tinta)}
+.btn-claro{background:var(--claro);color:var(--petroleo)}
+.btn-claro:hover{background:var(--tinta);color:var(--claro)}
+.btn-linea{background:transparent;color:var(--claro);border-color:var(--claro-2)}
+.btn-linea:hover{background:var(--claro);color:var(--petroleo)}
+
+/* ── Cabecera del registro ────────────────────────────────── */
+.cabecera{background:var(--petroleo);color:var(--claro);padding:56px 24px 48px}
+.cabecera .rotulo{font-size:1.25rem;font-weight:500;
+  color:var(--claro-2);margin-bottom:18px}
+h1{font-size:clamp(2.6rem,9vw,6rem);max-width:14ch}
+
+/* ── El registro: etiqueta a la izquierda, dato enorme ────── */
+.registro{padding:0 24px}
+.linea{display:grid;grid-template-columns:minmax(140px,.42fr) minmax(0,1fr);
+  gap:10px 48px;align-items:baseline;
+  padding:34px 0 30px;border-bottom:1px solid var(--linea)}
+.linea:last-child{border-bottom:0}
+.etiqueta{font-size:1rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tinta-2)}
+.dato{font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;
+  letter-spacing:-.025em;line-height:1.3}
+.dato small{display:block;font-size:1.25rem;font-weight:400;
+  letter-spacing:0;color:var(--tinta-2);margin-top:8px}
+
+/* La línea del teléfono es la razón de ser de la página */
+.linea-tel{background:var(--concreto-2);margin-inline:-24px;padding-inline:24px;
+  border-bottom:0}
+.telefonazo{display:block;font-size:clamp(2.6rem,9.5vw,6rem);font-weight:700;
+  letter-spacing:-.04em;line-height:1.02;color:var(--petroleo)}
+.telefonazo:hover{color:var(--tinta)}
+.linea-tel .acciones{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px}
+
+/* ── Nota ─────────────────────────────────────────────────── */
+.nota{padding:72px 24px}
+.nota .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:20px 64px;align-items:start}
+.nota h2{font-size:clamp(1.7rem,4.2vw,2.5rem);max-width:16ch}
+.nota p{color:var(--tinta-2);font-size:1.25rem;max-width:34em}
+
+/* ── Cierre ───────────────────────────────────────────────── */
+.remate{background:var(--petroleo-2);color:var(--claro);padding:72px 24px;
+  text-align:center}
+.remate h2{font-size:clamp(1.8rem,4.6vw,2.75rem);max-width:18ch;margin:0 auto 14px}
+.remate p{color:var(--claro-2);font-size:1.25rem;max-width:36em;margin:0 auto 30px}
+.remate .acciones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+footer{padding:28px 24px;font-size:1rem;color:var(--tinta-2)}
+footer .env{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--petroleo);font-weight:600}
+
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;min-height:58px}
+
+@media(max-width:820px){
+  .linea{grid-template-columns:1fr;gap:6px}
+  .nota .env{grid-template-columns:1fr;gap:14px}
+}
+@media(max-width:720px){
+  .cabecera{padding:40px 24px 36px}
+  .nota{padding:52px 24px}
+  .remate{padding:52px 24px}
+  .fija{display:block}
+  body{padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="env">
+    <p class="rotulo" id="rGiro">Reparación de automóviles · Manzanillo, Colima</p>
+    <h1 id="mMarca">Taller Barrientos</h1>
+  </div>
+</header>
+
+<main class="registro">
+  <div class="env">
+
+    <div class="linea linea-tel">
+      <span class="etiqueta">Teléfono</span>
+      <div>
+        <a class="telefonazo" id="aTel"><span id="tTel">314 ··· ····</span></a>
+        <div class="acciones">
+          <a class="btn btn-petroleo" id="aTel2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg>
+            Llamar ahora</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="linea">
+      <span class="etiqueta">Dónde</span>
+      <p class="dato" id="dDir">Calle Océano Índico 5
+        <small id="dDir2">Colonia del Mar, 28218 Manzanillo, Colima</small></p>
+    </div>
+
+    <div class="linea">
+      <span class="etiqueta">A qué se dedica</span>
+      <p class="dato">Reparación de automóviles
+        <small>Servicio mecánico general. Llame y pregunte por lo que necesita.</small></p>
+    </div>
+
+    <div class="linea">
+      <span class="etiqueta">Correo</span>
+      <p class="dato"><a id="aMail"><span id="dMail">contacto@ ··· </span></a></p>
+    </div>
+
+  </div>
+</main>
+
+<section class="nota">
+  <div class="env">
+    <h2>Un taller de barrio, con teléfono a la mano</h2>
+    <p>Aquí no hay catálogo ni promociones. Es un taller que trabaja de boca en boca desde hace años, y esta página existe para una sola cosa: que cuando alguien pregunte por Barrientos, encuentre el número y pueda marcar.</p>
+  </div>
+</section>
+
+<section class="remate">
+  <div class="env">
+    <h2>Márquenos y dígame qué trae</h2>
+    <p>Con una llamada le decimos si se lo podemos recibir y cuándo.</p>
+    <div class="acciones">
+      <a class="btn btn-claro" id="aTel3">Llamar al <span id="tTel3">314 ··· ····</span></a>
+      <a class="btn btn-linea" id="aMail2">Escribir por correo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span id="fPie">Taller Barrientos · Colonia del Mar, Manzanillo, Colima</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn btn-petroleo" id="aTel4">Llamar al taller</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const tel = "tel:+52" + n.telefono;
+  const set = (ids, attr, val) => ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if (e) { if (attr === "text") e.textContent = val; else e.setAttribute(attr, val); }
+  });
+
+  set(["aTel","aTel2","aTel3","aTel4"], "href", tel);
+  set(["aMail","aMail2"], "href", "mailto:" + n.correo);
+  set(["tTel","tTel3"], "text", n.telVisible);
+  set(["dMail"], "text", n.correo);
+  set(["mMarca"], "text", n.nombre);
+  set(["rGiro"], "text", n.giro + " · " + n.ciudad);
+  set(["dDir2"], "text", n.colonia + ", " + n.cp + " " + n.ciudad);
+  set(["fPie"], "text", n.nombre + " · " + n.colonia + ", " + n.ciudad);
+
+  var ld = {
+    "@context":"https://schema.org",
+    "@type":"AutoRepair",
+    "name":n.nombre,
+    "description":n.giro + " en " + n.ciudad,
+    "telephone":"+52" + n.telefono,
+    "email":n.correo,
+    "areaServed":n.ciudad,
+    "address":{"@type":"PostalAddress","streetAddress":n.calle,"postalCode":n.cp,
+      "addressLocality":"Manzanillo","addressRegion":"Colima","addressCountry":"MX"}
+  };
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

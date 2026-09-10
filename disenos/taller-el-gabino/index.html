@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taller El Gabino · Laminado y pintura, herrería y carpintería en Manzanillo</title>
+<meta name="description" content="Dos oficios en un taller: laminado y pintura para su vehículo, y herrería y carpintería a domicilio. Manzanillo, Colima. Cotizamos por foto, sin costo.">
+<link rel="canonical" href="https://tallerelgabino.mx/">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DATOS DEL NEGOCIO — cambiar esto cambia el sitio entero
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:    "Taller El Gabino",
+  giro:      "Laminado y pintura · herrería y carpintería",
+  ciudad:    "Manzanillo, Colima",
+  telefono:  "",
+  telVisible:"314 ··· ····",
+  whatsapp:  "",
+  msgCarro:  "Hola, le mando fotos del golpe de mi vehículo para cotizar:",
+  msgCasa:   "Hola, quiero cotizar un trabajo de herrería o carpintería en mi domicilio:",
+  mapa:      "https://www.google.com/maps/place/Taller+de+Laminado+y+Pintura+%22+El+Gabino%22/@19.1200661,-104.3477048,15z",
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,contacto@ ··· ,400;12..96,500;12..96,600;12..96,800&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Este taller son dos negocios distintos bajo un mismo techo.
+   La página no los apila: los pone lado a lado desde el primer
+   segundo y deja que el visitante escoja su carril.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --primer:    oklch(87.5% 0.005 250);
+  --primer-2:  oklch(82.5% 0.007 250);
+  --primer-3:  oklch(93% 0.004 250);
+  --grafito:   oklch(21% 0.012 255);
+  --grafito-2: oklch(43% 0.011 255);
+  --azul:      oklch(46% 0.185 253);
+  --azul-hondo:oklch(33% 0.145 254);
+  --azul-texto:oklch(35% 0.15 254);
+  --ambar:     oklch(80% 0.15 78);
+  --sobre:     oklch(98.5% 0.005 250);
+  --linea:     oklch(74% 0.008 250);
+  --wa:        oklch(62% 0.16 148);
+  --exp:       cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--primer);color:var(--grafito);
+  font:400 1rem/1.6 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.03em}
+.env{width:min(1180px,100% - 48px);margin-inline:auto}
+
+/* ── Cintilla: solo el nombre y el teléfono. Sin botonera. ─── */
+.cintilla{background:var(--grafito);color:var(--sobre);
+  padding:11px 24px;font-size:.8rem;font-weight:500}
+.cintilla .env{display:flex;flex-wrap:wrap;gap:10px 24px;
+  justify-content:space-between;align-items:center;width:min(1180px,100%)}
+.cintilla b{font-weight:800;letter-spacing:-.02em;font-size:1rem}
+.cintilla a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--ambar);font-weight:600;font-size:1rem}
+
+/* ── LA BIFURCACIÓN ───────────────────────────────────────────
+   Primera pantalla completa, partida en dos. No hay titular
+   compartido: cada mitad se presenta sola.
+   ───────────────────────────────────────────────────────────── */
+.bifurca{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100svh - 66px)}
+.mitad{padding:56px 44px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden}
+.mitad-carro{background:var(--grafito);color:var(--sobre)}
+.mitad-casa{background:var(--azul);color:var(--sobre)}
+.mitad::after{content:"";position:absolute;inset:auto -18% -42% auto;
+  width:34vw;height:34vw;border-radius:50%;pointer-events:none}
+.mitad-carro::after{background:oklch(27% 0.02 255)}
+.mitad-casa::after{background:var(--azul-hondo)}
+.mitad > *{position:relative;z-index:1}
+.mitad h1{font-size:clamp(2.1rem,4.6vw,3.5rem);max-width:13ch;margin-bottom:18px;
+  text-wrap:balance}
+.mitad h1 em{font-style:normal;color:var(--ambar)}
+.mitad p{font-size:1.25rem;max-width:30ch;margin-bottom:16px;font-weight:500}
+.lista-corta{list-style:none;margin-bottom:32px;font-size:1rem;
+  color:oklch(84% 0.01 250)}
+.mitad-casa .lista-corta{color:oklch(88% 0.04 250)}
+.lista-corta li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.16)}
+.mitad .acciones{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ── Botones ──────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:50px;padding:14px 26px;font-weight:600;font-size:1rem;
+  border:2px solid transparent;border-radius:2px;
+  transition:transform .5s var(--exp),background-color .4s var(--exp),color .4s var(--exp)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--ambar);outline-offset:3px}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-lleno{background:var(--sobre);color:var(--grafito)}
+.btn-lleno:hover{background:var(--ambar);color:var(--grafito)}
+.btn-linea{background:transparent;color:var(--sobre);border-color:currentColor}
+.btn-linea:hover{background:var(--sobre);color:var(--grafito)}
+.btn-azul{background:var(--azul);color:var(--sobre)}
+.btn-azul:hover{background:var(--grafito)}
+.btn-wa{background:var(--wa);color:oklch(18% 0.05 150)}
+.btn-wa:hover{background:var(--sobre);color:var(--grafito)}
+
+/* ── Carriles ─────────────────────────────────────────────── */
+.carril{padding-top:88px;padding-bottom:88px;padding-left:24px;padding-right:24px}
+.carril-casa{background:var(--primer-2);
+  border-block:1px solid var(--linea)}
+.encabeza{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:20px 56px;align-items:end;margin-bottom:52px}
+.encabeza h2{font-size:clamp(1.9rem,5vw,3rem)}
+.encabeza p{color:var(--grafito-2);font-size:1.25rem;max-width:36em}
+
+.renglones{border-top:2px solid var(--grafito)}
+.renglon{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);
+  gap:8px 56px;padding:38px 0 16px;border-bottom:1px solid var(--linea);
+  transition:border-color .45s var(--exp)}
+.renglon:hover{border-bottom-color:var(--azul)}
+.renglon h3{font-size:1.25rem;line-height:1.35}
+.renglon p{color:var(--grafito-2);line-height:1.55}
+
+.pie-carril{margin-top:12px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.pie-carril span{color:var(--grafito-2);max-width:32em}
+
+/* ── Preguntas dentro de su carril ────────────────────────── */
+.preguntas{margin-top:64px;border-top:2px solid var(--grafito);padding-top:6px}
+details{border-bottom:1px solid var(--linea)}
+summary{padding:26px 46px 18px 0;cursor:pointer;font-weight:600;
+  font-size:1.25rem;list-style:none;position:relative}
+summary::-webkit-details-marker{display:none}
+summary:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+summary::before,summary::after{content:"";position:absolute;right:6px;
+  width:1.15rem;height:1.15rem;top:calc(50% - .575rem);color:var(--azul-texto);
+  background:linear-gradient(currentColor,currentColor) center/60% 10% no-repeat;
+  transform-origin:center;transition:transform .55s var(--exp)}
+summary::before{transform:rotate(90deg);
+  transition:transform .55s var(--exp),background-size .18s linear}
+summary::after{transform:rotate(0deg)}
+details[open] summary::after{transform:rotate(360deg)}
+details[open] summary::before{transform:rotate(450deg);background-size:0% 10%}
+details p{padding:0 46px 22px 0;color:var(--grafito-2);max-width:36em}
+
+/* ── Contacto: una banda, el teléfono enorme ──────────────── */
+.contacto{background:var(--grafito);color:var(--sobre);padding:80px 24px}
+.contacto .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:40px 56px;align-items:center;width:min(1180px,100%)}
+.contacto h2{font-size:clamp(1.7rem,4vw,2.5rem);max-width:16ch;margin-bottom:12px}
+.contacto p{color:oklch(84% 0.01 250);max-width:34em;font-size:1.25rem}
+.telefonazo{display:block;font-size:clamp(2rem,6vw,3.75rem);font-weight:800;
+  letter-spacing:-.035em;line-height:1.08;color:var(--ambar);margin-bottom:8px}
+.telefonazo:hover{color:var(--sobre)}
+.donde{color:oklch(84% 0.01 250);margin-bottom:22px}
+.donde a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--ambar);text-decoration:underline;text-underline-offset:4px;
+  text-decoration-thickness:2px}
+
+footer{padding:30px 24px;font-size:.8rem;color:var(--grafito-2)}
+footer .env{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+  width:min(1180px,100%)}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--azul-texto);font-weight:600}
+
+/* ── En el celular, una sola acción fija: mandar la foto ──── */
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;border-radius:0;min-height:58px;
+  background:var(--wa);color:oklch(18% 0.05 150)}
+
+@media(max-width:900px){
+  .bifurca{grid-template-columns:1fr}
+  .mitad{padding:46px 24px;min-height:auto}
+  .encabeza{grid-template-columns:1fr;align-items:start}
+  .renglon{grid-template-columns:1fr}
+  .contacto .env{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .carril{padding-top:60px;padding-bottom:60px}
+  .fija{display:block}
+  body{padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div class="cintilla">
+  <div class="env">
+    <span><b id="mMarca">Taller El Gabino</b> · Manzanillo, Colima</span>
+    <a id="aTel"><span id="tTel">314 ··· ····</span></a>
+  </div>
+</div>
+
+<main>
+<!-- ═══ LA BIFURCACIÓN: dos oficios, el visitante escoge ═══ -->
+<div class="bifurca">
+  <section class="mitad mitad-carro" id="carros">
+    <h1>Su carro, <em>como si nada hubiera pasado</em></h1>
+    <p>Laminado y pintura. Cotizamos con fotos, sin que mueva el vehículo.</p>
+    <ul class="lista-corta">
+      <li>Golpes, choques y rayones</li>
+      <li>Chasis torcido</li>
+      <li>Piezas que ya no se consiguen</li>
+      <li>Trailers completos</li>
+    </ul>
+    <div class="acciones">
+      <a class="btn btn-lleno" id="aWaCarro" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.3-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4-.1.6.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5s-.2.3-.3.5l-.4.5c-.2.1-.3.3-.1.6.2.3.8 1.3 1.6 2 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.8-.9.9-1.2.2-.3.4-.2.7-.1.2.1 1.6.8 1.9.9.3.1.5.2.5.3.1.1.1.7-.1 1.4Z"/></svg>
+        Mandar fotos del golpe</a>
+      <a class="btn btn-linea" href="#taller">Ver el trabajo</a>
+    </div>
+  </section>
+
+  <section class="mitad mitad-casa" id="casa">
+    <h1>Y en su casa, <em>herrería y carpintería</em></h1>
+    <p>La misma mano que endereza lámina. Vamos a tomar medidas a domicilio.</p>
+    <ul class="lista-corta">
+      <li>Puertas y ventanas</li>
+      <li>Protecciones</li>
+      <li>Escaleras y barandal</li>
+      <li>Trabajos en madera</li>
+    </ul>
+    <div class="acciones">
+      <a class="btn btn-lleno" id="aWaCasa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.3-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4-.1.6.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5s-.2.3-.3.5l-.4.5c-.2.1-.3.3-.1.6.2.3.8 1.3 1.6 2 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.8-.9.9-1.2.2-.3.4-.2.7-.1.2.1 1.6.8 1.9.9.3.1.5.2.5.3.1.1.1.7-.1 1.4Z"/></svg>
+        Pedir que vayan a medir</a>
+      <a class="btn btn-linea" href="#domicilio">Ver el trabajo</a>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ CARRIL 1 ═══ -->
+<section class="carril" id="taller">
+  <div class="env">
+    <div class="encabeza">
+      <h2>Lo que hacemos con un vehículo</h2>
+      <p>Mándenos fotos del golpe por WhatsApp, de lejos y de cerca. Le decimos qué lleva y cuánto antes de que lo mueva.</p>
+    </div>
+
+    <div class="renglones">
+      <article class="renglon"><h3>Laminado y pintura</h3>
+        <p>Del rayón al golpe completo. Igualamos el color de su vehículo.</p></article>
+      <article class="renglon"><h3>Enderezado de chasis</h3>
+        <p>Cuando el golpe pasó de la lámina y movió la estructura.</p></article>
+      <article class="renglon"><h3>Fibra de vidrio</h3>
+        <p>Reconstruimos a la medida las piezas que ya no vende nadie.</p></article>
+      <article class="renglon"><h3>Partes de colisión</h3>
+        <p>Faros, puertas, cofre y molduras. Restauramos en vez de reemplazar.</p></article>
+      <article class="renglon"><h3>Trailers completos</h3>
+        <p>Unidades de carga, reparación total. Tenemos el espacio y el equipo.</p></article>
+      <article class="renglon"><h3>Pulido y encerado</h3>
+        <p>Para devolverle el brillo a la pintura que ya trae opaca.</p></article>
+    </div>
+
+    <div class="pie-carril">
+      <a class="btn btn-azul" id="aWaCarro2" target="_blank" rel="noopener">Mandar fotos del golpe</a>
+      <span>La cotización no tiene costo y no lo compromete a nada.</span>
+    </div>
+
+    <div class="preguntas">
+      <details><summary>¿Puedo cotizar sin llevar el carro?</summary><p>Sí. Mándenos fotos del golpe por WhatsApp, de lejos y de cerca, y le decimos qué lleva y cuánto antes de que lo mueva.</p></details>
+      <details><summary>¿Le atinan al color de mi pintura?</summary><p>Sí, igualamos el color de su vehículo. Ese es el oficio.</p></details>
+      <details><summary>¿Y si la pieza ya no se consigue?</summary><p>La reconstruimos en fibra de vidrio a la medida. Faros, molduras y partes que ya no vende nadie.</p></details>
+      <details><summary>¿Reparan trailers?</summary><p>Sí, unidades de carga completas. Tenemos el espacio y el equipo para trabajarlas.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARRIL 2 ═══ -->
+<section class="carril carril-casa" id="domicilio">
+  <div class="env">
+    <div class="encabeza">
+      <h2>Lo que hacemos en su domicilio</h2>
+      <p>Herrería y carpintería a la medida. Vamos a su casa a tomar las medidas antes de fabricar.</p>
+    </div>
+
+    <div class="renglones">
+      <article class="renglon"><h3>Puertas y ventanas</h3>
+        <p>Fabricación e instalación, a la medida de su vano.</p></article>
+      <article class="renglon"><h3>Protecciones</h3>
+        <p>Para ventanas y accesos. Medimos en su domicilio.</p></article>
+      <article class="renglon"><h3>Escaleras y barandal</h3>
+        <p>Estructura y pasamanos, soldados y pintados.</p></article>
+      <article class="renglon"><h3>Carpintería</h3>
+        <p>Trabajos en madera, del mismo taller.</p></article>
+    </div>
+
+    <div class="pie-carril">
+      <a class="btn btn-azul" id="aWaCasa2" target="_blank" rel="noopener">Pedir que vayan a medir</a>
+      <span>Díganos qué necesita y en qué colonia, y acordamos la visita.</span>
+    </div>
+
+    <div class="preguntas">
+      <details><summary>¿Cobran la visita para medir?</summary><p>Márquenos y con gusto le confirmamos antes de agendar. La cotización no lo compromete a nada.</p></details>
+      <details><summary>¿Instalan o solo fabrican?</summary><p>Las dos cosas. Fabricamos a la medida e instalamos en su domicilio.</p></details>
+      <details><summary>¿También hacen madera?</summary><p>Sí, carpintería del mismo taller.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="contacto">
+  <div class="env">
+    <div>
+      <h2>Márquenos y le decimos qué sigue</h2>
+      <p>Sea el carro o sea un trabajo en su casa, la cotización no tiene costo.</p>
+    </div>
+    <div>
+      <a class="telefonazo" id="aTel2"><span id="tTel2">314 ··· ····</span></a>
+      <p class="donde">Manzanillo, Colima · <a id="aMapa" target="_blank" rel="noopener">Cómo llegar</a></p>
+      <a class="btn btn-wa" id="aWaCarro3" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span id="fPie">Taller El Gabino · Manzanillo, Colima</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn" id="aWaCarro4" target="_blank" rel="noopener">Mandar fotos por WhatsApp</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const tel = "tel:+52" + n.telefono;
+  const wa  = m => "https://wa.me/" + n.whatsapp + "?text=" + encodeURIComponent(m);
+  const set = (ids, attr, val) => ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if (e) { if (attr === "text") e.textContent = val; else e.setAttribute(attr, val); }
+  });
+
+  set(["aTel","aTel2"], "href", tel);
+  set(["tTel","tTel2"], "text", n.telVisible);
+  set(["aWaCarro","aWaCarro2","aWaCarro3","aWaCarro4"], "href", wa(n.msgCarro));
+  set(["aWaCasa","aWaCasa2"], "href", wa(n.msgCasa));
+  set(["aMapa"], "href", n.mapa);
+  set(["mMarca"], "text", n.nombre);
+  set(["fPie"], "text", n.nombre + " · " + n.ciudad);
+
+  var ld = {
+    "@context":"https://schema.org",
+    "@type":"AutoBodyShop",
+    "name":n.nombre,
+    "description":n.giro + " en " + n.ciudad,
+    "telephone":"+52" + n.telefono,
+    "areaServed":n.ciudad,
+    "hasMap":n.mapa,
+    "address":{"@type":"PostalAddress","addressLocality":"Manzanillo",
+      "addressRegion":"Colima","addressCountry":"MX"}
+  };
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

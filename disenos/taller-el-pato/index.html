@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taller Mecánico El Pato · Caracoles de Luna, Manzanillo</title>
+<meta name="description" content="Taller mecánico en Av. Caracoles de Luna 508, Manzanillo, Colima. Le decimos cuánto cuesta antes de empezar. Teléfono 314 ··· ····.">
+<link rel="canonical" href="https://tallerelpato.mx/">
+
+<!-- ═══════════════════════════════════════════════════════════
+     DATOS DEL NEGOCIO
+     ⚠ HORARIO SIN CONFIRMAR CON EL DUEÑO. Verificar antes de
+       publicar. No hay lista de servicios, a propósito.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:    "Taller Mecánico El Pato",
+  corto:     "El Pato",
+  ciudad:    "Manzanillo, Colima",
+  calle:     "Av. Caracoles de Luna 508",
+  cp:        "28869",
+  telefono:  "",
+  telVisible:"314 ··· ····",
+  whatsapp:  "",
+  mensaje:   "Buen día, quiero llevar mi carro al taller. Se trata de:",
+  semana:    "Lunes a viernes · 9:00 a 19:00",
+  sabado:    "Sábado · 9:00 a 14:00",
+  domingo:   "Domingo · cerrado",
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;800&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Intento anterior: naranja quemado, crema y serif de patines.
+   Eso es una hamburguesería, no un taller.
+
+   Un taller no es cálido: es acero frío, grasa negra y piso de
+   concreto. Nada de esquinas redondeadas, nada de tonos tibios.
+   El amarillo aparece SOLO donde hay que actuar, como en una
+   máquina: la palanca es lo único de color.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --acero:   oklch(27% 0.012 248);
+  --acero-2: oklch(33% 0.014 248);
+  --grasa:   oklch(16% 0.011 248);
+  --zinc:    oklch(80% 0.011 248);
+  --zinc-2:  oklch(72% 0.013 248);
+  --claro:   oklch(96% 0.005 248);
+  --claro-2: oklch(78% 0.008 248);
+  --senal:   oklch(84% 0.165 95);
+  --senal-2: oklch(76% 0.15 95);
+  --wa:      oklch(62% 0.16 148);
+  --exp:     cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--acero);color:var(--claro);
+  font:400 1rem/1.6 Saira,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+h1,h2{font-weight:800;line-height:1.02;letter-spacing:-.03em}
+.env{width:min(1180px,100% - 48px);margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:16px 30px;font-weight:600;font-size:1.25rem;
+  border:2px solid transparent;
+  transition:transform .5s var(--exp),background-color .4s var(--exp),color .4s var(--exp)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--senal);outline-offset:3px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn-senal{background:var(--senal);color:var(--grasa)}
+.btn-senal:hover{background:var(--claro)}
+.btn-linea{background:transparent;color:var(--claro);border-color:var(--claro-2)}
+.btn-linea:hover{background:var(--claro);color:var(--grasa)}
+.btn-oscuro{background:var(--grasa);color:var(--claro)}
+.btn-oscuro:hover{background:var(--senal);color:var(--grasa)}
+
+/* ── Placa superior ───────────────────────────────────────── */
+.placa{background:var(--grasa);padding:14px 24px;font-size:1rem;font-weight:500;
+  color:var(--claro-2)}
+.placa .env{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;
+  justify-content:space-between}
+.placa a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--senal);font-weight:600}
+
+/* ── La pared: acero, tipo enorme, la señal solo en la acción ─ */
+.pared{background:var(--acero);padding:78px 24px 70px}
+.apodo{font-size:clamp(3.4rem,14.5vw,10rem);font-weight:800;line-height:.94;
+  letter-spacing:-.05em;margin-bottom:28px;text-transform:uppercase}
+.apodo span{display:block;color:var(--senal)}
+.credencial{font-size:1.25rem;color:var(--claro-2);margin-bottom:36px;
+  max-width:40ch;font-weight:500}
+.pared .acciones{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ── Promesas: bandas de acero, sin adornos ───────────────── */
+.promesa{padding:80px 24px;border-top:1px solid var(--acero-2)}
+.promesa-grasa{background:var(--grasa)}
+.promesa .env{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
+  gap:26px 72px;align-items:end}
+.promesa h2{font-size:clamp(2rem,6vw,4rem);max-width:15ch}
+.promesa p{font-size:1.25rem;max-width:34em;color:var(--claro-2)}
+.promesa .marca{font-size:1rem;font-weight:600;color:var(--senal-2);
+  letter-spacing:.14em;margin-bottom:14px}
+
+/* ── Ficha: la única zona clara, como una hoja pegada ─────── */
+.ficha{background:var(--zinc);color:var(--grasa);padding:60px 24px}
+.ficha .env{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:30px 56px}
+.ficha h3{font-size:1rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:oklch(38% 0.03 248);margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--zinc-2)}
+.ficha li{list-style:none;padding:4px 0;font-size:1.25rem}
+.ficha address{font-style:normal;font-size:1.25rem;line-height:1.5}
+.ficha p{font-size:1.25rem;line-height:1.5}
+
+/* ── Cierre ───────────────────────────────────────────────── */
+.remate{background:var(--grasa);padding:80px 24px}
+.remate .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:32px 72px;align-items:center}
+.remate h2{font-size:clamp(1.9rem,4.6vw,2.75rem);max-width:15ch;margin-bottom:12px}
+.remate p{color:var(--claro-2);font-size:1.25rem;max-width:32em}
+.telefonazo{display:block;font-size:clamp(2.4rem,8vw,5rem);font-weight:800;
+  letter-spacing:-.045em;line-height:1.02;color:var(--senal);margin-bottom:18px}
+.telefonazo:hover{color:var(--claro)}
+
+footer{padding:28px 24px;font-size:1rem;color:var(--claro-2);
+  border-top:1px solid var(--acero-2)}
+footer .env{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--senal);font-weight:600}
+
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;min-height:58px}
+
+@media(max-width:860px){
+  .promesa .env,.remate .env{grid-template-columns:1fr;gap:18px;align-items:start}
+}
+@media(max-width:720px){
+  .pared{padding:46px 24px 48px}
+  .promesa{padding:56px 24px}
+  .ficha{padding:44px 24px}
+  .remate{padding:56px 24px}
+  .fija{display:block}
+  body{padding-bottom:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="placa">
+  <div class="env">
+    <span id="mMarca">Taller mecánico · Manzanillo, Colima</span>
+    <a id="aTel"><span id="tTel">314 ··· ····</span></a>
+  </div>
+</header>
+
+<main>
+<section class="pared">
+  <div class="env">
+    <h1 class="apodo">Pregunte<span>por el Pato</span></h1>
+    <p class="credencial">Taller mecánico en Caracoles de Luna. Aquí trata con una persona, no con un mostrador.</p>
+    <div class="acciones">
+      <a class="btn btn-senal" id="aTel2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg>
+        <span id="tTel2">Llamar</span></a>
+      <a class="btn btn-linea" id="aWa" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="promesa promesa-grasa">
+  <div class="env">
+    <div>
+      <p class="marca">01</p>
+      <h2>Le decimos el costo antes de empezar</h2>
+    </div>
+    <p>Primero lo revisamos, luego le damos el número. Si no está de acuerdo, no pasa nada y no se le cobra la revisada.</p>
+  </div>
+</section>
+
+<section class="promesa">
+  <div class="env">
+    <div>
+      <p class="marca">02</p>
+      <h2>Trata con la misma persona, de principio a fin</h2>
+    </div>
+    <p>Aquí no lo pasan de un mostrador a otro. Pregunta por el Pato y con él trata, desde que entra hasta que se lleva su carro.</p>
+  </div>
+</section>
+
+<section class="promesa promesa-grasa">
+  <div class="env">
+    <div>
+      <p class="marca">03</p>
+      <h2>No tiene que llegar con el diagnóstico hecho</h2>
+    </div>
+    <p>Tráigalo, lo checamos y le explicamos qué encontramos, en palabras que se entiendan.</p>
+  </div>
+</section>
+
+<section class="ficha">
+  <div class="env">
+    <div>
+      <h3>Horario</h3>
+      <ul>
+        <li id="dSemana">Lunes a viernes · 9:00 a 19:00</li>
+        <li id="dSabado">Sábado · 9:00 a 14:00</li>
+        <li id="dDomingo">Domingo · cerrado</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Dirección</h3>
+      <address id="dDir">Av. Caracoles de Luna 508<br>28869 Manzanillo, Colima</address>
+    </div>
+    <div>
+      <h3>Antes de marcar</h3>
+      <p>Tenga a la mano la marca, el modelo y el año de su vehículo.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="remate">
+  <div class="env">
+    <div>
+      <h2>Márquenos y dígame qué trae</h2>
+      <p>Con una llamada le voy adelantando qué puede ser y cuándo se lo puedo recibir.</p>
+    </div>
+    <div>
+      <a class="telefonazo" id="aTel3"><span id="tTel3">314 ··· ····</span></a>
+      <a class="btn btn-linea" id="aWa2" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <span id="fPie">Taller Mecánico El Pato · Manzanillo, Colima</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a></span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn btn-senal" id="aTel4">Llamar al taller</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const tel = "tel:+52" + n.telefono;
+  const wa  = "https://wa.me/" + n.whatsapp + "?text=" + encodeURIComponent(n.mensaje);
+  const set = (ids, attr, val) => ids.forEach(function(id){
+    var e = document.getElementById(id);
+    if (e) { if (attr === "text") e.textContent = val; else e.setAttribute(attr, val); }
+  });
+
+  set(["aTel","aTel2","aTel3","aTel4"], "href", tel);
+  set(["aWa","aWa2"], "href", wa);
+  set(["tTel","tTel2","tTel3"], "text", n.telVisible);
+  set(["mMarca"], "text", "Taller mecánico · " + n.ciudad);
+  set(["dSemana"], "text", n.semana);
+  set(["dSabado"], "text", n.sabado);
+  set(["dDomingo"], "text", n.domingo);
+  set(["fPie"], "text", n.nombre + " · " + n.ciudad);
+
+  var dir = document.getElementById("dDir");
+  if (dir) { dir.innerHTML = ""; dir.appendChild(document.createTextNode(n.calle));
+    dir.appendChild(document.createElement("br"));
+    dir.appendChild(document.createTextNode(n.cp + " " + n.ciudad)); }
+
+  var ld = {
+    "@context":"https://schema.org","@type":"AutoRepair","name":n.nombre,
+    "description":"Taller mecánico en " + n.ciudad,
+    "telephone":"+52" + n.telefono,"areaServed":n.ciudad,
+    "address":{"@type":"PostalAddress","streetAddress":n.calle,"postalCode":n.cp,
+      "addressLocality":"Manzanillo","addressRegion":"Colima","addressCountry":"MX"}
+  };
+  var s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

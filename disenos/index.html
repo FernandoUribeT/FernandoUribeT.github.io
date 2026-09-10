@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Diseños — Fernando Uribe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ocho rediseños completos para negocios reales de Manzanillo. Cada uno con su propia identidad, medido contra un detector de antipatrones y verificado en contraste.">
+<link rel="icon" href="../favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+
+<style>
+:root{
+  --bg:#04060a;
+  --fg:#eef0f6;
+  --accent:#f0b429;
+  --tenue:#98a2b8;
+  --linea:#1b2230;
+  --tarjeta:#0a0f17;
+  --display:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--tenue);
+  font:400 1.0625rem/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);color:var(--fg);line-height:1.1;text-wrap:balance}
+.env{width:min(1080px,100% - 40px);margin-inline:auto}
+p,li{max-width:60ch}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+header{padding:54px 0 12px;border-bottom:1px solid var(--linea)}
+.volver{display:inline-flex;align-items:center;min-height:44px;
+  font-family:var(--display);font-weight:500;font-size:.9375rem;color:var(--accent)}
+h1{font-size:clamp(2.2rem,5.5vw,3.4rem);font-weight:700;margin:18px 0 16px;max-width:18ch}
+header p{font-size:1.125rem;margin-bottom:34px}
+
+.aviso{margin:28px 0 34px;padding:16px 20px;border:1px solid var(--linea);
+  border-radius:6px;background:var(--tarjeta);font-size:.9375rem}
+.aviso b{color:var(--fg)}
+
+main{padding:44px 0 72px}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:16px}
+.pieza{display:block;background:var(--tarjeta);border:1px solid var(--linea);
+  border-radius:8px;padding:22px 24px 24px;
+  transition:border-color .25s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+.pieza:hover{border-color:var(--accent);transform:translateY(-3px)}
+.pieza h3{font-size:1.25rem;font-weight:700;margin-bottom:5px}
+.pieza .giro{font-family:var(--display);font-size:.75rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);font-weight:500}
+.pieza p{font-size:.9375rem;margin-top:10px;color:var(--tenue)}
+.pieza .idea{margin-top:12px;padding-top:12px;border-top:1px solid var(--linea);
+  font-size:.875rem;color:var(--fg)}
+
+.proceso{margin-top:56px;padding-top:40px;border-top:1px solid var(--linea)}
+.proceso h2{font-size:clamp(1.6rem,3.6vw,2.1rem);font-weight:700;margin-bottom:10px}
+.proceso > p{margin-bottom:26px}
+.pasos{list-style:none;display:grid;gap:18px;counter-reset:p}
+.pasos li{counter-increment:p;padding-left:44px;position:relative;max-width:64ch}
+.pasos li::before{content:counter(p,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:var(--display);font-size:.8125rem;font-weight:700;color:var(--accent);
+  border:1px solid var(--linea);border-radius:4px;padding:3px 7px}
+.pasos b{color:var(--fg);display:block;margin-bottom:2px;font-family:var(--display)}
+
+footer{padding:30px 0 44px;border-top:1px solid var(--linea);font-size:.9375rem}
+footer a{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;min-height:44px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="env">
+    <a class="volver" href="../">← Portafolio</a>
+    <h1>Ocho rediseños para negocios reales</h1>
+    <p>Grúas, talleres mecánicos, pesca deportiva y un estudio de belleza en
+      Manzanillo. Ninguno es una plantilla recoloreada: cada uno sale del oficio
+      del negocio y tiene su propia estructura.</p>
+    <div class="aviso">
+      <b>Son propuestas, no sitios contratados.</b> Los teléfonos, correos y
+      fotografías de cada negocio se omiten a propósito: aparecen como
+      <span style="font-family:var(--display)">314 ··· ····</span> y como espacios
+      marcados. El diseño es mío; los datos son suyos.
+    </div>
+  </div>
+</header>
+
+<main class="env">
+  <div class="rejilla">
+
+    <a class="pieza" href="vivolo/">
+      <span class="giro">Pesca deportiva</span>
+      <h3>Vivoló Sport Fishing</h3>
+      <p>Rojo de su propio logotipo sobre tinta de mar profundo. Tipografía
+        condensada, como la rotulación de un casco.</p>
+      <span class="idea">La ficha técnica de la lancha es su mejor contenido y
+        estaba enterrada al fondo. Aquí sube.</span>
+    </a>
+
+    <a class="pieza" href="madi/">
+      <span class="giro">Estudio y spa</span>
+      <h3>MäDI Studio</h3>
+      <p>Su cobre real, muestreado de su propio banner. Serif de contraste alto
+        contra una grotesca de trabajo.</p>
+      <span class="idea">Sus precios estaban escondidos detrás de once menús.
+        Aquí el tablero de precios <em>es</em> la portada.</span>
+    </a>
+
+    <a class="pieza" href="gruas-2-hermanos/">
+      <span class="giro">Grúas y arrastre</span>
+      <h3>Grúas los 2 Hermanos</h3>
+      <p>Rojo de señalamiento sobre gris concreto. Una grúa se llama en una
+        emergencia: todo cede ante el botón de llamar.</p>
+      <span class="idea">Nadie compara grúas. Marca la primera que contesta.</span>
+    </a>
+
+    <a class="pieza" href="taller-el-gabino/">
+      <span class="giro">Hojalatería y pintura</span>
+      <h3>Taller El Gabino</h3>
+      <p>Cobalto sobre gris de imprimación, el color con que se prepara una
+        lámina antes de pintarla.</p>
+      <span class="idea">Estructura en dos ramas: choque con seguro y choque
+        sin seguro. Son dos clientes distintos.</span>
+    </a>
+
+    <a class="pieza" href="taller-rmb/">
+      <span class="giro">Mecánica general</span>
+      <h3>Taller Automotriz RMB</h3>
+      <p>Verde de taller sobre blanco. Sin foto de portada: el catálogo de
+        servicios ocupa el lugar del héroe.</p>
+      <span class="idea">La página entera es la lista de lo que sí hacen.</span>
+    </a>
+
+    <a class="pieza" href="taller-el-pato/">
+      <span class="giro">Servicio automotriz</span>
+      <h3>Taller El Pato</h3>
+      <p>Acero oscuro con amarillo de señal. Cero radio en las esquinas:
+        nada redondeado, nada suave.</p>
+      <span class="idea">Se ve como la herramienta, no como el folleto de la
+        herramienta.</span>
+    </a>
+
+    <a class="pieza" href="taller-barrientos/">
+      <span class="giro">Taller mecánico</span>
+      <h3>Taller Barrientos</h3>
+      <p>Olivo sobre papel. Estructura de ficha de ingreso, como la que se
+        llena cuando dejas el carro.</p>
+      <span class="idea">El documento que ya existe en el taller, hecho página.</span>
+    </a>
+
+    <a class="pieza" href="taller-suspension/">
+      <span class="giro">Suspensión y frenos</span>
+      <h3>Suspensión y Mecánica General</h3>
+      <p>Vino sobre gris. Cada servicio se presenta por el síntoma que el
+        cliente sí sabe describir.</p>
+      <span class="idea">Nadie busca «bujes de horquilla». Busca «me truena
+        al pasar un tope».</span>
+    </a>
+
+  </div>
+
+  <section class="proceso">
+    <h2>Cómo trabajo</h2>
+    <p>No entrego archivos de Figma. Entrego HTML y CSS que ya funciona,
+      responsivo y verificado. Lo que ves es lo que se publica.</p>
+    <ol class="pasos">
+      <li><b>Primero audito lo que ya existe.</b> Mido su sitio actual con un
+        navegador real: peso, tiempo de pintado, contraste, etiquetas, enlaces.
+        Números, no impresiones.</li>
+      <li><b>Busco la identidad en el negocio, no en el catálogo.</b> El color
+        sale de su logotipo o de su equipo. La estructura sale de cómo trabajan:
+        un taller de hojalatería se organiza por tipo de choque, un charter de
+        pesca por tipo de salida.</li>
+      <li><b>Escribo un DESIGN.md antes del CSS.</b> Paleta, tipografías,
+        principios y de dónde sale cada decisión. Si no puedo justificar un
+        color por escrito, no va.</li>
+      <li><b>Corro un detector de antipatrones</b> sobre el archivo y sobre la
+        página servida. Atrapa lo que uno ya no ve: rejillas de tarjetas
+        idénticas, jerarquía plana, chips de mayúsculas sobre el titular.</li>
+      <li><b>Mido el contraste sobre los píxeles compuestos</b>, no sobre los
+        colores declarados. Sobre una fotografía o una textura, el valor del CSS
+        miente. Se captura la página con el texto oculto y se muestrea el fondo
+        real.</li>
+      <li><b>Verifico en los dos temas.</b> Claro y oscuro, elemento por
+        elemento, antes de dar nada por bueno.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <div class="env">
+    <a href="../">← Volver al portafolio de Fernando Uribe</a>
+  </div>
+</footer>
+</html>

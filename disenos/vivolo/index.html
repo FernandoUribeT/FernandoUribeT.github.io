@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vivoló Sport Fishing · Pesca deportiva en Manzanillo · Muelle 40, Las Hadas</title>
+<meta name="description" content="Pesca deportiva en Manzanillo, Capital Mundial del Pez Vela. Salidas desde el Muelle 40 de la marina Las Hadas en Grady White de 24 pies con radar, outrigger y seis cañas de troleo.">
+<link rel="canonical" href="https://www.vivolosportfishing.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+
+<!-- ═══════════════════════════════════════════════════════════
+     Sigue DESIGN.md de este proyecto.
+     ⚠ Datos de contacto ocultos: es una propuesta pública.
+     ⚠ Sin precios: no los publican y no se inventan.
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const NEGOCIO = {
+  nombre:"Vivoló Sport Fishing", ciudad:"Manzanillo, Colima",
+  muelle:"Muelle 40 · Marina Las Hadas",
+  direccion:"Muelle 40, Las Hadas, Marina, 28867 Manzanillo, Colima",
+  telVisible:"314 ··· ····", correo:"contacto@ ··· ",
+  demo:true,
+};
+</script>
+
+<style>
+:root{
+  --casco:      #c0261d;
+  --casco-hondo:#8e1a13;
+  --casco-claro:#f38d7d;   /* el mismo rojo, aclarado para fondo oscuro y foto */
+  --abisal:     #0a1d28;
+  --sonda:      #16404f;
+  --bruma:      #eef1f2;
+  --bruma-2:    #e1e7e9;
+  --tinta:      #0d1c22;
+  --cuerpo:     #42575f;
+  --tenue:      #475961;
+  --espuma:     #f7fafa;
+  --linea:      #ccd7da;
+  --exp:        cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:74px;-webkit-text-size-adjust:100%}
+body{background:var(--bruma);color:var(--cuerpo);
+  font:400 1.0625rem/1.65 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:"Archivo Narrow","Public Sans",sans-serif;color:var(--tinta);
+  font-weight:700;line-height:1.06;letter-spacing:-.012em;text-wrap:balance}
+.env{width:min(1180px,100% - 40px);margin-inline:auto}
+.dato{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+/* ── Anclas: el piso de las secciones claras ──────────────── */
+/* Patrón "Anchors Away" de Hero Patterns (Steve Schoger), CC BY 4.0.
+   https://heropatterns.com · Trazado sin modificar; solo se recoloró
+   al mismo teal de las bandas oscuras. El crédito va en el pie. */
+.sondeo{position:relative;isolation:isolate}
+.sondeo::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%2316404f' fill-opacity='0.10' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
+  background-size:80px 80px;
+}
+
+/* ── Botones ──────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:50px;padding:14px 26px;font-weight:600;font-size:1.0625rem;
+  border:2px solid transparent;border-radius:3px;
+  font-family:"Public Sans",sans-serif;
+  transition:transform .5s var(--exp),background-color .35s var(--exp),color .35s var(--exp),border-color .35s var(--exp)}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid var(--casco);outline-offset:3px}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-casco{background:var(--casco);color:#fff}
+.btn-casco:hover{background:var(--abisal)}
+.btn-linea{background:transparent;color:var(--espuma);border-color:rgba(247,250,250,.5)}
+.btn-linea:hover{background:var(--espuma);color:var(--abisal)}
+.btn-tinta{background:var(--abisal);color:var(--espuma)}
+.btn-tinta:hover{background:var(--casco)}
+.btn-hueco{background:transparent;color:var(--casco-hondo);border-color:var(--linea)}
+.btn-hueco:hover{border-color:var(--casco);background:#fff}
+
+/* ── Barra: posición del muelle y teléfono ────────────────── */
+.puente{background:var(--abisal);color:var(--espuma);position:sticky;top:0;z-index:60}
+.puente .env{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;
+  justify-content:space-between;padding:11px 0}
+.marca{font-family:"Archivo Narrow",sans-serif;font-weight:700;font-size:1.3rem;
+  letter-spacing:.005em}
+.marca b{color:var(--casco-claro);font-weight:700}
+.puente .posicion{font-size:.8125rem;color:#a9bdc4}
+.puente .btn{min-height:42px;padding:9px 16px;font-size:.9375rem}
+
+/* ── Portada ──────────────────────────────────────────────── */
+.cubierta{position:relative;min-height:calc(100svh - 62px);display:grid;
+  align-items:end;overflow:hidden}
+.cubierta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Portada sin foto: no se publica material del cliente en el portafolio.
+   El ancla en grande sostiene el espacio; el velo de abajo no cambia. */
+.hueco-portada{position:absolute;inset:0;background-color:var(--sonda);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.07' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
+  background-size:150px 150px}
+.cubierta::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,29,40,.26) 0%,rgba(10,29,40,.64) 34%,
+    rgba(10,29,40,.88) 62%,rgba(10,29,40,.96) 100%)}
+.cubierta .env{position:relative;z-index:1;padding:56px 0 40px}
+h1{font-size:clamp(2.2rem,6vw,4.25rem);color:#fff;max-width:16ch;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--casco-claro)}
+.cubierta .bajada{color:#fff;font-size:1.25rem;max-width:40ch;margin-bottom:26px}
+.acciones{display:flex;flex-wrap:wrap;gap:11px}
+.credito{position:absolute;right:14px;top:14px;z-index:2;font-size:.75rem;
+  color:var(--tinta);background:#fff;padding:6px 12px;border-radius:999px}
+
+/* ── El registro del torneo ───────────────────────────────── */
+.registro{background:var(--sonda);color:var(--espuma);padding:64px 0}
+.registro .env{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:30px 56px;align-items:center}
+.registro h2{color:#fff;font-size:clamp(1.7rem,4vw,2.5rem);max-width:15ch}
+.registro p{color:#bacdd3;max-width:36em;margin-top:12px}
+.marcas{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14)}
+.marcas div{background:var(--sonda);padding:18px 16px}
+.marcas b{display:block;font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:2rem;font-weight:500;color:var(--casco-claro);line-height:1;margin-bottom:6px}
+.marcas span{font-size:.875rem;color:#a9bdc4;line-height:1.35;display:block}
+
+/* ── Secciones claras ─────────────────────────────────────── */
+section{padding:76px 0}
+h2{font-size:clamp(1.7rem,4vw,2.5rem);margin-bottom:12px}
+.intro{color:var(--tenue);font-size:1.25rem;max-width:34em;margin-bottom:40px}
+
+/* La lancha: ficha técnica */
+.lancha .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:34px 56px;align-items:center}
+.lancha img{border-radius:4px;width:100%}
+/* Hueco de foto: la imagen real del cliente no se publica en el portafolio.
+   Mismo 4:3 que la foto, para que el renglón no se mueva al cambiarla. */
+.hueco-foto{
+  border-radius:4px;aspect-ratio:4/3;background-color:var(--sonda);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' width='80' height='80'%3E%3Cpath fill='%23ffffff' fill-opacity='0.09' d='M14 16H9v-2h5V9.87a4 4 0 1 1 2 0V14h5v2h-5v15.95A10 10 0 0 0 23.66 27l-3.46-2 8.2-2.2-2.9 5a12 12 0 0 1-21 0l-2.89-5 8.2 2.2-3.47 2A10 10 0 0 0 14 31.95V16zm40 40h-5v-2h5v-4.13a4 4 0 1 1 2 0V54h5v2h-5v15.95A10 10 0 0 0 63.66 67l-3.47-2 8.2-2.2-2.88 5a12 12 0 0 1-21.02 0l-2.88-5 8.2 2.2-3.47 2A10 10 0 0 0 54 71.95V56zm-39 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm40-40a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM15 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm40 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'%3E%3C/path%3E%3C/svg%3E");
+  background-size:80px 80px;
+  display:grid;place-content:center;gap:6px;text-align:center;padding:24px}
+.hueco-foto b{font-family:"Archivo Narrow",sans-serif;font-size:1.5rem;
+  font-weight:700;color:var(--espuma);line-height:1.15}
+.hueco-foto span{font-family:"JetBrains Mono",monospace;font-size:.8125rem;
+  letter-spacing:.04em;color:#c3d6da}
+.ficha{border-top:2px solid var(--tinta)}
+.ficha div{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;
+  padding:13px 0 11px;border-bottom:1px solid var(--linea)}
+.ficha dt{font-family:"JetBrains Mono",monospace;font-size:.8125rem;color:var(--casco-hondo);
+  white-space:nowrap}
+.ficha dd{color:var(--tinta);font-weight:500}
+
+/* Las salidas */
+.banda{background:var(--bruma-2)}
+.salidas{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
+.salida{background:#fff;border:1px solid var(--linea);border-radius:4px;padding:22px 22px 24px;
+  display:flex;flex-direction:column;gap:7px;
+  transition:border-color .35s var(--exp),transform .5s var(--exp)}
+.salida:hover{border-color:var(--casco);transform:translateY(-3px)}
+.salida .n{font-family:"JetBrains Mono",monospace;font-size:.8125rem;color:var(--casco-hondo)}
+.salida h3{font-size:1.25rem;line-height:1.25}
+.salida p{font-size:.9375rem;color:var(--tenue);line-height:1.5}
+.aviso{margin-top:26px;padding:18px 22px;border-radius:4px;
+  background:#fff;border:1px solid var(--linea);color:var(--tinta);max-width:34em}
+.aviso b{color:var(--casco-hondo)}
+
+/* ── Contacto ─────────────────────────────────────────────── */
+.amarre{background:var(--sonda);color:var(--espuma);padding:72px 0}
+.amarre .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:32px 56px;align-items:center}
+.amarre h2{color:#fff;max-width:16ch}
+.amarre p{color:#c3d6da;max-width:32em}
+.coordenada{font-family:"JetBrains Mono",monospace;font-size:.875rem;color:#9fb9c0;
+  margin-top:14px}
+.telefonazo{display:block;font-family:"Archivo Narrow",sans-serif;
+  font-size:clamp(2rem,6vw,3.5rem);font-weight:700;letter-spacing:.01em;
+  line-height:1.06;color:#fff;margin-bottom:12px}
+.amarre address{font-style:normal;color:#c3d6da;margin-bottom:20px}
+
+footer{padding:28px 0;font-size:.9375rem;color:var(--tenue)}
+footer .env{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+footer a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--casco-hondo);font-weight:600}
+
+.fija{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none}
+.fija .btn{width:100%;border-radius:0;min-height:56px}
+
+/* ── Aviso de propuesta ───────────────────────────────────── */
+.aviso-propuesta{background:var(--tinta);color:#fff;padding:11px 20px;
+  font-size:.9375rem;line-height:1.45;text-align:center}
+.aviso-propuesta span{color:#b9cace}
+
+@media(max-width:900px){
+  .registro .env,.lancha .env,.amarre .env{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  section{padding:56px 0}
+  .registro{padding:52px 0}
+  .amarre{padding:56px 0}
+  .cubierta .env{padding:44px 0 32px}
+  .fija{display:block}
+  body{padding-bottom:56px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div class="aviso-propuesta">
+  <strong>Propuesta de rediseño</strong> preparada para Vivoló Sport Fishing por el Ing. Fernando Uribe ·
+  <span>No es el sitio oficial. Los datos de contacto van ocultos a propósito.</span>
+</div>
+
+<header class="puente">
+  <div class="env">
+    <span class="marca">Vivoló <b>Sport Fishing</b></span>
+    <span class="posicion dato" id="dMuelle">Muelle 40 · Marina Las Hadas</span>
+    <a class="btn btn-casco" href="#amarre"><span id="tTel">314 ··· ····</span></a>
+  </div>
+</header>
+
+<main>
+<section class="cubierta">
+  <div class="hueco-portada" role="img" aria-label="Espacio reservado para la fotografía de portada del cliente"></div>
+  <div class="env">
+    <h1>Salimos del Muelle 40 <em>a buscar pez vela</em></h1>
+    <p class="bajada">Pesca deportiva en Manzanillo, Capital Mundial del Pez Vela. Embarcación, capitán y equipo listos: usted solo llega.</p>
+    <div class="acciones">
+      <a class="btn btn-casco" href="#amarre">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2Z"/></svg>
+        Apartar salida</a>
+      <a class="btn btn-linea" href="#lancha">Ver la lancha</a>
+    </div>
+  </div>
+  <span class="credito">Aquí va su fotografía de portada</span>
+</section>
+
+<section class="registro">
+  <div class="env">
+    <div>
+      <h2>Aquí se pesca en serio desde 1954</h2>
+      <p>Manzanillo no es un destino de playa que además tiene pesca. Es la Capital Mundial del Pez Vela, y el título no se lo dieron por bonito: se lo ganó a punta de capturas.</p>
+    </div>
+    <div class="marcas">
+      <div><b class="dato">1954</b><span>Primer torneo internacional de pesca</span></div>
+      <div><b class="dato">330</b><span>Peces vela capturados en un solo día, 1957</span></div>
+      <div><b class="dato">72</b><span>Ediciones del torneo hasta hoy</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="lancha" id="lancha">
+  <div class="env">
+    <div>
+      <h2>La lancha</h2>
+      <p class="intro">Grady White de 24 pies, armada para salir a buscar pez vela, dorado, atún y marlin.</p>
+      <dl class="ficha">
+        <div><dt>CASCO</dt><dd>Grady White, 24 pies</dd></div>
+        <div><dt>MOTOR</dt><dd>Yamaha 300 hp, cuatro tiempos</dd></div>
+        <div><dt>NAVEGACIÓN</dt><dd>GPS con cartas náuticas y radar Furuno</dd></div>
+        <div><dt>PESCA</dt><dd>Outrigger y seis cañas de troleo</dd></div>
+        <div><dt>A BORDO</dt><dd>Baño, hieleras y música</dd></div>
+      </dl>
+    </div>
+    <div class="hueco-foto" role="img" aria-label="Espacio reservado para la fotografía de la embarcación">
+      <b>Aquí va la foto de la lancha</b>
+      <span>SU FOTOGRAFÍA, NO UNA DE BANCO</span>
+    </div>
+  </div>
+</section>
+
+<section class="sondeo banda" id="salidas">
+  <div class="env">
+    <h2>Las salidas</h2>
+    <p class="intro">Cada una tiene su propia página con lo que incluye, a qué hora sale y a qué hora regresa.</p>
+    <div class="salidas">
+      <article class="salida">
+        <span class="n dato">01</span>
+        <h3>Pesca de altura</h3>
+        <p>Mar adentro por pez vela, marlin, dorado y atún. La salida más larga.</p>
+      </article>
+      <article class="salida">
+        <span class="n dato">02</span>
+        <h3>Pesca en la costa</h3>
+        <p>Más cerca y más corta. Buena para quien nunca ha pescado.</p>
+      </article>
+      <article class="salida">
+        <span class="n dato">03</span>
+        <h3>Paseos en la costa</h3>
+        <p>Navegar la bahía de Manzanillo sin caña, solo por el paseo.</p>
+      </article>
+      <article class="salida">
+        <span class="n dato">04</span>
+        <h3>Snorkel</h3>
+        <p>Los puntos de la bahía con mejor visibilidad para meterse al agua.</p>
+      </article>
+      <article class="salida">
+        <span class="n dato">05</span>
+        <h3>Paseos en familia</h3>
+        <p>Pesca ligera y snorkel con los niños. La costa a su ritmo.</p>
+      </article>
+    </div>
+    <p class="aviso">Aquí van sus precios y la duración de cada salida. <b>Hoy no aparecen en ninguna página, y quien no ve un precio se va a buscarlo con otro.</b></p>
+  </div>
+</section>
+</main>
+
+<section class="amarre" id="amarre">
+  <div class="env">
+    <div>
+      <h2>Consulte al capitán</h2>
+      <p>Le confirmamos fecha, qué incluye y el precio antes de que pague nada.</p>
+      <p class="coordenada">MUELLE 40 · MARINA LAS HADAS · 28867 MANZANILLO, COL.</p>
+    </div>
+    <div>
+      <span class="telefonazo dato" id="tTel2">314 ··· ····</span>
+      <address id="dCorreo">contacto@ ··· </address>
+      <div class="acciones">
+        <a class="btn btn-casco" href="#amarre">Llamar al capitán</a>
+        <a class="btn btn-linea" href="#amarre">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="sondeo">
+  <div class="env">
+    <span id="fPie">Vivoló Sport Fishing · Muelle 40, Marina Las Hadas, Manzanillo</span>
+    <span>Sitio hecho por <a href="https://fernandouribet.github.io/">Ing. Fernando Uribe</a> · Patrón de fondo: <a href="https://heropatterns.com">Hero Patterns</a>, CC BY 4.0</span>
+  </div>
+</footer>
+
+<div class="fija">
+  <a class="btn btn-casco" href="#amarre">Apartar salida</a>
+</div>
+
+<script>
+(function(){
+  const n = NEGOCIO;
+  const p = (id,t) => { const e=document.getElementById(id); if(e) e.textContent=t; };
+  p("dMuelle", n.muelle);
+  p("tTel", n.telVisible); p("tTel2", n.telVisible);
+  p("dCorreo", n.correo);
+  p("fPie", n.nombre + " · " + n.muelle + ", Manzanillo");
+  const ld = {
+    "@context":"https://schema.org","@type":"TouristAttraction",
+    "name":n.nombre,
+    "description":"Pesca deportiva en " + n.ciudad + ", desde la marina Las Hadas.",
+    "areaServed":n.ciudad,
+    "address":{"@type":"PostalAddress","streetAddress":"Muelle 40, Las Hadas, Marina",
+      "postalCode":"28867","addressLocality":"Manzanillo","addressRegion":"Colima","addressCountry":"MX"}
+  };
+  const s=document.createElement("script");
+  s.type="application/ld+json"; s.textContent=JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
