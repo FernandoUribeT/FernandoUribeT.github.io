@@ -41,6 +41,30 @@ test('the seven calendar columns shrink to the available mobile width', () => {
   }
 });
 
+test('drop narration formats the local destination day instead of a UTC date', () => {
+  const expected = {
+    es: {months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'], date: '12 de octubre'},
+    en: {months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], date: 'October 12'},
+  };
+  for (const [locale, html] of Object.entries(pages)) {
+    const script = inlineCalendarScript(html);
+    const keySource = script.match(/function key\(d\)\{[^}]+\}/)?.[0];
+    const formatSource = script.match(/function fmt\(iso\)\{[^}]+\}/)?.[0];
+    assert.ok(keySource && formatSource, `${locale} defines its local date-key and formatter`);
+    const date = new Function('MES', `${keySource};${formatSource};return {key:key,fmt:fmt};`)(expected[locale].months);
+    const localDay = new Date(2026, 9, 12);
+    localDay.setHours(0, 0, 0, 0);
+    const destinationKey = date.key(localDay);
+    assert.equal(destinationKey, '2026-10-12');
+    assert.equal(date.fmt(destinationKey), expected[locale].date);
+    assert.match(script, /fmt\(cell\.dataset\.k\)/, `${locale} narration uses the cell's local date key`);
+    assert.doesNotMatch(script, /fmt\(cell\.dataset\.iso\)/, `${locale} narration does not format a UTC-derived date`);
+    if (process.env.TZ === 'Asia/Tokyo') {
+      assert.equal(localDay.toISOString().slice(0, 10), '2026-10-11', 'the test timezone reproduces the previous-day UTC conversion');
+    }
+  }
+});
+
 test('simple demo retains nine synthetic events and visible pointer drag feedback', () => {
   for (const html of Object.values(pages)) {
     const script = inlineCalendarScript(html);

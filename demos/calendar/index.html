@@ -262,7 +262,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
       var d=new Date(ini); d.setDate(ini.getDate()+i);
       var cell=document.createElement('div');
       cell.className='day'+(d.getMonth()!==cur.getMonth()?' out':'')+(d<hoy?' past':'')+(d.getTime()===hoy.getTime()?' today':'');
-      cell.dataset.k=key(d); cell.dataset.iso=d.toISOString().slice(0,10);
+      cell.dataset.k=key(d);
       cell.innerHTML='<span class="dn">'+d.getDate()+'</span>';
       evs.filter(function(x){return x.k===cell.dataset.k&&pasa(x);}).forEach(function(x){
         var b=document.createElement('button'); b.type='button'; b.className='ev'; b.dataset.t=x.t; b.dataset.id=x.id;
@@ -344,7 +344,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
         say('ok','No change','You dropped it on the same day.');
       }else{
         ev.k=cell.dataset.k;
-        say('ok','Moved','<b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+ev.txt+'</b> rescheduled to '+fmt(cell.dataset.iso)+'.');
+        say('ok','Moved','<b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+ev.txt+'</b> rescheduled to '+fmt(cell.dataset.k)+'.');
         render();
       }
     }else if(current.moved){
