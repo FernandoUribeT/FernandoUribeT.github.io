@@ -54,6 +54,26 @@ test('week and day ranges stay anchored to the selected day', () => {
   assert.deepEqual(UI.viewRange('day', '2026-10-10'), { start: '2026-10-10', end: '2026-10-10', days: 1 });
 });
 
+test('month navigation advances by one calendar month across leap day and year boundaries', () => {
+  assert.equal(UI.shiftMonth('2026-03-31', -1), '2026-02-28');
+  assert.equal(UI.shiftMonth('2028-03-31', -1), '2028-02-29');
+  assert.equal(UI.shiftMonth('2026-12-31', 1), '2027-01-31');
+  assert.equal(UI.shiftMonth('2026-01-31', -1), '2025-12-31');
+});
+
+test('pointer release target is resolved at release coordinates', () => {
+  const released = { closest: () => ({ dataset: { day: '2026-10-15' } }) };
+  const doc = { elementFromPoint: (x, y) => (x === 240 && y === 480 ? released : null) };
+  const event = { clientX: 240, clientY: 480, target: { id: 'captured-origin-card' } };
+  assert.equal(UI.pointerReleaseTarget(doc, event), released);
+  assert.equal(UI.pointerReleaseTarget({}, event), event.target);
+});
+
+test('pointer cancellation clears an in-progress drag', () => {
+  const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
+  assert.match(app, /addEventListener\(['"]pointercancel['"],\s*\(\)\s*=>\s*\{\s*drag\s*=\s*null/);
+});
+
 test('time view provides a slot for every hour including 04:00 and 05:00', () => {
   assert.ok(UI.hourSlots().includes('04'));
   assert.ok(UI.hourSlots().includes('05'));

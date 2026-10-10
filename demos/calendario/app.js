@@ -25,6 +25,20 @@
  d.setDate(d.getDate()+41);
  return {start,end:dayKey(d),days:42};
   }
+  function shiftMonth(day, amount) {
+    const d = dateObj(day);
+    const preferredDay = d.getDate();
+    d.setDate(1);
+    d.setMonth(d.getMonth() + amount);
+    const finalDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+    d.setDate(Math.min(preferredDay, finalDay));
+    return dayKey(d);
+  }
+  function pointerReleaseTarget(doc, event) {
+    return doc && typeof doc.elementFromPoint === 'function'
+      ? (doc.elementFromPoint(event.clientX, event.clientY) || event.target)
+      : event.target;
+  }
   function hourSlots() {
     return Array.from({ length: 24 }, (_, hour) => pad(hour));
   }
@@ -285,14 +299,18 @@ if(day)dayClick(dayFromButton(day));
     rootEl.addEventListener('submit',e=>{if(e.target.matches('[data-trip-form]')){e.preventDefault();
 saveTrip(e.target);
 }});
-    $('prev').onclick=()=>{const d=dateObj(selected);
-d.setDate(d.getDate()-(view==='month'?28:view==='week'?7:1));
+    $('prev').onclick=()=>{if(view==='month')selected=shiftMonth(selected,-1);
+else {const d=dateObj(selected);
+d.setDate(d.getDate()-(view==='week'?7:1));
 selected=dayKey(d);
+}
 renderCalendar();
 };
 $('next').onclick=()=>{const d=dateObj(selected);
-d.setDate(d.getDate()+(view==='month'?28:view==='week'?7:1));
+if(view==='month')selected=shiftMonth(selected,1);
+else {d.setDate(d.getDate()+(view==='week'?7:1));
 selected=dayKey(d);
+}
 renderCalendar();
 };
 $('today').onclick=()=>{selected=today;
@@ -329,10 +347,13 @@ rootEl.addEventListener('pointerup',e=>{if(!drag)return;
 const d=drag;
 drag=null;
 if(!d.active)return;
-const target=e.target.closest('[data-day]');
-const slot=e.target.closest('[data-slot]');
+const releaseTarget=pointerReleaseTarget(D,e);
+const target=releaseTarget.closest('[data-day]');
+const slot=releaseTarget.closest('[data-slot]');
 if(target)openMove(d.ref,target.dataset.day);
 else if(slot)openMove(d.ref,slot.dataset.slot.slice(0,10),slot.dataset.slot.slice(11,16));
+});
+rootEl.addEventListener('pointercancel',()=>{drag=null;
 });
     populateFilters();
 renderFilterChips();
@@ -345,5 +366,5 @@ if (D.addEventListener) D.addEventListener('keydown', event => {
     return {get trips(){return trips;
 },renderCalendar,dayClick,openForm};
   }
-  return Object.freeze({init,dayFromButton,hourSlots,monthCells,newTripDraft,isExistingTrip,optionMarkup,haulValues,viewRange,tripCardMarkup});
+  return Object.freeze({init,dayFromButton,hourSlots,monthCells,newTripDraft,isExistingTrip,optionMarkup,haulValues,viewRange,shiftMonth,pointerReleaseTarget,tripCardMarkup});
 });
