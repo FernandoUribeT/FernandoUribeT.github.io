@@ -193,7 +193,10 @@ renderFilterChips();
     function renderFilterChips(){const labels=strings.filterLabels;
 $('filter-chips').innerHTML=Object.entries(filters).flatMap(([k,values])=>values.map(v=>`<button class="filter-chip" data-remove-filter="${k}" data-value="${esc(v)}">${labels[k]}: ${esc(v)} ×</button>`)).join('');
 }
-    function renderColors(){const type=$('color-type').value, client=$('color-client').value, current=client&&type!=='ENTREGA'&&palette.clients[client]&&palette.clients[client][type]||palette.tenant[type]||Lg.DEFAULT_COLORS[type];
+    function renderColors(){const type=$('color-type').value, clientControl=$('color-client');
+if(type==='ENTREGA')clientControl.value='';
+clientControl.disabled=type==='ENTREGA';
+const client=clientControl.value, current=client&&palette.clients[client]&&palette.clients[client][type]||palette.tenant[type]||Lg.DEFAULT_COLORS[type];
 $('color-input').value=current;
 }
     function renderAvailability(){const rows=units.map(u=>{const status=Lg.unitStatus(u,trips,maint,today);
@@ -258,7 +261,8 @@ const unit=units.find(u=>u.eco===(next.tf&&next.tf.unit));
 const warn=unit&&Lg.serviceWarning(unit,next.tf.distanceKm);
 if(warn)showDialog(`<h2>${strings.warning}</h2><p>${maintenanceMessage(warn,lang)}</p><button data-action="close">${strings.close}</button>`);
 }
-    function changeColor(){const t=$('color-type').value,c=$('color-client').value,value=$('color-input').value;
+    function changeColor(){const t=$('color-type').value,clientControl=$('color-client'),c=t==='ENTREGA'?'':clientControl.value,value=$('color-input').value;
+if(t==='ENTREGA'){clientControl.value='';clientControl.disabled=true;}
 if(c&&t!=='ENTREGA'){palette.clients[c]=palette.clients[c]||{};
 palette.clients[c][t]=value;
 }else palette.tenant[t]=value;

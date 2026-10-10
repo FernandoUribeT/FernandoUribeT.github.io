@@ -21,6 +21,7 @@ function fixtureDocument() {
     id, dataset: {}, style: {}, children: [], options: [], selectedOptions: [], className: '',
     setAttribute() {}, addEventListener() {}, querySelector() { return { focus() {} }; },
   }]));
+  elements.log.prepend = function (child) { this.children.unshift(child); };
   elements.dialog.hidden = true;
   elements.dialog.innerHTML = '';
   elements['calendar-app'].addEventListener = (type, handler) => rootHandlers.set(type, handler);
@@ -247,4 +248,122 @@ test('select options restore saved values including values outside catalogs', ()
 test('Escape closes an open dialog', () => {
   const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
   assert.match(app, /key\s*===\s*['"]Escape['"]/);
+});
+
+test('rules panel stays below the calendar in its column in both locales', () => {
+  for (const page of ['calendario', 'calendar']) {
+    const html = fs.readFileSync(path.join(__dirname, `../demos/${page}/index.html`), 'utf8');
+    assert.match(html, /<div class="calendar-shell">\s*<div class="calendar-column">\s*<section class="panel" id="calendar-section">[\s\S]*?<\/section>\s*<section class="panel" id="rules"/);
+    assert.match(html, /id="rules"[\s\S]*?<\/section>\s*<\/div>\s*<aside class="side">/);
+    assert.match(html, /\.wrap\{max-width:1280px/);
+    assert.doesNotMatch(html, /id="rules"[^>]*style="[^"]*margin-top/);
+  }
+});
+
+test('color help distinguishes client and event colors from visibility filters in ES and EN', () => {
+  const copy = {
+    calendario: 'Los colores de CP, TL y TF se personalizan por cliente; ENTREGA usa un color global. La configuración de color es independiente de los filtros de visibilidad; limpiar los filtros no cambia los colores.',
+    calendar: 'CP, TL, and TF colors can be customized per client; Delivery uses one global color. Color settings are separate from visibility filters; clearing filters does not change colors.',
+  };
+  for (const [page, text] of Object.entries(copy)) {
+    const html = fs.readFileSync(path.join(__dirname, `../demos/${page}/index.html`), 'utf8');
+    assert.ok(html.includes(`class="color-help">${text}</p>`), `${page} should explain color/filter behavior`);
+  }
+});
+
+test('delivery color control is global-only even after selecting a client', () => {
+  const priorData = global.CalDatos;
+  const priorStorage = global.localStorage;
+  const values = new Map();
+  global.CalDatos = require('../demos/calendario/datos.js');
+  global.localStorage = {
+    getItem(key) { return values.get(key) || null; },
+    setItem(key, value) { values.set(key, String(value)); },
+  };
+  const doc = fixtureDocument();
+  try {
+    UI.init(doc);
+    const eventType = doc.elements['color-type'];
+    const client = doc.elements['color-client'];
+    const color = doc.elements['color-input'];
+    client.value = trips[1].client;
+    eventType.value = 'ENTREGA';
+    eventType.onchange();
+    assert.equal(client.disabled, true);
+    assert.equal(client.value, '');
+
+    color.value = '#123456';
+    color.onchange();
+    const palette = JSON.parse(values.get('demo-cal-palette'));
+    assert.equal(palette.tenant.ENTREGA, '#123456');
+    assert.equal(palette.clients[trips[1].client]?.ENTREGA, undefined);
+
+    eventType.value = 'CP';
+    eventType.onchange();
+    assert.equal(client.disabled, false);
+  } finally {
+    if (priorData === undefined) delete global.CalDatos;
+    else global.CalDatos = priorData;
+    if (priorStorage === undefined) delete global.localStorage;
+    else global.localStorage = priorStorage;
+  }
+});
+
+test('clicking an event opens localized trip details instead of a color picker', () => {
+  global.CalDatos = require('../demos/calendario/datos.js');
+  try {
+    for (const [lang, notesLabel] of [['es', 'Notas'], ['en', 'Notes']]) {
+      const doc = fixtureDocument();
+      const source = {
+        dataset: { event: '1002:CP' },
+        closest(selector) { return selector === '[data-event]' || selector === '.ev' ? this : null; },
+      };
+      UI.init(doc, { lang });
+      doc.dispatchRoot('click', { target: source });
+      assert.equal(doc.elements.dialog.hidden, false);
+      assert.match(doc.elements.dialog.innerHTML, /class="trip-card" data-folio="1002"/);
+      assert.match(doc.elements.dialog.innerHTML, new RegExp(notesLabel));
+      assert.match(doc.elements.dialog.innerHTML, /data-action="edit-trip"/);
+      assert.doesNotMatch(doc.elements.dialog.innerHTML, /color-input|type="color"/);
+    }
+  } finally {
+    delete global.CalDatos;
+  }
+});
+
+test('client event colors stay scoped and clearing filters preserves color settings', () => {
+  const priorData = global.CalDatos;
+  const priorStorage = global.localStorage;
+  const values = new Map();
+  global.CalDatos = require('../demos/calendario/datos.js');
+  global.localStorage = {
+    getItem(key) { return values.get(key) || null; },
+    setItem(key, value) { values.set(key, String(value)); },
+  };
+  const doc = fixtureDocument();
+  try {
+    UI.init(doc);
+    doc.elements['color-type'].value = 'CP';
+    doc.elements['color-client'].value = trips[1].client;
+    doc.elements['color-input'].value = '#123456';
+    doc.elements['color-input'].onchange();
+    const palette = values.get('demo-cal-palette');
+    assert.ok(palette);
+    assert.match(doc.elements['calendar-grid'].innerHTML, /data-event="1002:CP" data-type="CP" style="--event-color:#123456/);
+    assert.match(doc.elements['calendar-grid'].innerHTML, /data-event="1002:TL" data-type="TL" style="--event-color:#54c7ec/);
+    assert.match(doc.elements['calendar-grid'].innerHTML, /data-event="1001:CP" data-type="CP" style="--event-color:#e0567a/);
+
+    const selected = { value: trips[1].client, selected: true };
+    doc.elements['filter-client'].options = [selected];
+    doc.elements['filter-client'].selectedOptions = [selected];
+    doc.elements['filter-client'].onchange();
+    doc.elements['clear-filters'].onclick();
+    assert.equal(values.get('demo-cal-palette'), palette);
+    assert.match(doc.elements['calendar-grid'].innerHTML, /data-event="1002:CP" data-type="CP" style="--event-color:#123456/);
+  } finally {
+    if (priorData === undefined) delete global.CalDatos;
+    else global.CalDatos = priorData;
+    if (priorStorage === undefined) delete global.localStorage;
+    else global.localStorage = priorStorage;
+  }
 });
