@@ -346,14 +346,14 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
       </div>
       <div class="carrusel rv" aria-roledescription="carrusel">
         <div class="marco">
-          <a class="dia activa" href="/demos/calendar/" data-pie="Trip scheduling calendar · drag an event to another day"><img src="/img/calendario.webp" data-base="/img/calendario" alt="Trip scheduling calendar" width="900" height="495" loading="eager"></a>
+          <a class="dia activa" href="/demos/calendar/" data-pie="Trip calendar · linked events, drag rules, and unit availability"><img src="/img/calendario.webp" data-base="/img/calendario" alt="Trip scheduling calendar" width="900" height="495" loading="eager"></a>
           <a class="dia" href="/demos/records/" data-pie="Document validation with OCR · switch between naive and hardened validation" aria-hidden="true" tabindex="-1"><img src="/img/expedientes.webp" data-base="/img/expedientes" alt="Document validation with OCR" width="900" height="495" loading="lazy"></a>
           <a class="dia" href="/demos/inspection/" data-pie="Vehicle inspection · flag a critical fault and the unit locks itself" aria-hidden="true" tabindex="-1"><img src="/img/revision.webp" data-base="/img/revision" alt="Vehicle inspection with signature and lockout" width="900" height="495" loading="lazy"></a>
           <a class="dia" href="/demos/qr-en/" data-pie="Fleet QR identifiers · encoder written from scratch, with error correction" aria-hidden="true" tabindex="-1"><img src="/img/qr.webp" data-base="/img/qr" alt="Fleet QR identifiers" width="900" height="495" loading="lazy"></a>
         </div>
         <button type="button" class="flecha izq" aria-label="Previous demo"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
         <button type="button" class="flecha der" aria-label="Next demo"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-        <p class="pie-dia" aria-live="polite">Trip scheduling calendar · drag an event to another day</p>
+        <p class="pie-dia" aria-live="polite">Trip calendar · linked events, drag rules, and unit availability</p>
       </div>
       </div>
       <div class="stats rv">
@@ -397,8 +397,8 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
           <a class="shot" href="/demos/calendar/" tabindex="-1" aria-hidden="true"><img src="/img/calendario.webp" data-base="/img/calendario" alt="" width="900" height="556" loading="lazy"></a>
           <h3><a href="/demos/calendar/">Trip scheduling calendar</a></h3>
           <p class="tech">Vanilla JavaScript · Pointer Events · interactive demo</p>
-            <p>A playable recreation of the scheduling module I built in production. <b>Drag an event to another day</b> and watch the business rules apply live.</p>
-            <p>Drop it on a past date and the system rejects it, explaining why. The target cell turns green or red before you drop, so you know the outcome before making the mistake.</p>
+            <p>Each folio links up to four events: a port appointment, local haul, long-haul departure, and delivery. Open an event to review its route, unit, driver, and notes; edit the trip or cancel it with a reason.</p>
+            <p>Drag events to explore dependency rules; move a port appointment to see later events keep their time gaps. You can also create trips from the calendar, filter events, customize event colors, and check unit availability and maintenance warnings.</p>
         </article>
         <article class="card hero-card rv" data-tag="Live demo">
           <a class="shot" href="/demos/records/" tabindex="-1" aria-hidden="true"><img src="/img/expedientes.webp" data-base="/img/expedientes" alt="" width="900" height="465" loading="lazy"></a>
