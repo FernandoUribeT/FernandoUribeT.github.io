@@ -10,6 +10,7 @@ const { sampleTrips } = require('../demos/calendario/datos.js');
 const trips = sampleTrips('2026-10-10');
 
 function fixtureDocument() {
+  const rootHandlers = new Map();
   const ids = [
     'calendar-app', 'calendar-nav', 'calendar-grid', 'view-title', 'event-count', 'filter-client',
     'filter-unit', 'filter-driver', 'filter-chips', 'color-type', 'color-client', 'color-input',
@@ -20,12 +21,15 @@ function fixtureDocument() {
     id, dataset: {}, style: {}, children: [], options: [], selectedOptions: [], className: '',
     setAttribute() {}, addEventListener() {}, querySelector() { return { focus() {} }; },
   }]));
-  elements['calendar-app'].addEventListener = () => {};
+  elements.dialog.hidden = true;
+  elements.dialog.innerHTML = '';
+  elements['calendar-app'].addEventListener = (type, handler) => rootHandlers.set(type, handler);
   const views = ['month', 'week', 'day'].map(view => ({ dataset: { view }, setAttribute() {} }));
   return {
     getElementById(id) { return elements[id] || (elements[id] = { id, dataset: {}, style: {}, children: [], options: [], addEventListener() {} }); },
     querySelectorAll(selector) { return selector === '[data-view]' ? views : []; },
     createElement() { return { setAttribute() {}, style: {}, classList: { add() {}, remove() {} } }; },
+    dispatchRoot(type, event) { const handler = rootHandlers.get(type); if (handler) handler(event); },
     elements,
   };
 }
@@ -72,6 +76,43 @@ test('pointer release target is resolved at release coordinates', () => {
 test('pointer cancellation clears an in-progress drag', () => {
   const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
   assert.match(app, /addEventListener\(['"]pointercancel['"],\s*\(\)\s*=>\s*\{\s*drag\s*=\s*null/);
+});
+
+test('captured pointer release opens the move dialog for the day under release coordinates', () => {
+  global.CalDatos = require('../demos/calendario/datos.js');
+  const doc = fixtureDocument();
+  const source = { dataset: { event: '1002:CP' }, closest(selector) { return selector === '.ev' ? this : null; } };
+  const destination = { dataset: { day: '2026-10-15' }, closest(selector) { return selector === '[data-day]' ? this : null; } };
+  doc.elementFromPoint = () => destination;
+  try {
+    UI.init(doc);
+    doc.dispatchRoot('pointerdown', { target: source, clientX: 10, clientY: 10 });
+    doc.dispatchRoot('pointermove', { target: source, clientX: 30, clientY: 30 });
+    doc.dispatchRoot('pointerup', { target: source, clientX: 30, clientY: 30 });
+    assert.equal(doc.elements.dialog.hidden, false);
+    assert.match(doc.elements.dialog.innerHTML, /data-day="2026-10-15"/);
+  } finally {
+    delete global.CalDatos;
+  }
+});
+
+test('pointer cancellation prevents a later captured release from opening a move dialog', () => {
+  global.CalDatos = require('../demos/calendario/datos.js');
+  const doc = fixtureDocument();
+  const source = { dataset: { event: '1002:CP' }, closest(selector) { return selector === '.ev' ? this : null; } };
+  const destination = { dataset: { day: '2026-10-15' }, closest(selector) { return selector === '[data-day]' ? this : null; } };
+  doc.elementFromPoint = () => destination;
+  try {
+    UI.init(doc);
+    doc.dispatchRoot('pointerdown', { target: source, clientX: 10, clientY: 10 });
+    doc.dispatchRoot('pointermove', { target: source, clientX: 30, clientY: 30 });
+    doc.dispatchRoot('pointercancel', { target: source, clientX: 30, clientY: 30 });
+    doc.dispatchRoot('pointerup', { target: destination, clientX: 30, clientY: 30 });
+    assert.equal(doc.elements.dialog.hidden, true);
+    assert.doesNotMatch(doc.elements.dialog.innerHTML, /data-day="2026-10-15"/);
+  } finally {
+    delete global.CalDatos;
+  }
 });
 
 test('time view provides a slot for every hour including 04:00 and 05:00', () => {
