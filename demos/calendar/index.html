@@ -4,7 +4,7 @@
 <meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demo · Trip scheduling calendar — Fernando Uribe</title>
-<meta name="description" content="Interactive demo: trip scheduling calendar with drag and drop, business-rule validation and live narration.">
+<meta name="description" content="Interactive trip scheduling calendar with linked events, drag-and-drop rules, filters, and availability using fictional data.">
 <style>
 :root{
   --bg:#0a0c11;--bg-2:#0f1218;--card:#12161e;--line:#222835;--line-2:#2d3545;
@@ -116,293 +116,36 @@ html.a11y-txt2 body{font-size:20.5px}
 html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
 html.a11y-links a:not(.btn):not(.brand):not(.skip){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.16);border-radius:3px;padding:0 2px}
 html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+
+.calendar-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.calendar-controls button,.toolbar button,.panel button,.dialog button,.dialog input,.dialog select,.dialog textarea{font:inherit}.calendar-controls button,.toolbar button,.panel button,.dialog button{background:var(--bg-2);border:1px solid var(--line-2);color:var(--fg);border-radius:8px;padding:8px 11px;cursor:pointer}.calendar-controls button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start;margin-top:24px}.calendar-grid{display:grid;gap:0}.month-grid{grid-template-columns:repeat(7,minmax(0,1fr))}.calendar-days{display:grid;grid-template-columns:repeat(7,1fr);color:var(--fg-faint);font:600 11px var(--mono);text-align:center}.day{min-height:112px;padding:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}.day-number{border:0!important;background:transparent!important;color:var(--fg-faint)!important;padding:3px!important}.day.today .day-number{background:var(--accent)!important;color:#111!important}.day.out{opacity:.52}.day.past{background:rgba(255,255,255,.018)}.empty-day{color:var(--fg-faint);font-size:11px}.ev{display:block;width:100%;margin:3px 0;text-align:left;background:var(--event-color)!important;color:var(--event-text)!important;border:0!important;padding:4px 6px!important;font:600 10px/1.35 var(--mono)!important;border-radius:5px!important;cursor:grab;touch-action:none}.ev:focus-visible{outline:2px solid #fff;outline-offset:2px}.time-grid{display:block;overflow:auto;max-height:670px}.time-day{min-width:540px}.time-day h3{position:sticky;top:0;background:var(--card);z-index:2;padding:8px}.hour-slot{min-height:48px;border-top:1px solid var(--line);display:grid;grid-template-columns:50px 1fr;padding:3px 6px}.hour-slot>span{color:var(--fg-faint);font:11px var(--mono)}.side{display:grid;gap:14px}.toolbar{display:grid;gap:8px}.toolbar select,.toolbar input{background:var(--bg-2);border:1px solid var(--line-2);color:var(--fg);border-radius:7px;padding:7px;width:100%}.filter-chips{display:flex;gap:5px;flex-wrap:wrap;padding:0 12px 10px}.filter-chip{border:1px solid var(--accent)!important;color:var(--accent)!important;border-radius:99px!important;font-size:11px!important;padding:4px 8px!important}.type-list{display:grid;gap:6px;padding:12px}.type-list label{display:flex;gap:8px;align-items:center}.availability-table{width:100%;border-collapse:collapse}.availability-table th,.availability-table td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:13px}.free{color:var(--ok)}.unavailable{color:var(--no)}.dialog[hidden]{display:none}.dialog{position:fixed;z-index:100;inset:0}.dialog-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:14px}.dialog>div:not(.dialog-backdrop){display:contents}.dialog-backdrop>.dialog,.dialog-backdrop>section{max-width:760px;width:min(100%,760px);max-height:90vh;overflow:auto;background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:22px;position:relative}.dialog-close{position:absolute;right:12px;top:10px}.trip-card-head{border-left:5px solid var(--cp);padding:8px 12px;margin-bottom:14px}.trip-card-head[data-type="TL"]{border-color:var(--desp)}.trip-card-head[data-type="TF"]{border-color:var(--sal)}.trip-card-head[data-type="ENTREGA"]{border-color:var(--ent)}.folio{display:inline-block;margin-left:8px;border:1px solid var(--line-2);border-radius:99px;padding:2px 8px;font:11px var(--mono)}.trip-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.trip-fields>div{padding:8px;background:var(--bg-2);border-radius:7px}.trip-fields dt{color:var(--fg-faint);font:10px var(--mono);text-transform:uppercase}.trip-fields dd{overflow-wrap:anywhere}.notes-preview{padding:10px;background:var(--bg-2);border-radius:7px;overflow-wrap:anywhere}.notes-label,.dialog label{display:block;margin:12px 0 4px;color:var(--fg-dim)}.dialog input:not([type=checkbox]),.dialog select,.dialog textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);color:var(--fg);padding:8px;border-radius:7px}.dialog textarea{min-height:72px}.dialog form fieldset{border:1px solid var(--line);padding:12px;margin:12px 0;border-radius:9px}.dialog legend{padding:0 6px;color:var(--accent);font-weight:700}.dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.dialog .danger{color:var(--no)}.summary-event{display:block;width:100%;margin:5px 0;text-align:left}.form-error{color:var(--no);min-height:1.4em}.log{max-height:320px}.panel-heading{padding:14px 16px;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.calendar-shell{grid-template-columns:1fr}.day{min-height:92px}.calendar-grid .ev{font-size:9px!important;padding:3px!important}.side{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.wrap{padding:0 12px}.calendar-shell{gap:12px}.day{min-height:68px;padding:3px}.day-number{font-size:10px!important}.month-grid .ev{font-size:0!important;height:8px;padding:0!important;margin:2px 0}.calendar-days{font-size:9px}.side{grid-template-columns:1fr}.trip-fields{grid-template-columns:1fr}.dialog-backdrop{padding:7px}.dialog-backdrop>section{padding:17px}.pbar{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%}.calendar-controls button{padding:7px}}
+
 </style>
 </head>
 <body>
-
-<nav><div class="wrap">
-  <a href="/en/">← Portfolio</a>
-  <a href="#reglas">How it works</a>
-</div></nav>
-
-<div class="wrap">
-  <header>
-    <h1>Trip scheduling calendar</h1>
-    <p class="sub">Interactive demo · vanilla JavaScript, no libraries</p>
-    <p class="intro">A recreation of the scheduling module I built for a transportation system in production. The original is private client code, so I wrote this one from scratch, with made-up data, so it can actually be used.</p>
-    <div class="hint"><b>Drag</b> an event to another day, or <b>click</b> it to change its color. You can also filter and recolor from the right-hand panel.</div>
-  </header>
-
-  <div class="layout">
-    <div class="panel">
-      <div class="pbar">
-        <h2 id="mes">—</h2>
-        <div class="nav-m">
-          <button id="prev" aria-label="Previous month">‹</button>
-          <button id="hoy">Today</button>
-          <button id="next" aria-label="Next month">›</button>
-        </div>
-      </div>
-      <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
-      <div class="grid" id="grid"></div>
-    </div>
-
-    <div class="side">
-      <div class="panel">
-        <div class="pbar"><h2>Filters</h2></div>
-        <div class="filtros">
-          <div class="f-row"><label for="f-cli">Client</label><select id="f-cli"></select></div>
-          <div class="f-row"><label for="f-uni">Unit</label><select id="f-uni"></select></div>
-          <div class="f-row"><label for="f-ope">Driver</label><select id="f-ope"></select></div>
-          <div class="cuenta" id="cuenta"><span id="cuenta-txt">—</span><button class="limpiar" id="limpiar">Clear</button></div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="pbar"><h2>Event types</h2></div>
-        <div class="leg" id="leg">
-          <div><span class="lft"><span class="sw" data-sw="cp"></span> Port appointment</span><button class="tcol" data-tipo="cp" title="Type color"></button></div>
-          <div><span class="lft"><span class="sw" data-sw="sal"></span> Departure</span><button class="tcol" data-tipo="sal" title="Type color"></button></div>
-          <div><span class="lft"><span class="sw" data-sw="ent"></span> Delivery</span><button class="tcol" data-tipo="ent" title="Type color"></button></div>
-          <div><span class="lft"><span class="sw" data-sw="desp"></span> Dispatch / empty</span><button class="tcol" data-tipo="desp" title="Type color"></button></div>
-        </div>
-        <button class="reset" id="reset">Reset colors</button>
-      </div>
-      <div class="panel">
-        <div class="pbar"><h2>What is happening</h2></div>
-        <div class="log" id="log"><p class="empty">Move an event to see the rules in action.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel" id="reglas" style="margin-top:20px">
-    <div class="pbar"><h2>Rules this demo enforces</h2></div>
-    <div class="rules"><ul>
-      <li>A trip <b>cannot be scheduled in the past</b>. The attempt is rejected and the reason is explained.</li>
-      <li>Dragging uses <code>Pointer Events</code>, so it works the same with a mouse and with a finger on mobile.</li>
-      <li>The target cell turns green or red <b>before</b> you drop: the user knows the outcome before making the mistake.</li>
-      <li>Every action is narrated, rejections included. A silent rejection is worse than an explained one.</li>
-      <li>An <b>individual color wins over the type color</b>. If you recolor a type and some event has its own color, the demo says so instead of silently overwriting it.</li>
-      <li>Text color is computed from the <b>relative luminance</b> formula in WCAG, so it stays readable on whatever background you pick.</li>
-      <li>Everything is stored in <code>localStorage</code>: reload the page and your colors are still there.</li>
-      <li>The <b>three filters combine</b>, they do not add up: client <i>and</i> unit <i>and</i> driver. The counter always says how many events are visible out of how many exist.</li>
-    </ul></div>
-  </div>
-
-  <footer>
-    Written from scratch in JavaScript, no libraries, no dependencies. The original module persists these colors and filters per user in the database.
-  </footer>
-</div>
-
+<nav><div class="wrap"><a href="/en/">← Portfolio</a><div><a href="#rules">How it works</a> <a href="/demos/calendario/">Español</a></div></div></nav>
+<main class="wrap" id="calendar-app">
+<header><h1>Trip scheduling calendar</h1><p class="sub">Interactive demo · JavaScript, no libraries</p><p class="intro">A trip brings together linked appointments and moves. Explore rescheduling rules, filters, and vehicle availability with completely fictional information.</p><p class="hint"><b>Explore:</b> select an event to open its trip, or drag it to try the dependency rules.</p></header>
+<div class="calendar-controls" aria-label="Calendar controls"><button id="prev" aria-label="Previous period">‹</button><button id="today">Today</button><button id="next" aria-label="Next period">›</button><h2 id="view-title" aria-live="polite"></h2><div role="group" aria-label="Calendar view"><button data-view="month" aria-pressed="true">Month</button><button data-view="week" aria-pressed="false">Week</button><button data-view="day" aria-pressed="false">Day</button></div><button id="new-trip">Schedule trip</button><span id="event-count" aria-live="polite"></span></div>
+<div class="calendar-shell"><section class="panel" id="calendar-section"><div class="calendar-days" id="calendar-nav"></div><div id="calendar-grid" class="calendar-grid month-grid"></div></section>
+<aside class="side"><section class="panel"><h2 class="panel-heading">Filters</h2><div class="toolbar" style="padding:12px"><label>Client<select id="filter-client"><option>All clients</option></select></label><label>Unit<select id="filter-unit"><option>All units</option></select></label><label>Driver<select id="filter-driver"><option>All drivers</option></select></label><div id="filter-chips" class="filter-chips" aria-live="polite"></div><button id="clear-filters">Clear filters</button></div></section>
+<section class="panel"><h2 class="panel-heading">Event types</h2><div class="type-list" id="types"><label><input type="checkbox" data-type-toggle value="CP" checked> CP · Port appointment</label><label><input type="checkbox" data-type-toggle value="TL" checked> TL · Dispatch / empties</label><label><input type="checkbox" data-type-toggle value="TF" checked> TF · Departure</label><label><input type="checkbox" data-type-toggle value="ENTREGA" checked> Delivery</label></div></section>
+<section class="panel"><h2 class="panel-heading">Colors</h2><div class="toolbar" style="padding:12px"><label>Event<select id="color-type"><option value="CP">CP</option><option value="TL">TL</option><option value="TF">TF</option><option value="ENTREGA">Delivery</option></select></label><label>Client<select id="color-client"><option value="">Default (global)</option><option>Comercial Atlas</option><option>Logística Rivera</option><option>Naviera del Pacífico</option></select></label><input id="color-input" type="color" aria-label="Event color"></div></section>
+<section class="panel"><div class="calendar-controls" style="padding:10px"><button id="calendar-tab">Calendar</button><button id="availability-tab">Availability</button></div><section id="availability" hidden><div style="overflow:auto"><table class="availability-table"><thead><tr><th>Unit</th><th>Type</th><th>Status</th><th>Available from</th><th>Maintenance</th></tr></thead><tbody id="availability-body"></tbody></table></div></section></section>
+<section class="panel"><h2 class="panel-heading">What is happening</h2><div class="log" id="log" aria-live="polite"><p class="empty">Calendar actions and rule results will appear here.</p></div></section></aside></div>
+<section class="panel" id="rules" style="margin-top:20px"><h2 class="panel-heading">How this demo works</h2><div class="rules"><ul><li>A trip can bring together up to four linked events: port appointment, local haul, long-haul departure, and delivery.</li><li>Past dates are rejected; moving a port appointment preserves the time gaps to dependent events.</li><li>A departure cannot happen at or before its port appointment.</li><li>Filters combine client, unit, and driver; all sample data is fictional.</li><li>Color preferences are saved locally in this browser.</li></ul></div></section>
+<footer>Built from scratch with vanilla JavaScript and fictional data. No real customer information or private system code is included.</footer>
+<div id="dialog" class="dialog" hidden></div>
+</main>
+<script src="../calendario/logica.js"></script><script src="../calendario/datos.js"></script><script src="../calendario/app.js"></script><script>window.CalApp.init(document, { lang: 'en' });</script>
 <script>
-(function(){
-  var MES=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var TIPO={cp:'Port appointment',sal:'Departure',ent:'Delivery',desp:'Dispatch'};
-  var hoy=new Date(); hoy.setHours(0,0,0,0);
-  var cur=new Date(hoy.getFullYear(),hoy.getMonth(),1);
-  var uid=0;
-  function key(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
-  function mk(off,t,txt,cli,uni,ope){var d=new Date(hoy);d.setDate(d.getDate()+off);return{id:++uid,k:key(d),t:t,txt:txt,cli:cli,uni:uni,ope:ope};}
-  var evs=[
-    mk(1,'cp','08:00 Port · TF13','Naviera del Pacífico','TF13','A. Rodríguez'),
-    mk(1,'sal','12:50 Manzanillo','Naviera del Pacífico','TF13','A. Rodríguez'),
-    mk(3,'ent','09:15 Guadalajara','Comercial Atlas','T05','M. Sánchez'),
-    mk(4,'desp','06:00 Empty · T05','Comercial Atlas','T05','M. Sánchez'),
-    mk(6,'cp','11:00 Terminal 2','Logística Rivera','T18','J. Herrera'),
-    mk(8,'sal','14:30 Colima','Logística Rivera','T18','J. Herrera'),
-    mk(-2,'ent','10:05 Zapopan','Comercial Atlas','T22','A. Rodríguez'),
-    mk(9,'ent','16:40 Amacueca','Naviera del Pacífico','T22','J. Herrera'),
-    mk(11,'desp','07:20 Empty · T18','Logística Rivera','T18','M. Sánchez')];
-  var filtro={cli:'',uni:'',ope:''};
-  function pasa(e){return (!filtro.cli||e.cli===filtro.cli)&&(!filtro.uni||e.uni===filtro.uni)&&(!filtro.ope||e.ope===filtro.ope);}
-  function visibles(){return evs.filter(pasa);}
-
-  var PALETA=['#e0567a','#f0b429','#ff9f45','#54c7ec','#3ddc84','#a78bfa','#f87171','#94a3b8'];
-  var BASE={cp:'#e0567a',sal:'#f0b429',ent:'#ff9f45',desp:'#54c7ec'};
-  var LS='demo-cal-colors';
-  var col={tipo:{},ev:{}};
-  try{var g=JSON.parse(localStorage.getItem(LS));if(g&&g.tipo){col=g;}}catch(_){}
-  function guarda(){try{localStorage.setItem(LS,JSON.stringify(col));}catch(_){}}
-  function colorTipo(t){return col.tipo[t]||BASE[t];}
-  function colorEv(e){return col.ev[e.id]||colorTipo(e.t);}
-  function lum(hex){
-    var f=function(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);};
-    return .2126*f(parseInt(hex.slice(1,3),16))+.7152*f(parseInt(hex.slice(3,5),16))+.0722*f(parseInt(hex.slice(5,7),16));
-  }
-  function textoSobre(hex){return lum(hex)>.42?'#12161e':'#ffffff';}
-  function pintaLeyenda(){
-    document.querySelectorAll('[data-sw]').forEach(function(s){s.style.background=colorTipo(s.dataset.sw);});
-    document.querySelectorAll('.tcol').forEach(function(b){b.style.background=colorTipo(b.dataset.tipo);});
-  }
-  var grid=document.getElementById('grid'), log=document.getElementById('log');
-  function say(kind,title,msg){
-    var e=log.querySelector('.empty'); if(e){e.remove();}
-    var d=document.createElement('div'); d.className='li '+kind;
-    d.innerHTML='<b>'+title+'</b>'+msg; log.appendChild(d);
-    while(log.children.length>7){log.removeChild(log.firstChild);}
-  }
-  function render(){
-    document.getElementById('mes').textContent=MES[cur.getMonth()]+' '+cur.getFullYear();
-    grid.innerHTML='';
-    var first=new Date(cur.getFullYear(),cur.getMonth(),1);
-    var start=(first.getDay()+6)%7;
-    var ini=new Date(first); ini.setDate(ini.getDate()-start);
-    for(var i=0;i<42;i++){
-      var d=new Date(ini); d.setDate(ini.getDate()+i);
-      var cell=document.createElement('div');
-      cell.className='day'+(d.getMonth()!==cur.getMonth()?' out':'')+(d<hoy?' past':'')+(d.getTime()===hoy.getTime()?' today':'');
-      cell.dataset.k=key(d); cell.dataset.iso=d.toISOString().slice(0,10);
-      cell.innerHTML='<span class="dn">'+d.getDate()+'</span>';
-      evs.filter(function(x){return x.k===cell.dataset.k&&pasa(x);}).forEach(function(x){
-        var b=document.createElement('div'); b.className='ev'; b.dataset.t=x.t; b.dataset.id=x.id;
-        var cc=colorEv(x); b.style.background=cc; b.style.color=textoSobre(cc);
-        if(col.ev[x.id]){b.dataset.propio='1';}
-        b.textContent=x.txt; b.title=TIPO[x.t]+' · '+x.cli+' · '+x.uni+' · '+x.ope+(col.ev[x.id]?' · custom color':''); cell.appendChild(b);
-      });
-      grid.appendChild(cell);
-    }
-  }
-  function fmt(iso){var p=iso.split('-');return MES[+p[1]-1]+' '+p[2];}
-
-  var drag=null,ghost=null,last=null;
-  grid.addEventListener('pointerdown',function(e){
-    var el=e.target.closest('.ev'); if(!el)return;
-    e.preventDefault();
-    var r=el.getBoundingClientRect();
-    drag={el:el,id:+el.dataset.id,dx:e.clientX-r.left,dy:e.clientY-r.top,w:r.width,x0:e.clientX,y0:e.clientY,movio:false};
-    try{el.setPointerCapture(e.pointerId);}catch(_){}
-    ghost=el.cloneNode(true); ghost.className='ev ghost'; ghost.dataset.t=el.dataset.t;
-    ghost.style.width=r.width+'px'; document.body.appendChild(ghost);
-    move(e); el.classList.add('dragging');
-  });
-  function move(e){
-    if(!ghost)return;
-    if(Math.abs(e.clientX-drag.x0)>4||Math.abs(e.clientY-drag.y0)>4){drag.movio=true;}
-    ghost.style.left=(e.clientX-drag.dx)+'px'; ghost.style.top=(e.clientY-drag.dy)+'px';
-    ghost.style.display='none';
-    var under=document.elementFromPoint(e.clientX,e.clientY);
-    ghost.style.display='';
-    var cell=under&&under.closest?under.closest('.day'):null;
-    if(last&&last!==cell){last.classList.remove('drop-ok','drop-no');}
-    if(cell){cell.classList.add(cell.classList.contains('past')?'drop-no':'drop-ok');last=cell;}
-    else{last=null;}
-  }
-  window.addEventListener('pointermove',function(e){if(drag)move(e);});
-  window.addEventListener('pointerup',function(e){
-    if(!drag)return;
-    var cell=last; drag.el.classList.remove('dragging');
-    if(ghost){ghost.remove();ghost=null;}
-    if(last){last.classList.remove('drop-ok','drop-no');}
-    var ev=evs.filter(function(x){return x.id===drag.id;})[0];
-    if(!drag.movio&&ev){ abrePop(drag.el,ev); drag=null; last=null; return; }
-    if(cell&&ev){
-      if(cell.classList.contains('past')){
-        say('no','Rejected','A trip cannot be scheduled before today. The event stays where it was.');
-      }else if(cell.dataset.k===ev.k){
-        say('ok','No change','You dropped it on the same day.');
-      }else{
-        ev.k=cell.dataset.k;
-        say('ok','Moved','<b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+ev.txt+'</b> rescheduled to '+fmt(cell.dataset.iso)+'.');
-        render();
-      }
-    }
-    drag=null; last=null;
-  });
-  window.addEventListener('pointercancel',function(){
-    if(ghost){ghost.remove();ghost=null;}
-    if(drag){drag.el.classList.remove('dragging');}
-    if(last){last.classList.remove('drop-ok','drop-no');}
-    drag=null;last=null;
-  });
-
-  var pop=null;
-  function cierraPop(){ if(pop){pop.remove();pop=null;} document.querySelectorAll('.ev.sel').forEach(function(x){x.classList.remove('sel');}); }
-  function creaPop(x,y,titulo,actual,onPick,onClear){
-    cierraPop();
-    pop=document.createElement('div'); pop.className='pop';
-    var sw=PALETA.map(function(c){return '<button class="sw-b'+(c===actual?' on':'')+'" data-c="'+c+'" style="background:'+c+'" aria-label="'+c+'"></button>';}).join('');
-    pop.innerHTML='<h4>'+titulo+'</h4><div class="sws">'+sw+'</div>'+(onClear?'<button class="clr">Remove custom color</button>':'');
-    document.body.appendChild(pop);
-    var w=pop.offsetWidth,hh=pop.offsetHeight;
-    pop.style.left=Math.max(8,Math.min(x,innerWidth-w-8))+'px';
-    pop.style.top=Math.max(8,Math.min(y,innerHeight-hh-8))+'px';
-    pop.addEventListener('click',function(e){
-      var b=e.target.closest('.sw-b'); if(b){onPick(b.dataset.c);cierraPop();return;}
-      if(e.target.closest('.clr')&&onClear){onClear();cierraPop();}
-    });
-    setTimeout(function(){document.addEventListener('pointerdown',fuera,true);},0);
-  }
-  function fuera(e){ if(pop&&!e.target.closest('.pop')){document.removeEventListener('pointerdown',fuera,true);cierraPop();} }
-  function abrePop(el,ev){
-    el.classList.add('sel');
-    var r=el.getBoundingClientRect();
-    creaPop(r.left, r.bottom+8, 'Color of this event', col.ev[ev.id]||colorEv(ev),
-      function(c){ col.ev[ev.id]=c; guarda(); render();
-        say('ok','Individual color','<b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+ev.txt+'</b> now has its own color. It wins over its type color.'); },
-      col.ev[ev.id]? function(){ delete col.ev[ev.id]; guarda(); render();
-        say('ok','Custom color removed','The event inherits the color of <b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+TIPO[ev.t]+'</b>.'); } : null);
-  }
-  document.getElementById('leg').addEventListener('click',function(e){
-    var b=e.target.closest('.tcol'); if(!b)return;
-    var t=b.dataset.tipo, r=b.getBoundingClientRect();
-    creaPop(r.right-194, r.bottom+8, 'Type color · '+TIPO[t], colorTipo(t), function(c){
-      col.tipo[t]=c; guarda(); pintaLeyenda(); render();
-      var total=evs.filter(function(x){return x.t===t;}).length;
-      var propios=evs.filter(function(x){return x.t===t&&col.ev[x.id];}).length;
-      var msg=total+' '+TIPO[t]+' event'+(total===1?'':'s')+' changed color.';
-      if(propios){msg+=' '+propios+' did not change because it has its own color: the individual one wins.';}
-      say('ok','Type color',msg);
-    }, null);
-  });
-  document.getElementById('reset').onclick=function(){
-    col={tipo:{},ev:{}}; guarda(); pintaLeyenda(); render();
-    say('ok','Reset','Individual and type colors were cleared. Back to the defaults.');
-  };
-  function unicos(campo){var s={};evs.forEach(function(e){s[e[campo]]=1;});return Object.keys(s).sort();}
-  function llenaSelects(){
-    [['f-cli','cli','All clients'],['f-uni','uni','All units'],['f-ope','ope','All drivers']].forEach(function(x){
-      var s=document.getElementById(x[0]);
-      s.innerHTML='<option value="">'+x[2]+'</option>'+unicos(x[1]).map(function(v){return '<option>'+v+'</option>';}).join('');
-      s.addEventListener('change',function(){
-        filtro[x[1]]=s.value; render(); actualizaCuenta();
-        var act=[];
-        if(filtro.cli)act.push('client '+filtro.cli);
-        if(filtro.uni)act.push('unit '+filtro.uni);
-        if(filtro.ope)act.push('driver '+filtro.ope);
-        var v=visibles().length;
-        if(!act.length){ say('ok','Filters cleared','Showing all '+evs.length+' events.'); }
-        else if(v===0){ say('no','No results','No event matches '+act.join(' + ')+'. The filters combine, they do not add up.'); }
-        else { say('ok','Filter applied','<b style="display:inline;text-transform:none;font-size:13px;color:var(--fg)">'+v+' de '+evs.length+'</b> events match '+act.join(' + ')+'.'); }
-      });
-    });
-  }
-  function actualizaCuenta(){
-    var v=visibles().length, c=document.getElementById('cuenta');
-    document.getElementById('cuenta-txt').textContent=v+' of '+evs.length+' events';
-    c.classList.toggle('filtrando', v!==evs.length);
-  }
-  document.getElementById('limpiar').onclick=function(){
-    filtro={cli:'',uni:'',ope:''};
-    ['f-cli','f-uni','f-ope'].forEach(function(i){document.getElementById(i).value='';});
-    render(); actualizaCuenta(); say('ok','Filters cleared','Showing all '+evs.length+' events.');
-  };
-  llenaSelects(); actualizaCuenta();
-  pintaLeyenda();
-  document.getElementById('prev').onclick=function(){cur.setMonth(cur.getMonth()-1);render();};
-  document.getElementById('next').onclick=function(){cur.setMonth(cur.getMonth()+1);render();};
-  document.getElementById('hoy').onclick=function(){cur=new Date(hoy.getFullYear(),hoy.getMonth(),1);render();};
-  render();
-})();
-</script>
-<script>
-/* Aplica las preferencias de accesibilidad guardadas en el portafolio. Mismo
-   origen, misma clave, asi que el modo elegido alla sigue vigente aqui. */
 (function(){
   try{
     var p=JSON.parse(localStorage.getItem('a11y-prefs')||'{}');
     var cls=p.cls||[], R=document.documentElement;
-    ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){
-      R.classList.toggle(c, cls.indexOf(c)>-1);
-    });
+    ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){R.classList.toggle(c, cls.indexOf(c)>-1);});
     if(p.txt===1)R.classList.add('a11y-txt1');
     if(p.txt===2)R.classList.add('a11y-txt2');
     if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)R.classList.add('a11y-quieto');

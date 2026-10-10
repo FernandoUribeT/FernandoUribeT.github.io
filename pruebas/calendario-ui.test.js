@@ -105,6 +105,46 @@ test('trip card markup escapes trip text while keeping safe notes links clickabl
   assert.match(markup, /href="https:\/\/example\.com\/carga\/1002"/);
 });
 
+test('English string table covers every shared UI label without changing Spanish copy', () => {
+  const english = UI.stringsFor('en');
+  const spanish = UI.stringsFor('es');
+  assert.deepEqual(Object.keys(english).sort(), Object.keys(spanish).sort());
+  assert.equal(english.today, 'Today');
+  assert.equal(english.create, 'Schedule trip');
+  assert.equal(english.filters, 'Filters');
+  assert.equal(english.warning, 'Preventive maintenance warning');
+  assert.equal(english.openDay, 'Open');
+  assert.equal(spanish.create, 'Agendar viaje');
+});
+
+test('English date buttons use the English accessible action label', () => {
+  const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
+  assert.match(app, /aria-label="\$\{strings\.openDay\} \$\{day\}"/);
+});
+
+test('English trip card uses English fields and actions', () => {
+  const markup = UI.tripCardMarkup(trips[1], 'CP', 'en');
+  for (const label of ['Destination', 'Route', 'Unit', 'Driver', 'Notes', 'Save notes', 'Edit', 'Cancel trip']) {
+    assert.ok(markup.includes(label), `English trip card should include ${label}`);
+  }
+  assert.match(markup, /PORT APPOINTMENT AT/);
+  assert.doesNotMatch(markup, /Destino|Ruta|Notas|Guardar notas|Editar|Eliminar/);
+});
+
+test('English page loads the shared calendar modules and mounts in English', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../demos/calendar/index.html'), 'utf8');
+  assert.match(html, /<html lang="en">/);
+  assert.match(html, /id="calendar-app"/);
+  assert.match(html, /src="\.\.\/calendario\/logica\.js"/);
+  assert.match(html, /src="\.\.\/calendario\/datos\.js"/);
+  assert.match(html, /src="\.\.\/calendario\/app\.js"/);
+  assert.match(html, /CalApp\.init\(document,\s*\{\s*lang:\s*['"]en['"]\s*\}\)/);
+  for (const copy of ['Trip scheduling calendar', 'Filters', 'Event types', 'Availability', 'What is happening']) {
+    assert.ok(html.includes(copy), `English page should include ${copy}`);
+  }
+  assert.doesNotMatch(html, /Agendar viaje|Filtros|Tipos de evento|Disponibilidad/);
+});
+
 test('HTML has no unevaluated JavaScript template expressions', () => {
   const html = fs.readFileSync(path.join(__dirname, '../demos/calendario/index.html'), 'utf8');
   assert.doesNotMatch(html, /\$\{/);
@@ -126,6 +166,21 @@ test('new trip draft preselects only CP and leaves TL and TF optional', () => {
   assert.equal(draft.cp.datetime, '2026-10-12T08:00');
   assert.equal(draft.tl, null);
   assert.equal(draft.tf, null);
+});
+
+test('new trip from the day summary uses the CP-only draft defaults', () => {
+  const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
+  assert.match(app, /if\(a==='new-from-day'\)\{closeDialog\(\);\s*openForm\(newTripDraft\(action\.dataset\.day,trips\)\)/);
+  assert.doesNotMatch(app, /if\(a==='new-from-day'\)[\s\S]{0,100}Lg\.newTripForDay/);
+});
+
+test('English maintenance warnings use natural distance phrasing without changing Spanish', () => {
+  assert.equal(UI.maintenanceMessage({ level: 'soon', remainingKm: 130 }, 'en'), 'Preventive maintenance is due within 130 km.');
+  assert.equal(UI.maintenanceMessage({ level: 'overdue', overKm: 45 }, 'en'), 'This route is 45 km past the preventive service interval.');
+  assert.equal(UI.maintenanceMessage({ level: 'soon', remainingKm: 130 }, 'es'), 'Servicio preventivo en 130 km restantes.');
+  const app = fs.readFileSync(path.join(__dirname, '../demos/calendario/app.js'), 'utf8');
+  assert.match(app, /maintenanceMessage\(warning,lang\)/);
+  assert.match(app, /maintenanceMessage\(warn,lang\)/);
 });
 
 test('new draft is titled as new even though it has a preallocated folio', () => {
