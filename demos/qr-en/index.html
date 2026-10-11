@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/demos/demo-controls.css">
 <title>Demo · Fleet QR identifiers — Fernando Uribe</title>
 <meta name="description" content="Interactive demo: a QR encoder written from scratch, with a centre logo, error-correction levels and the real calculation of how much damage the code survives before it stops scanning.">
 <style>
@@ -95,7 +96,28 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 </style>
 </head>
 <body>
-<nav><div class="wrap"><a href="/en/">← Portfolio</a><a href="#notas">How it works</a></div></nav>
+<nav><div class="wrap">
+  <a href="/en/">← Portfolio</a>
+  <a href="#notas">How it works</a>
+  <div class="demo-tools">
+    <a class="demo-language" href="/demos/qr/" lang="es" hreflang="es">Español</a>
+    <button class="demo-a11y-button" id="demoA11yButton" type="button" aria-label="Open accessibility options" aria-expanded="false" aria-controls="demoA11yPanel">Aa</button>
+    <section class="demo-a11y-panel" id="demoA11yPanel" aria-label="Accessibility" hidden>
+      <h2>Accessibility</h2>
+      <div class="demo-a11y-row"><span>Text size</span><div class="demo-a11y-sizes" role="group" aria-label="Text size">
+        <button type="button" data-pref-size="0" aria-label="Normal text" aria-pressed="true">A</button>
+        <button type="button" data-pref-size="1" aria-label="Large text" aria-pressed="false">A</button>
+        <button type="button" data-pref-size="2" aria-label="Larger text" aria-pressed="false">A</button>
+      </div></div>
+      <div class="demo-a11y-row"><span>High contrast</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-contraste" aria-label="High contrast" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Light mode</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-claro" aria-label="Light mode" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Readable font</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-fuente" aria-label="Readable font" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Highlight links</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-links" aria-label="Highlight links" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Reduce motion</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-quieto" aria-label="Reduce motion" aria-pressed="false"></button></div>
+      <button class="demo-a11y-reset" type="button" data-pref-reset>Reset all</button>
+    </section>
+  </div>
+</div></nav>
 <div class="wrap">
   <header>
     <h1>Fleet QR identifiers</h1>
@@ -548,5 +570,6 @@ pinta();
   }catch(e){}
 })();
 </script>
+<script src="/demos/demo-controls.js" defer></script>
 </body>
 </html>
