@@ -7,6 +7,27 @@
   var storageKey='a11y-prefs';
   var classes=['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'];
   var prefs={cls:[],txt:1};
+  var localizedDemoPaths={
+    '/demos/calendario/':'/',
+    '/demos/expedientes/':'/',
+    '/demos/revision/':'/',
+    '/demos/qr/':'/',
+    '/demos/calendar/':'/en/',
+    '/demos/records/':'/en/',
+    '/demos/inspection/':'/en/',
+    '/demos/qr-en/':'/en/'
+  };
+
+  document.addEventListener('click',function(event){
+    if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+    var link=event.target.closest('a.demo-language');
+    if(!link||link.target&&link.target!=='_self'||link.hasAttribute('download'))return;
+    var target=new URL(link.href,window.location.href);
+    var home=localizedDemoPaths[target.pathname];
+    if(target.origin!==window.location.origin||!home)return;
+    event.preventDefault();
+    window.location.assign(home+'?demo-handoff='+encodeURIComponent(target.pathname));
+  });
 
   function readPrefs(){
     try{

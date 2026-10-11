@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fernando Uribe Trujillo — Full Stack Developer</title>
 <meta name="description" content="Full stack developer. Mexican electronic invoicing (CFDI 4.0, Carta Porte), digital records and automation.">
+<script data-demo-handoff>
+(function(){
+  var allowedDemoPaths={
+    '/demos/calendar/':true,
+    '/demos/records/':true,
+    '/demos/inspection/':true,
+    '/demos/qr-en/':true
+  };
+  var url=new URL(window.location.href);
+  var target=url.searchParams.get('demo-handoff');
+  if(!Object.prototype.hasOwnProperty.call(allowedDemoPaths,target))return;
+  url.searchParams.delete('demo-handoff');
+  window.history.replaceState(null,'',url.pathname+url.search+url.hash);
+  // Keep a clean homepage entry when this load-time navigation replaces the current entry.
+  window.history.pushState(null,'',url.pathname+url.search+url.hash);
+  window.setTimeout(function(){window.location.assign(target);},0);
+})();
+</script>
 <style>
 :root{
   --bg:#04060a; --bg-2:#0a0d13; --card:#1e2530; --line:#333d4c; --line-2:#475268;
