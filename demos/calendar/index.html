@@ -31,6 +31,7 @@ h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
 
 .layout{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;margin-top:26px}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
+.calendar-column{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-content:start;min-width:0}
 
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .pbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -151,6 +152,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   </header>
 
   <div class="layout">
+    <div class="calendar-column">
     <div class="panel">
       <div class="pbar">
         <h2 id="mes">—</h2>
@@ -162,6 +164,19 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
       </div>
       <div class="dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
       <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="panel" id="reglas">
+      <div class="pbar"><h2>Rules this demo enforces</h2></div>
+      <div class="rules"><ul>
+        <li>A trip <b>cannot be moved to a past date</b>; the attempt is rejected and the event stays on its original day.</li>
+        <li>Dragging uses <code>Pointer Events</code> and works with a mouse or touch. Movement greater than 4 pixels counts as a drag.</li>
+        <li>The target day highlights green or red <b>before</b> you release; valid events move directly to that day.</li>
+        <li>A click without movement opens a read-only information card with the event’s essential details.</li>
+        <li>Event colors are configured by type in the right panel; client, unit, and driver filters combine.</li>
+        <li>All data is synthetic, and selected colors are stored locally in this browser.</li>
+      </ul></div>
+    </div>
     </div>
 
     <div class="side">
@@ -201,18 +216,6 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
         <button type="button" class="info-color-reset" id="event-color-reset" disabled>Use type color</button>
       </div>
     </section>
-  </div>
-
-  <div class="panel" id="reglas" style="margin-top:20px">
-    <div class="pbar"><h2>Rules this demo enforces</h2></div>
-    <div class="rules"><ul>
-      <li>A trip <b>cannot be moved to a past date</b>; the attempt is rejected and the event stays on its original day.</li>
-      <li>Dragging uses <code>Pointer Events</code> and works with a mouse or touch. Movement greater than 4 pixels counts as a drag.</li>
-      <li>The target day highlights green or red <b>before</b> you release; valid events move directly to that day.</li>
-      <li>A click without movement opens a read-only information card with the event’s essential details.</li>
-      <li>Event colors are configured by type in the right panel; client, unit, and driver filters combine.</li>
-      <li>All data is synthetic, and selected colors are stored locally in this browser.</li>
-    </ul></div>
   </div>
 
   <footer>

@@ -31,6 +31,7 @@ h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
 
 .layout{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;margin-top:26px}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
+.calendar-column{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-content:start;min-width:0}
 
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .pbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -151,6 +152,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   </header>
 
   <div class="layout">
+    <div class="calendar-column">
     <div class="panel">
       <div class="pbar">
         <h2 id="mes">—</h2>
@@ -162,6 +164,19 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
       </div>
       <div class="dow"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
       <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="panel" id="reglas">
+      <div class="pbar"><h2>Reglas que aplica esta demo</h2></div>
+      <div class="rules"><ul>
+        <li>Un viaje <b>no puede moverse a una fecha pasada</b>; el intento se rechaza y el evento permanece en su día.</li>
+        <li>El arrastre usa <code>Pointer Events</code> y funciona con mouse o dedo. Un movimiento mayor a 4 píxeles se interpreta como arrastre.</li>
+        <li>La casilla destino se resalta en verde o rojo <b>antes</b> de soltar; los eventos se reprograman directamente al día válido.</li>
+        <li>Un clic sin movimiento abre una ficha informativa de solo lectura con los datos esenciales del evento.</li>
+        <li>Los colores se configuran por tipo de evento desde el panel derecho; los filtros de cliente, unidad y operador se combinan.</li>
+        <li>Los datos son ficticios y los colores elegidos se guardan localmente en este navegador.</li>
+      </ul></div>
+    </div>
     </div>
 
     <div class="side">
@@ -201,18 +216,6 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
         <button type="button" class="info-color-reset" id="event-color-reset" disabled>Usar color del tipo</button>
       </div>
     </section>
-  </div>
-
-  <div class="panel" id="reglas" style="margin-top:20px">
-    <div class="pbar"><h2>Reglas que aplica esta demo</h2></div>
-    <div class="rules"><ul>
-      <li>Un viaje <b>no puede moverse a una fecha pasada</b>; el intento se rechaza y el evento permanece en su día.</li>
-      <li>El arrastre usa <code>Pointer Events</code> y funciona con mouse o dedo. Un movimiento mayor a 4 píxeles se interpreta como arrastre.</li>
-      <li>La casilla destino se resalta en verde o rojo <b>antes</b> de soltar; los eventos se reprograman directamente al día válido.</li>
-      <li>Un clic sin movimiento abre una ficha informativa de solo lectura con los datos esenciales del evento.</li>
-      <li>Los colores se configuran por tipo de evento desde el panel derecho; los filtros de cliente, unidad y operador se combinan.</li>
-      <li>Los datos son ficticios y los colores elegidos se guardan localmente en este navegador.</li>
-    </ul></div>
   </div>
 
   <footer>

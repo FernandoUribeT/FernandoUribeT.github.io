@@ -27,6 +27,18 @@ test('both demos restore the concise standalone calendar presentation', () => {
   }
 });
 
+test('the rules panel sits directly under the calendar in its left layout column', () => {
+  for (const [locale, html] of Object.entries(pages)) {
+    assert.match(html, /<div class="layout">\s*<div class="calendar-column">/,
+      `${locale} groups the calendar and rules in one layout column`);
+    assert.match(html, /<div class="panel" id="reglas">[\s\S]*?<\/div>\s*<\/div>\s*<div class="side">/,
+      `${locale} places rules after the calendar and before the sidebar`);
+    const style = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] || '';
+    assert.match(style, /\.calendar-column\s*\{[^}]*display:\s*grid[^}]*gap:\s*20px/,
+      `${locale} aligns calendar and rules at one shared column width`);
+  }
+});
+
 test('the seven calendar columns shrink to the available mobile width', () => {
   for (const [locale, html] of Object.entries(pages)) {
     const style = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] || '';
