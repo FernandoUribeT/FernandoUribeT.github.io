@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><link rel="icon" href="/icono.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/demos/demo-controls.css">
 <title>Demo · Validación de expedientes con OCR — Fernando Uribe</title>
 <meta name="description" content="Demo interactivo: clasificación automática de documentos y validación cruzada contra los datos del contribuyente.">
 <style>
@@ -94,7 +95,28 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 </style>
 </head>
 <body>
-<nav><div class="wrap"><a href="/">← Portafolio</a><a href="#notas">Cómo funciona</a></div></nav>
+<nav><div class="wrap">
+  <a href="/">← Portafolio</a>
+  <a href="#notas">Cómo funciona</a>
+  <div class="demo-tools">
+    <a class="demo-language" href="/demos/records/" lang="en" hreflang="en">English</a>
+    <button class="demo-a11y-button" id="demoA11yButton" type="button" aria-label="Abrir opciones de accesibilidad" aria-expanded="false" aria-controls="demoA11yPanel">Aa</button>
+    <section class="demo-a11y-panel" id="demoA11yPanel" aria-label="Accesibilidad" hidden>
+      <h2>Accesibilidad</h2>
+      <div class="demo-a11y-row"><span>Tamaño del texto</span><div class="demo-a11y-sizes" role="group" aria-label="Tamaño del texto">
+        <button type="button" data-pref-size="0" aria-label="Tamaño normal" aria-pressed="true">A</button>
+        <button type="button" data-pref-size="1" aria-label="Texto grande" aria-pressed="false">A</button>
+        <button type="button" data-pref-size="2" aria-label="Texto más grande" aria-pressed="false">A</button>
+      </div></div>
+      <div class="demo-a11y-row"><span>Alto contraste</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-contraste" aria-label="Alto contraste" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Modo claro</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-claro" aria-label="Modo claro" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Tipografía legible</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-fuente" aria-label="Tipografía legible" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Resaltar enlaces</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-links" aria-label="Resaltar enlaces" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Reducir movimiento</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-quieto" aria-label="Reducir movimiento" aria-pressed="false"></button></div>
+      <button class="demo-a11y-reset" type="button" data-pref-reset>Restablecer todo</button>
+    </section>
+  </div>
+</div></nav>
 <div class="wrap">
   <header>
     <h1>Validación de expedientes con OCR</h1>
@@ -268,5 +290,6 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   }catch(e){}
 })();
 </script>
+<script src="/demos/demo-controls.js" defer></script>
 </body>
 </html>

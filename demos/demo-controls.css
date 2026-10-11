@@ -30,6 +30,20 @@ html.a11y-txt1 .demo-a11y-row,html.a11y-txt2 .demo-a11y-row{font-size:calc(13px 
 html.a11y-txt1 .demo-a11y-panel h2,html.a11y-txt2 .demo-a11y-panel h2{font-size:calc(11px * var(--demo-text-scale))}
 html.a11y-txt1 .demo-a11y-sizes button,html.a11y-txt2 .demo-a11y-sizes button{font-size:calc(12px * var(--demo-text-scale))}
 html.a11y-txt1 .demo-a11y-reset,html.a11y-txt2 .demo-a11y-reset{font-size:calc(10px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.hint,.estado span,.it .lbl,.notas ul,.nota p){font-size:calc(14px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.sub,.fr,.nota code,.notas code,.mini#r-nota){font-size:calc(12.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar h2){font-size:calc(15px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.doc b,.paso .det,.chk,.veredicto p,.li,.footer){font-size:calc(13.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.paso .val,.veredicto){font-size:calc(14.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.doc span,.ocr){font-size:calc(11.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar p,.firma-pie span,.fr dd){font-size:calc(12px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar .cnt,.estado .et,.opts button,.grupo button,.veredicto .et,td:first-child){font-size:calc(11px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.sec h3,.campo>.et,.fr dt,.modo button small,.pantalla .et){font-size:calc(10px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) .crit{font-size:calc(8.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.paso h3,.mini:not(#r-nota)){font-size:calc(10.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.modo button,.cerrar){font-size:calc(12px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.campo input,textarea,input[type="text"],table){font-size:calc(13px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) section.notas h2{font-size:calc(20px * var(--demo-text-scale))}
 html.a11y-fuente body{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif;letter-spacing:.02em;word-spacing:.08em;line-height:1.85}
 html.a11y-links a:not(.demo-language){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.18);border-radius:3px;padding-inline:2px}
 html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
