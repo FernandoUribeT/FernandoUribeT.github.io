@@ -70,6 +70,15 @@ h1{font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;line-height:1.15}
 .info-fields div{display:grid;grid-template-columns:88px 1fr;gap:12px;border-top:1px solid var(--line);padding-top:9px}
 .info-fields dt{color:var(--fg-faint);font:600 11px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.04em}
 .info-fields dd{color:var(--fg);font-size:14px;overflow-wrap:anywhere}
+.info-color{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.info-color-title{color:var(--fg-faint);font:600 10px/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.info-colors{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.event-color-swatch{width:27px;height:27px;border:2px solid var(--line-2);border-radius:7px;cursor:pointer;transition:transform .15s var(--ease),outline-color .15s var(--ease)}
+.event-color-swatch:hover{transform:scale(1.1)}
+.event-color-swatch[aria-pressed="true"]{outline:2px solid var(--fg);outline-offset:2px}
+.info-color-reset{margin-top:12px;background:transparent;border:1px solid var(--line-2);border-radius:7px;padding:7px 10px;color:var(--fg-dim);font:600 10px/1.2 var(--mono);cursor:pointer}
+.info-color-reset:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.info-color-reset:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:420px){.info-card{padding:15px}.info-fields div{grid-template-columns:72px 1fr}}
 
 .side{display:grid;gap:16px}
@@ -186,6 +195,11 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
     <section class="info-card">
       <div class="info-head"><h2 id="event-info-title">Información del evento</h2><button type="button" id="event-info-close" aria-label="Cerrar información del evento">×</button></div>
       <dl class="info-fields" id="event-info-fields"></dl>
+      <div class="info-color">
+        <div class="info-color-title" id="event-color-label">Color de este evento</div>
+        <div class="info-colors" id="event-color-options" role="group" aria-labelledby="event-color-label"></div>
+        <button type="button" class="info-color-reset" id="event-color-reset" disabled>Usar color del tipo</button>
+      </div>
     </section>
   </div>
 
@@ -232,10 +246,11 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   var PALETA=['#e0567a','#f0b429','#ff9f45','#54c7ec','#3ddc84','#a78bfa','#f87171','#94a3b8'];
   var BASE={cp:'#e0567a',sal:'#f0b429',ent:'#ff9f45',desp:'#54c7ec'};
   var LS='demo-cal-colores';
-  var col={tipo:{}};
-  try{var g=JSON.parse(localStorage.getItem(LS));if(g&&g.tipo){col={tipo:g.tipo};}}catch(_){}
+  var col={tipo:{},evento:{}};
+  try{var g=JSON.parse(localStorage.getItem(LS));if(g&&g.tipo){col={tipo:g.tipo,evento:g.evento&&typeof g.evento==='object'?g.evento:{}};}}catch(_){}
   function guarda(){try{localStorage.setItem(LS,JSON.stringify(col));}catch(_){}}
   function colorTipo(t){return col.tipo[t]||BASE[t];}
+  function colorEvento(e){return col.evento[e.id]||colorTipo(e.t);}
   function lum(hex){
     var f=function(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);};
     return .2126*f(parseInt(hex.slice(1,3),16))+.7152*f(parseInt(hex.slice(3,5),16))+.0722*f(parseInt(hex.slice(5,7),16));
@@ -266,7 +281,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
       cell.innerHTML='<span class="dn">'+d.getDate()+'</span>';
       evs.filter(function(x){return x.k===cell.dataset.k&&pasa(x);}).forEach(function(x){
         var b=document.createElement('button'); b.type='button'; b.className='ev'; b.dataset.t=x.t; b.dataset.id=x.id;
-        var cc=colorTipo(x.t); b.style.background=cc; b.style.color=textoSobre(cc);
+        var cc=colorEvento(x); b.style.background=cc; b.style.color=textoSobre(cc);
         b.textContent=x.txt; b.title=TIPO[x.t]+' · '+x.cli+' · '+x.uni+' · '+x.ope; cell.appendChild(b);
       });
       grid.appendChild(cell);
@@ -277,11 +292,28 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   var infoDialog=document.getElementById('event-info');
   var infoFields=document.getElementById('event-info-fields');
   var infoClose=document.getElementById('event-info-close');
+  var infoColorOptions=document.getElementById('event-color-options');
+  var infoColorReset=document.getElementById('event-color-reset');
+  var infoEventId=null;
   var infoReturnFocus=null;
   var INFO_LABELS={type:'Tipo',date:'Fecha',detail:'Detalle',client:'Cliente',unit:'Unidad',driver:'Operador'};
+  var INFO_COLOR_TITLE='Color de este evento',INFO_COLOR_CHOOSE='Usar color';
   function escapeHtml(value){return String(value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
   function infoDate(iso){var p=iso.split('-');return p[2]+' de '+MES[+p[1]-1].toLowerCase()+' de '+p[0];}
+  function pintaInfoColor(ev){
+    if(!infoColorOptions.childElementCount){
+      infoColorOptions.innerHTML=PALETA.map(function(color){return '<button type="button" class="event-color-swatch" data-color="'+color+'" style="background:'+color+'" aria-label="'+INFO_COLOR_CHOOSE+' '+color+'" aria-pressed="false" title="'+color+'"></button>';}).join('');
+    }
+    var actual=colorEvento(ev);
+    infoColorOptions.querySelectorAll('.event-color-swatch').forEach(function(button){button.setAttribute('aria-pressed',String(button.dataset.color===actual));});
+    infoColorReset.disabled=!Object.prototype.hasOwnProperty.call(col.evento,ev.id);
+  }
+  function aplicaColorEvento(ev){
+    var button=grid.querySelector('.ev[data-id="'+ev.id+'"]'); if(!button)return;
+    var color=colorEvento(ev); button.style.background=color; button.style.color=textoSobre(color);
+  }
   function showEventInfo(ev,trigger){
+    infoEventId=ev.id;
     infoReturnFocus=trigger;
     infoFields.innerHTML='<div><dt>'+INFO_LABELS.type+'</dt><dd>'+escapeHtml(TIPO[ev.t])+'</dd></div>'+
       '<div><dt>'+INFO_LABELS.date+'</dt><dd>'+escapeHtml(infoDate(ev.k))+'</dd></div>'+
@@ -289,6 +321,8 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
       '<div><dt>'+INFO_LABELS.client+'</dt><dd>'+escapeHtml(ev.cli)+'</dd></div>'+
       '<div><dt>'+INFO_LABELS.unit+'</dt><dd>'+escapeHtml(ev.uni)+'</dd></div>'+
       '<div><dt>'+INFO_LABELS.driver+'</dt><dd>'+escapeHtml(ev.ope)+'</dd></div>';
+    document.getElementById('event-color-label').textContent=INFO_COLOR_TITLE;
+    pintaInfoColor(ev);
     infoDialog.hidden=false;
     infoClose.focus();
   }
@@ -296,10 +330,30 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
     infoDialog.hidden=true;
     if(infoReturnFocus&&infoReturnFocus.isConnected)infoReturnFocus.focus();
     infoReturnFocus=null;
+    infoEventId=null;
   }
   infoClose.addEventListener('click',closeEventInfo);
+  infoColorOptions.addEventListener('click',function(e){
+    var button=e.target.closest('.event-color-swatch'); if(!button||infoEventId===null)return;
+    var ev=evs.filter(function(item){return item.id===infoEventId;})[0]; if(!ev)return;
+    col.evento[ev.id]=button.dataset.color; guarda(); aplicaColorEvento(ev); pintaInfoColor(ev);
+  });
+  infoColorReset.addEventListener('click',function(){
+    if(infoEventId===null)return;
+    var ev=evs.filter(function(item){return item.id===infoEventId;})[0]; if(!ev||!Object.prototype.hasOwnProperty.call(col.evento,ev.id))return;
+    delete col.evento[ev.id]; guarda(); aplicaColorEvento(ev); pintaInfoColor(ev);
+  });
   infoDialog.addEventListener('click',function(e){if(e.target===infoDialog)closeEventInfo();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!infoDialog.hidden)closeEventInfo();});
+  document.addEventListener('keydown',function(e){
+    if(infoDialog.hidden)return;
+    if(e.key==='Escape'){closeEventInfo();return;}
+    if(e.key!=='Tab')return;
+    var focusable=infoDialog.querySelectorAll('button:not(:disabled),[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])');
+    if(!focusable.length){e.preventDefault();infoDialog.focus();return;}
+    var first=focusable[0],last=focusable[focusable.length-1],active=document.activeElement;
+    if(e.shiftKey&&(active===first||!infoDialog.contains(active))){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&(active===last||!infoDialog.contains(active))){e.preventDefault();first.focus();}
+  });
 
   var DRAG_THRESHOLD=4;
   var drag=null,ghost=null,last=null,suppressClick=false;
@@ -394,8 +448,9 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
     }, null);
   });
   document.getElementById('reset').onclick=function(){
-    col={tipo:{}}; guarda(); pintaLeyenda(); render();
-    say('ok','Restablecido','Los colores de los tipos volvieron a sus valores de origen.');
+    col={tipo:{},evento:{}}; guarda(); pintaLeyenda(); render();
+    if(infoEventId!==null){var current=evs.filter(function(item){return item.id===infoEventId;})[0];if(current)pintaInfoColor(current);}
+    say('ok','Restablecido','Los colores de tipo e individuales volvieron a sus valores de origen.');
   };
   function unicos(campo){var s={};evs.forEach(function(e){s[e[campo]]=1;});return Object.keys(s).sort();}
   function llenaSelects(){

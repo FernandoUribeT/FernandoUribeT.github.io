@@ -72,8 +72,8 @@ test('simple demo retains nine synthetic events and visible pointer drag feedbac
     const eventList = script.match(/var evs=\[([\s\S]*?)\];/);
     assert.ok(eventList, 'synthetic event list exists');
     assert.equal((eventList[1].match(/\bmk\(/g) || []).length, 9);
-    assert.doesNotMatch(script, /col\.ev|colorEv\(|abrePop\(drag\.el/);
-    assert.match(script, /var cc=colorTipo\(x\.t\)/);
+    assert.doesNotMatch(script, /colorEv\(|abrePop\(drag\.el/);
+    assert.match(script, /var cc=colorEvento\(x\)/);
     assert.match(html, /\.ghost\s*\{/);
     assert.match(html, /\.drop-ok\s*\{/);
     assert.match(html, /\.drop-no\s*\{/);
@@ -96,6 +96,62 @@ test('event information uses a localized accessible read-only dialog', () => {
     for (const text of dialogCopy[locale]) assert.ok(html.includes(text) || script.includes(text), `${locale} has ${text}`);
     assert.doesNotMatch(script, /abrePop\(drag\.el/);
     assert.doesNotMatch(script, /edit-trip|save-notes|color-input/);
+  }
+});
+
+test('the event dialog traps Tab in both directions and Escape restores its trigger', () => {
+  for (const [locale, html] of Object.entries(pages)) {
+    const script = inlineCalendarScript(html);
+    const dialogKeyHandler = script.match(/document\.addEventListener\('keydown',function\(e\)\{([\s\S]*?)\n  \}\);/)?.[1] || '';
+    assert.match(dialogKeyHandler, /if\(infoDialog\.hidden\)return/,
+      `${locale} only handles keys while the event dialog is open`);
+    assert.match(dialogKeyHandler, /e\.key==='Escape'[\s\S]*?closeEventInfo\(\)/,
+      `${locale} retains Escape close behavior`);
+    assert.match(dialogKeyHandler, /e\.key!=='Tab'/,
+      `${locale} handles Tab separately from other keys`);
+    assert.match(dialogKeyHandler, /infoDialog\.querySelectorAll\(/,
+      `${locale} derives the focusable controls from the dialog`);
+    assert.match(dialogKeyHandler, /e\.shiftKey[\s\S]*?last\.focus\(\)/,
+      `${locale} wraps Shift+Tab from the first control`);
+    assert.match(dialogKeyHandler, /!e\.shiftKey[\s\S]*?first\.focus\(\)/,
+      `${locale} wraps Tab from the last control`);
+    assert.match(dialogKeyHandler, /e\.preventDefault\(\)/,
+      `${locale} prevents browser focus from escaping the modal`);
+    assert.match(script, /if\(infoReturnFocus&&infoReturnFocus\.isConnected\)infoReturnFocus\.focus\(\)/,
+      `${locale} restores focus to the event that opened the dialog`);
+  }
+});
+
+test('individual event colors are presented inside the six-field information dialog', () => {
+  const copy = {
+    es: {title: 'Color de este evento', fallback: 'Usar color del tipo', choose: 'Usar color'},
+    en: {title: 'This event color', fallback: 'Use type color', choose: 'Use color'},
+  };
+  for (const [locale, html] of Object.entries(pages)) {
+    const script = inlineCalendarScript(html);
+    assert.match(html, /<dl class="info-fields" id="event-info-fields"><\/dl>\s*<div class="info-color">/);
+    assert.ok(html.includes(copy[locale].title), `${locale} labels the event color controls`);
+    assert.ok(html.includes(copy[locale].fallback), `${locale} labels the fallback action`);
+    assert.ok(script.includes(copy[locale].choose), `${locale} provides localized swatch labels`);
+    assert.match(script, /var INFO_LABELS=\{type:[^}]+driver:/);
+    assert.match(script, /function pintaInfoColor\s*\(/);
+    assert.match(script, /class="event-color-swatch[^\n]*aria-label=/);
+    assert.match(script, /aria-pressed="/);
+    assert.match(html, /<button type="button"[^>]*id="event-color-reset"/);
+  }
+});
+
+test('individual colors override one event, persist, clear to type fallback, and reset globally', () => {
+  for (const html of Object.values(pages)) {
+    const script = inlineCalendarScript(html);
+    assert.match(script, /var col=\{tipo:\{\},evento:\{\}\}/);
+    assert.match(script, /function colorEvento\(e\)\{return col\.evento\[e\.id\]\|\|colorTipo\(e\.t\);\}/);
+    assert.match(script, /var cc=colorEvento\(x\)/);
+    assert.match(script, /col\.evento\[ev\.id\]=button\.dataset\.color/);
+    assert.match(script, /delete col\.evento\[ev\.id\]/);
+    assert.match(script, /localStorage\.setItem\(LS,JSON\.stringify\(col\)\)/);
+    assert.match(script, /col=\{tipo:\{\},evento:\{\}\}; guarda\(\); pintaLeyenda\(\); render\(\)/);
+    assert.match(script, /function aplicaColorEvento\(ev\)/);
   }
 });
 
