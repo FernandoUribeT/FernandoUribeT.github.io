@@ -71,7 +71,7 @@
     if(event.key==='Escape'&&!panel.hidden){event.preventDefault();closePanel(true);}
   });
   document.addEventListener('pointerdown',function(event){
-    if(!panel.hidden&&!event.target.closest('.demo-tools'))closePanel(false);
+    if(!panel.hidden&&!event.target.closest('.demo-tools,.demo-a11y-panel,.a11y-fab'))closePanel(false);
   });
 
   readPrefs();

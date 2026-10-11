@@ -130,6 +130,27 @@ test('remaining demos expose localized direct language and accessibility control
   }
 });
 
+test('all standalone demos expose one fixed accessibility trigger and localized WhatsApp shortcuts', () => {
+  const whatsappHrefs = {
+    es: 'https://wa.me/525659304558?text=Hola%20Fernando%2C%20vi%20tu%20portafolio%20y%20quiero%20platicar%20sobre%20un%20proyecto.',
+    en: 'https://wa.me/525659304558?text=Hi%20Fernando%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20talk%20about%20a%20project.',
+  };
+  for (const [name, html] of Object.entries({ ...pages, ...remainingPages })) {
+    const locale = ['es', 'calendario', 'expedientes', 'revision', 'qr'].includes(name) ? 'es' : 'en';
+    const expectedA11yLabel = locale === 'es' ? 'Abrir opciones de accesibilidad' : 'Open accessibility options';
+    const expectedWhatsappLabel = locale === 'es' ? 'Escribirme por WhatsApp' : 'Message me on WhatsApp';
+    const triggers = html.match(/id="demoA11yButton"/g) || [];
+    assert.equal(triggers.length, 1, `${name} has exactly one accessibility trigger`);
+    assert.match(html, /class="demo-a11y-button a11y-fab"|class="a11y-fab demo-a11y-button"/, `${name} positions its existing trigger as a floating control`);
+    assert.ok(html.includes(`aria-label="${expectedA11yLabel}"`), `${name} localizes the floating accessibility label`);
+    assert.match(html, new RegExp(`<a class="wa-fab" href="${whatsappHrefs[locale].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*aria-label="${expectedWhatsappLabel}"`), `${name} uses the localized homepage WhatsApp destination and label`);
+    assert.match(controlsStyles, /\.a11y-fab,\.wa-fab\{position:fixed/);
+    assert.match(controlsStyles, /\.demo-a11y-panel\{[^}]*position:fixed/);
+    assert.match(controlsStyles, /\.wa-fab\{[^}]*position:fixed/);
+    assert.match(controlsStyles, /\.a11y-fab(?:,\.a11y-fab:hover,\.a11y-fab:focus-visible,\.a11y-fab\[aria-expanded="true"\])\{color:#1a1204\}/);
+  }
+});
+
 test('remaining demos scale fixed-size visible content with text preferences', () => {
   for (const selector of ['.hint', '.modo button', '.doc b', '.paso .val', '.it .lbl', '.opts button', '.campo>.et', '.grupo button', '.veredicto p']) {
     assert.ok(controlsStyles.includes(selector), `shared text scaling covers ${selector}`);

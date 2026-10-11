@@ -145,21 +145,8 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
   <a href="#reglas">How it works</a>
   <div class="demo-tools">
     <a class="demo-language" href="/demos/calendario/" lang="es" hreflang="es">Español</a>
-    <button class="demo-a11y-button" id="demoA11yButton" type="button" aria-label="Open accessibility options" aria-expanded="false" aria-controls="demoA11yPanel">Aa</button>
-    <section class="demo-a11y-panel" id="demoA11yPanel" aria-label="Accessibility" hidden>
-      <h2>Accessibility</h2>
-      <div class="demo-a11y-row"><span>Text size</span><div class="demo-a11y-sizes" role="group" aria-label="Text size">
-        <button type="button" data-pref-size="0" aria-label="Normal text" aria-pressed="true">A</button>
-        <button type="button" data-pref-size="1" aria-label="Large text" aria-pressed="false">A</button>
-        <button type="button" data-pref-size="2" aria-label="Larger text" aria-pressed="false">A</button>
-      </div></div>
-      <div class="demo-a11y-row"><span>High contrast</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-contraste" aria-label="High contrast" aria-pressed="false"></button></div>
-      <div class="demo-a11y-row"><span>Light mode</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-claro" aria-label="Light mode" aria-pressed="false"></button></div>
-      <div class="demo-a11y-row"><span>Readable font</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-fuente" aria-label="Readable font" aria-pressed="false"></button></div>
-      <div class="demo-a11y-row"><span>Highlight links</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-links" aria-label="Highlight links" aria-pressed="false"></button></div>
-      <div class="demo-a11y-row"><span>Reduce motion</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-quieto" aria-label="Reduce motion" aria-pressed="false"></button></div>
-      <button class="demo-a11y-reset" type="button" data-pref-reset>Reset all</button>
-    </section>
+
+
   </div>
 </div></nav>
 
@@ -512,5 +499,21 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
 })();
 </script>
 <script src="/demos/demo-controls.js" defer></script>
+<a class="wa-fab" href="https://wa.me/525659304558?text=Hi%20Fernando%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" aria-label="Message me on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.36 5.1L2 22l5.2-1.52a9.8 9.8 0 0 0 4.84 1.26h.01c5.43 0 9.84-4.4 9.84-9.84C21.9 6.4 17.48 2 12.04 2Zm5.76 14.06c-.24.68-1.4 1.3-1.94 1.34-.5.05-.98.23-3.3-.7-2.78-1.1-4.54-3.94-4.68-4.12-.14-.18-1.12-1.5-1.12-2.86s.72-2.02.98-2.3c.24-.26.54-.32.72-.32h.52c.16 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.14.12.3.02.48-.1.18-.15.3-.3.46-.14.18-.3.4-.44.53-.14.14-.3.3-.13.6.18.28.78 1.28 1.66 2.07 1.14 1.02 2.1 1.34 2.4 1.48.3.14.47.12.64-.08.18-.2.74-.86.94-1.16.2-.3.4-.24.66-.14.26.1 1.66.78 1.94.92.28.14.47.22.54.34.07.12.07.7-.17 1.38Z"/></svg></a>
+<button class="demo-a11y-button a11y-fab" id="demoA11yButton" type="button" aria-label="Open accessibility options" aria-expanded="false" aria-controls="demoA11yPanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M4 8.5h16M12 8.5v6M12 14.5l-3.5 6M12 14.5l3.5 6"/></svg></button>
+<section class="demo-a11y-panel" id="demoA11yPanel" aria-label="Accessibility" hidden>
+      <h2>Accessibility</h2>
+      <div class="demo-a11y-row"><span>Text size</span><div class="demo-a11y-sizes" role="group" aria-label="Text size">
+        <button type="button" data-pref-size="0" aria-label="Normal text" aria-pressed="true">A</button>
+        <button type="button" data-pref-size="1" aria-label="Large text" aria-pressed="false">A</button>
+        <button type="button" data-pref-size="2" aria-label="Larger text" aria-pressed="false">A</button>
+      </div></div>
+      <div class="demo-a11y-row"><span>High contrast</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-contraste" aria-label="High contrast" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Light mode</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-claro" aria-label="Light mode" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Readable font</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-fuente" aria-label="Readable font" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Highlight links</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-links" aria-label="Highlight links" aria-pressed="false"></button></div>
+      <div class="demo-a11y-row"><span>Reduce motion</span><button class="demo-a11y-switch" type="button" data-pref-class="a11y-quieto" aria-label="Reduce motion" aria-pressed="false"></button></div>
+      <button class="demo-a11y-reset" type="button" data-pref-reset>Reset all</button>
+    </section>
 </body>
 </html>
