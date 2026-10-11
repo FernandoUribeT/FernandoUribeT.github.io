@@ -8,6 +8,10 @@ const assert = require('node:assert/strict');
 const root = path.join(__dirname, '..');
 const controlsScript = fs.readFileSync(path.join(root, 'demos/demo-controls.js'), 'utf8');
 const controlsStyles = fs.readFileSync(path.join(root, 'demos/demo-controls.css'), 'utf8');
+const homepages = {
+  es: fs.readFileSync(path.join(root, 'index.html'), 'utf8'),
+  en: fs.readFileSync(path.join(root, 'en/index.html'), 'utf8'),
+};
 const pages = {
   es: fs.readFileSync(path.join(root, 'demos/calendario/index.html'), 'utf8'),
   en: fs.readFileSync(path.join(root, 'demos/calendar/index.html'), 'utf8'),
@@ -61,6 +65,22 @@ test('calendar controls share the established preference key and guarded persist
   }
 });
 
+test('middle text size is the initial and reset default while stored sizes remain honored', () => {
+  for (const [locale, html] of Object.entries(homepages)) {
+    const textControls = html.match(/<div class="a11y-txt"[\s\S]*?<\/div>/)?.[0] || '';
+    assert.match(textControls, /data-txt="1"[^>]*class="on"|class="on"[^>]*data-txt="1"/, `${locale} homepage selects middle size by default`);
+    assert.doesNotMatch(textControls, /data-txt="0"[^>]*class="on"|class="on"[^>]*data-txt="0"/, `${locale} homepage does not mark normal size as default`);
+    assert.match(html, /P=\{cls:\[\],txt:1\}/, `${locale} homepage starts at middle size`);
+    assert.match(html, /P=\{cls:\[\],txt:1\};guarda\(\);aplica\(\)/, `${locale} homepage reset restores middle size`);
+    assert.match(html, /P\.txt=\[0,1,2\]\.indexOf\(s\.txt\)>-1\?s\.txt:1/, `${locale} homepage honors stored sizes and defaults missing or invalid sizes to middle`);
+    assert.match(html, /P\.cls=Array\.isArray\(s\.cls\)\?s\.cls\.filter\(function\(c\)\{return \['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'\]\.indexOf\(c\)>-1;\}\):\[\]/, `${locale} homepage preserves only supported stored classes`);
+  }
+
+  assert.match(controlsScript, /var prefs=\{cls:\[\],txt:1\}/, 'all demos start at middle size');
+  assert.match(controlsScript, /prefs\.txt=\[0,1,2\]\.indexOf\(saved\.txt\)>-1\?saved\.txt:1/, 'all demos retain valid stored text sizes');
+  assert.match(controlsScript, /prefs=\{cls:\[\],txt:1\};savePrefs\(\);applyPrefs\(\)/, 'all demos reset to middle size');
+});
+
 test('text-size preferences scale visible calendar content and control labels', () => {
   assert.match(controlsStyles, /html\.a11y-txt1\s*\{[^}]*--demo-text-scale:\s*1\.125/);
   assert.match(controlsStyles, /html\.a11y-txt2\s*\{[^}]*--demo-text-scale:\s*1\.28125/);
@@ -107,6 +127,27 @@ test('remaining demos expose localized direct language and accessibility control
     for (const cls of ['a11y-contraste', 'a11y-claro', 'a11y-fuente', 'a11y-links', 'a11y-quieto']) {
       assert.ok(html.includes(`data-pref-class="${cls}"`), `${name} toggles ${cls}`);
     }
+  }
+});
+
+test('all standalone demos expose one fixed accessibility trigger and localized WhatsApp shortcuts', () => {
+  const whatsappHrefs = {
+    es: 'https://wa.me/525659304558?text=Hola%20Fernando%2C%20vi%20tu%20portafolio%20y%20quiero%20platicar%20sobre%20un%20proyecto.',
+    en: 'https://wa.me/525659304558?text=Hi%20Fernando%2C%20I%20saw%20your%20portfolio%20and%20I%27d%20like%20to%20talk%20about%20a%20project.',
+  };
+  for (const [name, html] of Object.entries({ ...pages, ...remainingPages })) {
+    const locale = ['es', 'calendario', 'expedientes', 'revision', 'qr'].includes(name) ? 'es' : 'en';
+    const expectedA11yLabel = locale === 'es' ? 'Abrir opciones de accesibilidad' : 'Open accessibility options';
+    const expectedWhatsappLabel = locale === 'es' ? 'Escribirme por WhatsApp' : 'Message me on WhatsApp';
+    const triggers = html.match(/id="demoA11yButton"/g) || [];
+    assert.equal(triggers.length, 1, `${name} has exactly one accessibility trigger`);
+    assert.match(html, /class="demo-a11y-button a11y-fab"|class="a11y-fab demo-a11y-button"/, `${name} positions its existing trigger as a floating control`);
+    assert.ok(html.includes(`aria-label="${expectedA11yLabel}"`), `${name} localizes the floating accessibility label`);
+    assert.match(html, new RegExp(`<a class="wa-fab" href="${whatsappHrefs[locale].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*aria-label="${expectedWhatsappLabel}"`), `${name} uses the localized homepage WhatsApp destination and label`);
+    assert.match(controlsStyles, /\.a11y-fab,\.wa-fab\{position:fixed/);
+    assert.match(controlsStyles, /\.demo-a11y-panel\{[^}]*position:fixed/);
+    assert.match(controlsStyles, /\.wa-fab\{[^}]*position:fixed/);
+    assert.match(controlsStyles, /\.a11y-fab(?:,\.a11y-fab:hover,\.a11y-fab:focus-visible,\.a11y-fab\[aria-expanded="true"\])\{color:#1a1204\}/);
   }
 });
 

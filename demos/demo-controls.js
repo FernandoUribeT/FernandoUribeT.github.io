@@ -6,16 +6,16 @@
   var trigger=document.getElementById('demoA11yButton');
   var storageKey='a11y-prefs';
   var classes=['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'];
-  var prefs={cls:[],txt:0};
+  var prefs={cls:[],txt:1};
 
   function readPrefs(){
     try{
       var saved=JSON.parse(window.localStorage.getItem(storageKey)||'null');
       if(saved&&typeof saved==='object'){
         prefs.cls=Array.isArray(saved.cls)?saved.cls.filter(function(name){return classes.indexOf(name)>-1;}):[];
-        prefs.txt=[0,1,2].indexOf(saved.txt)>-1?saved.txt:0;
+        prefs.txt=[0,1,2].indexOf(saved.txt)>-1?saved.txt:1;
       }
-    }catch(_){prefs={cls:[],txt:0};}
+    }catch(_){prefs={cls:[],txt:1};}
     if(prefs.cls.indexOf('a11y-contraste')>-1){prefs.cls=prefs.cls.filter(function(name){return name!=='a11y-claro';});}
   }
 
@@ -64,14 +64,14 @@
       }
       savePrefs();applyPrefs();return;
     }
-    if(event.target.closest('[data-pref-reset]')){prefs={cls:[],txt:0};savePrefs();applyPrefs();}
+    if(event.target.closest('[data-pref-reset]')){prefs={cls:[],txt:1};savePrefs();applyPrefs();}
   });
 
   document.addEventListener('keydown',function(event){
     if(event.key==='Escape'&&!panel.hidden){event.preventDefault();closePanel(true);}
   });
   document.addEventListener('pointerdown',function(event){
-    if(!panel.hidden&&!event.target.closest('.demo-tools'))closePanel(false);
+    if(!panel.hidden&&!event.target.closest('.demo-tools,.demo-a11y-panel,.a11y-fab'))closePanel(false);
   });
 
   readPrefs();
