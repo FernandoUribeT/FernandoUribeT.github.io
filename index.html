@@ -557,8 +557,8 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
 <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Accesibilidad">
   <h3>Accesibilidad</h3>
   <div class="a11y-row"><span>Tamaño del texto</span><div class="a11y-txt" role="group" aria-label="Tamaño del texto">
-    <button data-txt="0" class="on" aria-label="Tamaño normal">A</button>
-    <button data-txt="1" aria-label="Texto grande" style="font-size:0.875rem">A</button>
+    <button data-txt="0" aria-label="Tamaño normal">A</button>
+    <button data-txt="1" class="on" aria-label="Texto grande" style="font-size:0.875rem">A</button>
     <button data-txt="2" aria-label="Texto más grande" style="font-size:1rem">A</button></div></div>
   <div class="a11y-row"><span>Alto contraste</span><button class="a11y-sw" data-cls="a11y-contraste" aria-pressed="false" aria-label="Alto contraste"></button></div>
   <div class="a11y-row"><span>Modo claro</span><button class="a11y-sw" data-cls="a11y-claro" aria-pressed="false" aria-label="Modo claro"></button></div>
@@ -569,8 +569,8 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
 </div>
 <script>
 (function(){
-  var R=document.documentElement, LS='a11y-prefs', P={cls:[],txt:0};
-  try{var s=JSON.parse(localStorage.getItem(LS)); if(s&&s.cls){P=s;}}catch(_){}
+  var R=document.documentElement, LS='a11y-prefs', P={cls:[],txt:1};
+  try{var s=JSON.parse(localStorage.getItem(LS)); if(s&&typeof s==='object'){P.cls=Array.isArray(s.cls)?s.cls.filter(function(c){return ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].indexOf(c)>-1;}):[];P.txt=[0,1,2].indexOf(s.txt)>-1?s.txt:1;}}catch(_){}
   function guarda(){try{localStorage.setItem(LS,JSON.stringify(P));}catch(_){}}
   function aplica(){
     ['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'].forEach(function(c){R.classList.toggle(c,P.cls.indexOf(c)>-1);});
@@ -591,7 +591,7 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
     var t=e.target.closest('[data-txt]');
     if(t){P.txt=+t.dataset.txt; guarda(); aplica();}
   });
-  document.getElementById('a11yReset').addEventListener('click',function(){P={cls:[],txt:0};guarda();aplica();});
+  document.getElementById('a11yReset').addEventListener('click',function(){P={cls:[],txt:1};guarda();aplica();});
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&pan.classList.contains('open')){pan.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.focus();} });
   document.addEventListener('pointerdown',function(e){ if(pan.classList.contains('open')&&!e.target.closest('.a11y-panel')&&!e.target.closest('.a11y-btn')){pan.classList.remove('open');btn.setAttribute('aria-expanded','false');} });
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches&&P.cls.indexOf('a11y-quieto')<0){P.cls.push('a11y-quieto');}

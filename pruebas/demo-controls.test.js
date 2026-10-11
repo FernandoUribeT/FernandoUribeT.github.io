@@ -8,6 +8,10 @@ const assert = require('node:assert/strict');
 const root = path.join(__dirname, '..');
 const controlsScript = fs.readFileSync(path.join(root, 'demos/demo-controls.js'), 'utf8');
 const controlsStyles = fs.readFileSync(path.join(root, 'demos/demo-controls.css'), 'utf8');
+const homepages = {
+  es: fs.readFileSync(path.join(root, 'index.html'), 'utf8'),
+  en: fs.readFileSync(path.join(root, 'en/index.html'), 'utf8'),
+};
 const pages = {
   es: fs.readFileSync(path.join(root, 'demos/calendario/index.html'), 'utf8'),
   en: fs.readFileSync(path.join(root, 'demos/calendar/index.html'), 'utf8'),
@@ -59,6 +63,22 @@ test('calendar controls share the established preference key and guarded persist
     assert.match(controlsScript, /event\.key==='Escape'/);
     assert.match(controlsScript, /focus\(\)/);
   }
+});
+
+test('middle text size is the initial and reset default while stored sizes remain honored', () => {
+  for (const [locale, html] of Object.entries(homepages)) {
+    const textControls = html.match(/<div class="a11y-txt"[\s\S]*?<\/div>/)?.[0] || '';
+    assert.match(textControls, /data-txt="1"[^>]*class="on"|class="on"[^>]*data-txt="1"/, `${locale} homepage selects middle size by default`);
+    assert.doesNotMatch(textControls, /data-txt="0"[^>]*class="on"|class="on"[^>]*data-txt="0"/, `${locale} homepage does not mark normal size as default`);
+    assert.match(html, /P=\{cls:\[\],txt:1\}/, `${locale} homepage starts at middle size`);
+    assert.match(html, /P=\{cls:\[\],txt:1\};guarda\(\);aplica\(\)/, `${locale} homepage reset restores middle size`);
+    assert.match(html, /P\.txt=\[0,1,2\]\.indexOf\(s\.txt\)>-1\?s\.txt:1/, `${locale} homepage honors stored sizes and defaults missing or invalid sizes to middle`);
+    assert.match(html, /P\.cls=Array\.isArray\(s\.cls\)\?s\.cls\.filter\(function\(c\)\{return \['a11y-contraste','a11y-claro','a11y-fuente','a11y-links','a11y-quieto'\]\.indexOf\(c\)>-1;\}\):\[\]/, `${locale} homepage preserves only supported stored classes`);
+  }
+
+  assert.match(controlsScript, /var prefs=\{cls:\[\],txt:1\}/, 'all demos start at middle size');
+  assert.match(controlsScript, /prefs\.txt=\[0,1,2\]\.indexOf\(saved\.txt\)>-1\?saved\.txt:1/, 'all demos retain valid stored text sizes');
+  assert.match(controlsScript, /prefs=\{cls:\[\],txt:1\};savePrefs\(\);applyPrefs\(\)/, 'all demos reset to middle size');
 });
 
 test('text-size preferences scale visible calendar content and control labels', () => {
