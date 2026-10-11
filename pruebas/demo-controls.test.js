@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
 const controlsScript = fs.readFileSync(path.join(root, 'demos/demo-controls.js'), 'utf8');
@@ -24,6 +25,107 @@ const remainingPages = {
   qr: fs.readFileSync(path.join(root, 'demos/qr/index.html'), 'utf8'),
   'qr-en': fs.readFileSync(path.join(root, 'demos/qr-en/index.html'), 'utf8'),
 };
+
+function runDemoControlsClick({ locale, pathname, href, event: clickEvent }) {
+  const listeners = {};
+  const rootElement = { classList: { toggle() {} } };
+  const panel = {
+    hidden: true,
+    querySelectorAll() { return []; },
+    addEventListener() {},
+    setAttribute() {},
+  };
+  const trigger = { addEventListener() {}, setAttribute() {}, focus() {} };
+  const navigations = [];
+  const document = {
+    documentElement: rootElement,
+    getElementById(id) { return id === 'demoA11yPanel' ? panel : trigger; },
+    addEventListener(name, listener) { listeners[name] = listener; },
+  };
+  const window = {
+    location: { origin: 'https://portfolio.test', pathname, href, assign: (url) => navigations.push(url) },
+    localStorage: { getItem() { return null; }, setItem() {} },
+    matchMedia() { return { matches: false }; },
+  };
+  vm.runInNewContext(controlsScript, { document, window, JSON, Number, URL });
+  listeners.click(clickEvent);
+  return { navigations, clickEvent };
+}
+
+function runHomepageHandoff(html, href) {
+  const script = html.match(/<script data-demo-handoff>([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(script, 'homepage contains the one-shot demo handoff script');
+  const replaced = [];
+  const pushed = [];
+  const navigations = [];
+  const window = {
+    location: {
+      href,
+      assign(url) { navigations.push(url); },
+    },
+    history: {
+      replaceState(_state, _title, url) { replaced.push(url); },
+      pushState(_state, _title, url) { pushed.push(url); },
+    },
+    setTimeout(callback) { callback(); },
+  };
+  vm.runInNewContext(script, { window, URL, URLSearchParams });
+  return { replaced, pushed, navigations };
+}
+
+test('ordinary demo language switches create an allowlisted locale-home handoff while preserving the direct href', () => {
+  const esLink = { href: 'https://portfolio.test/demos/calendar/', target: '', hasAttribute() { return false; }, getAttribute() { return '/demos/calendar/'; } };
+  const esClick = {
+    button: 0,
+    metaKey: false,
+    ctrlKey: false,
+    shiftKey: false,
+    altKey: false,
+    target: { closest(selector) { return selector === 'a.demo-language' ? esLink : null; } },
+    preventDefault() { this.defaultPrevented = true; },
+  };
+  const esResult = runDemoControlsClick({ locale: 'es', pathname: '/demos/calendario/', href: esLink.href, event: esClick });
+  assert.deepEqual(esResult.navigations, ['/en/?demo-handoff=%2Fdemos%2Fcalendar%2F']);
+  assert.equal(esClick.defaultPrevented, true);
+  assert.equal(esLink.getAttribute(), '/demos/calendar/', 'the no-JS direct sibling href is unchanged');
+
+  const enLink = { href: 'https://portfolio.test/demos/calendario/', target: '', hasAttribute() { return false; }, getAttribute() { return '/demos/calendario/'; } };
+  const enClick = { ...esClick, defaultPrevented: false, target: { closest(selector) { return selector === 'a.demo-language' ? enLink : null; } }, preventDefault() { this.defaultPrevented = true; } };
+  const enResult = runDemoControlsClick({ locale: 'en', pathname: '/demos/calendar/', href: enLink.href, event: enClick });
+  assert.deepEqual(enResult.navigations, ['/?demo-handoff=%2Fdemos%2Fcalendario%2F']);
+
+  const modifiedClick = { ...esClick, defaultPrevented: false, ctrlKey: true, preventDefault() { this.defaultPrevented = true; } };
+  const modifiedResult = runDemoControlsClick({ locale: 'es', pathname: '/demos/calendario/', href: esLink.href, event: modifiedClick });
+  assert.deepEqual(modifiedResult.navigations, [], 'modified clicks retain native browser behavior');
+  assert.notEqual(modifiedClick.defaultPrevented, true);
+});
+
+test('homepage handoff consumes only supported locale demo paths before navigating', () => {
+  const es = runHomepageHandoff(homepages.es, 'https://portfolio.test/?demo-handoff=%2Fdemos%2Fcalendario%2F');
+  assert.deepEqual(es.replaced, ['/']);
+  assert.deepEqual(es.pushed, ['/'], 'a clean homepage entry survives browsers that replace load-time redirects');
+  assert.deepEqual(es.navigations, ['/demos/calendario/']);
+
+  const en = runHomepageHandoff(homepages.en, 'https://portfolio.test/en/?demo-handoff=%2Fdemos%2Fcalendar%2F');
+  assert.deepEqual(en.replaced, ['/en/']);
+  assert.deepEqual(en.pushed, ['/en/']);
+  assert.deepEqual(en.navigations, ['/demos/calendar/']);
+
+  const invalid = runHomepageHandoff(homepages.en, 'https://portfolio.test/en/?demo-handoff=https%3A%2F%2Fevil.test');
+  assert.deepEqual(invalid.replaced, []);
+  assert.deepEqual(invalid.pushed, []);
+  assert.deepEqual(invalid.navigations, []);
+
+  const inheritedKey = runHomepageHandoff(homepages.en, 'https://portfolio.test/en/?demo-handoff=constructor');
+  assert.deepEqual(inheritedKey.replaced, []);
+  assert.deepEqual(inheritedKey.pushed, []);
+  assert.deepEqual(inheritedKey.navigations, []);
+
+  const ordinaryVisit = runHomepageHandoff(homepages.es, 'https://portfolio.test/?campaign=summer');
+  assert.deepEqual(ordinaryVisit.replaced, []);
+  assert.deepEqual(ordinaryVisit.pushed, []);
+  assert.deepEqual(ordinaryVisit.navigations, []);
+});
 
 test('calendar demos provide a direct localized language switch in the header', () => {
   assert.match(pages.es, /<html lang="es">/);
