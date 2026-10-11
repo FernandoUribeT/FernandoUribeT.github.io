@@ -53,6 +53,14 @@ test('the seven calendar columns shrink to the available mobile width', () => {
   }
 });
 
+test('the Today control fits its localized label at enlarged text sizes', () => {
+  for (const [locale, html] of Object.entries(pages)) {
+    const style = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] || '';
+    assert.match(style, /\.nav-m\s+#hoy\s*\{[^}]*width:\s*auto[^}]*white-space:\s*nowrap/,
+      `${locale} gives the Today control enough width for its label`);
+  }
+});
+
 test('drop narration formats the local destination day instead of a UTC date', () => {
   const expected = {
     es: {months: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'], date: '12 de octubre'},
