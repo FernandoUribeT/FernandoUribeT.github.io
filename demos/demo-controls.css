@@ -1,0 +1,53 @@
+.demo-tools{display:flex;align-items:center;gap:10px;position:relative;flex:none}
+.demo-language,.demo-a11y-button{min-height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-2);border-radius:8px;background:var(--bg-2);color:var(--fg);font:600 11px/1 var(--mono);text-decoration:none;padding:0 11px;cursor:pointer}
+.demo-language:hover,.demo-a11y-button:hover,.demo-a11y-button[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.demo-a11y-button{min-width:40px;padding:0 9px;font-size:14px}
+.demo-a11y-button:focus-visible,.demo-language:focus-visible,.demo-a11y-panel button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.demo-a11y-panel{position:absolute;top:calc(100% + 8px);right:0;z-index:160;width:286px;max-width:calc(100vw - 32px);padding:14px;background:var(--card);border:1px solid var(--line-2);border-radius:12px;box-shadow:0 18px 44px -16px rgba(0,0,0,.7)}
+.demo-a11y-panel[hidden]{display:none}
+.demo-a11y-panel h2{margin:0 0 10px;color:var(--fg-faint);font:700 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.demo-a11y-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);color:var(--fg-dim);font-size:13px}
+.demo-a11y-row:last-of-type{border-bottom:0}
+.demo-a11y-switch{width:42px;height:24px;flex:none;border:1px solid var(--line-2);border-radius:99px;background:var(--bg-2);position:relative;cursor:pointer}
+.demo-a11y-switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--fg-faint);transition:transform .16s ease,background .16s ease}
+.demo-a11y-switch[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.demo-a11y-switch[aria-pressed="true"]::after{transform:translateX(18px);background:#12161e}
+.demo-a11y-sizes{display:flex;gap:5px}
+.demo-a11y-sizes button,.demo-a11y-reset{min-height:30px;border:1px solid var(--line-2);border-radius:7px;background:var(--bg-2);color:var(--fg-dim);cursor:pointer}
+.demo-a11y-sizes button{width:32px;font-weight:700}
+.demo-a11y-sizes button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#12161e}
+.demo-a11y-reset{width:100%;margin-top:12px;padding:7px;font:600 10px/1.2 var(--mono);letter-spacing:.04em}
+.demo-a11y-reset:hover{border-color:var(--accent);color:var(--accent)}
+html.a11y-txt1{font-size:112.5%;--demo-text-scale:1.125}
+html.a11y-txt2{font-size:128.125%;--demo-text-scale:1.28125}
+html.a11y-txt1 body,html.a11y-txt2 body{font-size:calc(15px * var(--demo-text-scale))}
+html.a11y-txt1 h1,html.a11y-txt2 h1{font-size:clamp(calc(24px * var(--demo-text-scale)),calc(4.4vw * var(--demo-text-scale)),calc(34px * var(--demo-text-scale)))}
+html.a11y-txt1 .intro,html.a11y-txt2 .intro{font-size:calc(15.5px * var(--demo-text-scale))}
+html.a11y-txt1 .ev,html.a11y-txt2 .ev{font-size:calc(11px * var(--demo-text-scale))}
+html.a11y-txt1 .rules,html.a11y-txt2 .rules{font-size:calc(13px * var(--demo-text-scale))}
+html.a11y-txt1 .f-row label,html.a11y-txt2 .f-row label{font-size:calc(10px * var(--demo-text-scale))}
+html.a11y-txt1 .demo-a11y-row,html.a11y-txt2 .demo-a11y-row{font-size:calc(13px * var(--demo-text-scale))}
+html.a11y-txt1 .demo-a11y-panel h2,html.a11y-txt2 .demo-a11y-panel h2{font-size:calc(11px * var(--demo-text-scale))}
+html.a11y-txt1 .demo-a11y-sizes button,html.a11y-txt2 .demo-a11y-sizes button{font-size:calc(12px * var(--demo-text-scale))}
+html.a11y-txt1 .demo-a11y-reset,html.a11y-txt2 .demo-a11y-reset{font-size:calc(10px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.hint,.estado span,.it .lbl,.notas ul,.nota p){font-size:calc(14px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.sub,.fr,.nota code,.notas code,.mini#r-nota){font-size:calc(12.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar h2){font-size:calc(15px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.doc b,.paso .det,.chk,.veredicto p,.li,.footer){font-size:calc(13.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.paso .val,.veredicto){font-size:calc(14.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.doc span,.ocr){font-size:calc(11.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar p,.firma-pie span,.fr dd){font-size:calc(12px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.pbar .cnt,.estado .et,.opts button,.grupo button,.veredicto .et,td:first-child){font-size:calc(11px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.sec h3,.campo>.et,.fr dt,.modo button small,.pantalla .et){font-size:calc(10px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) .crit{font-size:calc(8.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.paso h3,.mini:not(#r-nota)){font-size:calc(10.5px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.modo button,.cerrar){font-size:calc(12px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) :is(.campo input,textarea,input[type="text"],table){font-size:calc(13px * var(--demo-text-scale))}
+:is(html.a11y-txt1,html.a11y-txt2) section.notas h2{font-size:calc(20px * var(--demo-text-scale))}
+html.a11y-fuente body{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif;letter-spacing:.02em;word-spacing:.08em;line-height:1.85}
+html.a11y-links a:not(.demo-language){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.18);border-radius:3px;padding-inline:2px}
+html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+html.a11y-contraste{--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--ok:#5cff9d;--no:#ff8a7a}
+html.a11y-claro{--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--ok:#1f7a3f;--no:#c2321f}
+@media(max-width:520px){nav .wrap{gap:8px}.demo-tools{gap:6px}.demo-language{padding:0 8px}.demo-a11y-panel{max-width:calc(100vw - 28px)}}
+@media(prefers-reduced-motion:reduce){.demo-a11y-switch::after{transition:none}}
