@@ -116,3 +116,30 @@ it('keeps the section nav reachable at <=620px (ES and EN)', () => {
     assert.match(joined, /min-height:\s*(?:44px|calc\([^)]*44px)/, `${lang}: mobile nav links need a >=44px tap target`);
   }
 });
+it('keeps every section dot pattern behind content and quiet in claro/contraste (ES + EN)', () => {
+  for (const file of ['index.html', path.join('en', 'index.html')]) {
+    const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    if (!/section::after\{content:/.test(source)) continue;
+    const rule = source.match(/section::after\{content:[^}]*\}/)[0];
+    assert.match(rule, /z-index:-1/, `${file}: section::after must sit behind content`);
+    assert.match(source, /html\.a11y-claro section::after\{[^}]*opacity:\.05/, `${file}: claro section::after must be quiet`);
+    assert.match(source, /html\.a11y-contraste section::after\{[^}]*display:none/, `${file}: contraste hides section::after`);
+  }
+});
+
+it('keeps the language link visible in the mobile nav row (ES + EN)', () => {
+  for (const file of ['index.html', path.join('en', 'index.html')]) {
+    const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    const mobile = source.match(/@media\(max-width:620px\)\{\.navlinks\{[^@]*/)?.[0] ?? '';
+    assert.match(mobile, /\.navlinks a\.lang\{[^}]*position:sticky[^}]*right:0/, `${file}: lang link must stick to the right edge`);
+    assert.match(mobile, /\.navlinks a:focus-visible\{[^}]*outline-offset:-3px/, `${file}: focus outline must not be clipped`);
+  }
+});
+
+it('keeps focused mobile nav links clear of the sticky lang link (ES + EN)', () => {
+  for (const file of ['index.html', path.join('en', 'index.html')]) {
+    const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    const mobile = source.match(/@media\(max-width:620px\)\{\.navlinks\{[^@]*/)?.[0] ?? '';
+    assert.match(mobile, /\.navlinks\{[^}]*scroll-padding-right:\s*(?:4[4-9]|[5-9]\d)px/, `${file}: scroll-padding-right must reserve space for the sticky lang link`);
+  }
+});
