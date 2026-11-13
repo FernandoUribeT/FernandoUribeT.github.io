@@ -223,6 +223,19 @@ section:last-of-type{margin-bottom:40px}
 .stat b i{font-style:normal;font-size:1.0625rem;color:var(--fg-faint)}
 .stat span{display:block;color:var(--fg-faint);font-size:0.7812rem;line-height:1.45}
 
+/* dos puertas: contratar y negocio */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.door{position:relative;border:1px solid var(--line);border-radius:18px;padding:28px 26px 26px;background:linear-gradient(155deg,var(--card-2),var(--card));display:flex;flex-direction:column;gap:13px;transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.door:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:0 14px 40px -18px var(--sombra)}
+.door h2{font:700 clamp(1.25rem,2.6vw,1.5rem)/1.15 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.door ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.door li{display:flex;gap:10px;color:var(--fg-dim);font-size:0.9062rem}
+.door li::before{content:"";flex:none;width:7px;height:7px;margin-top:.62em;border-radius:2px;background:var(--accent)}
+.door .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:10px}
+html.a11y-contraste .door{border-width:2px}
+html.a11y-quieto .door{transition:none}
+@media(max-width:680px){.doors{grid-template-columns:1fr}}
+
 /* ritmo: seccion con fondo tenue */
 
 
@@ -389,8 +402,6 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
       <button class="btn primary" id="copyBtn" data-mail="uribetrujillof7@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>Copiar correo</button>
       <a class="btn" href="https://github.com/FernandoUribeT"><svg class="gh" style="fill:currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
       <a class="btn" href="https://www.linkedin.com/in/fernandouribetrujillo/">LinkedIn</a>
-      <a class="btn" href="/Fernando_Uribe_CV_ES.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CV (español)</a>
-      <a class="btn" href="/Fernando_Uribe_CV.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CV (inglés)</a>
     </div>
       </div>
       <div class="carrusel rv" aria-roledescription="carrusel">
@@ -404,6 +415,33 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
         <button type="button" class="flecha der" aria-label="Demo siguiente"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
         <p class="pie-dia" aria-live="polite">Calendario de viajes · nueve eventos de ejemplo, arrastre directo y ficha informativa</p>
       </div>
+      </div>
+      <div class="doors rv">
+        <article class="door">
+          <h2>Si buscas contratar</h2>
+          <ul>
+            <li>169 aportaciones en Velor Innovation, feb–jul 2026</li>
+            <li>Autor único de 45 de 71 componentes del portal de proveedores</li>
+            <li>Laravel, PHP, MySQL y PHPUnit</li>
+          </ul>
+          <div class="acts">
+            <a class="btn primary" href="#experiencia">Ver trayectoria</a>
+            <a class="btn" href="/Fernando_Uribe_CV_ES.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CV (español)</a>
+            <a class="btn" href="/Fernando_Uribe_CV.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CV (inglés)</a>
+          </div>
+        </article>
+        <article class="door">
+          <h2>Si tienes un negocio</h2>
+          <ul>
+            <li>Facturación electrónica CFDI 4.0 y Carta Porte</li>
+            <li>Expedientes digitales con OCR y vigencias</li>
+            <li>Calendario de viajes y revisión vehicular</li>
+          </ul>
+          <div class="acts">
+            <a class="btn primary" href="/servicios/">Servicios y precios</a>
+            <a class="btn wa" href="https://wa.me/525659304558" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </article>
       </div>
       <div class="stats rv">
       <div class="stat"><b>169</b><span>aportaciones al repositorio</span></div>
