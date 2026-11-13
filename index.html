@@ -815,6 +815,7 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
   var R=document.documentElement;
   if(!('onscroll' in window))return;
   var LIMITE=1.1;                    // px por milisegundo (~1100 px/s)
+  var UMBRAL=0.2;                    // fraccion de la pantalla: solo ancla si sueltas asi de cerca
   var y=window.scrollY, t=performance.now(), vel=0;
   var ocioso=null, apagar=null, encendido=null;   // null: fuerza la primera aplicacion
 
@@ -827,6 +828,15 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
     if(!anclas.length)return false;
     var u=anclas[anclas.length-1];
     return window.scrollY > u.getBoundingClientRect().top + window.scrollY - 40;
+  }
+  /* proximity deja al navegador decidir desde que distancia jala, y jala desde
+     muy lejos. Aqui solo se enciende si el punto de ajuste mas cercano (el tope
+     o un ancla, menos el scroll-padding) queda a UMBRAL de pantalla o menos. */
+  function cercaDeUnAncla(){
+    var y0=window.scrollY, lim=window.innerHeight*UMBRAL;
+    var pad=parseFloat(getComputedStyle(R).scrollPaddingTop)||0;
+    var puntos=[0].concat(anclas.map(function(a){ return a.getBoundingClientRect().top+y0-pad; }));
+    return puntos.some(function(p){ return Math.abs(p-y0)<=lim; });
   }
   function pon(v){
     if(encendido===v)return; encendido=v;
@@ -844,7 +854,7 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
   }
   function alSoltar(){
     y=window.scrollY; t=performance.now();
-    if(vel>=LIMITE || quieto() || pasadoElFinal())return;
+    if(vel>=LIMITE || quieto() || pasadoElFinal() || !cercaDeUnAncla())return;
     /* Con animacion, no de golpe: el salto instantaneo se lee como un corte.
        El documento ya trae scroll-behavior:smooth, asi que basta con encender
        el ajuste y dejar que el navegador haga la transicion. */
