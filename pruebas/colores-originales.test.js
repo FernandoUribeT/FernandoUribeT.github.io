@@ -50,7 +50,7 @@ for (const [lang, source] of Object.entries(pages)) {
     // the treatment: colored left border (same width/style as .feat) and a small
     // colored accent (the dt label) plus the .feat-style hover background.
     assert.ok(
-      source.includes('.case.card{border-left:2px solid var(--borde,var(--line-2))}'),
+      source.includes('.case.card{border-top:3px solid var(--borde,var(--line-2))}'),
       'case rows need a 2px left border fed by --borde',
     );
     assert.ok(
@@ -71,7 +71,7 @@ for (const [lang, source] of Object.entries(pages)) {
       assert.equal(byNth.get(nth), colorAt(nth), `service nth-child(${nth}) should use ${colorAt(nth)}`);
     }
     assert.ok(
-      source.includes('.svc a.card.serv{border-left:2px solid var(--borde,var(--line-2))}'),
+      source.includes('.svc a.card.serv{border-top:3px solid var(--borde,var(--line-2))}'),
       'service cards need a 2px left border fed by --borde',
     );
     assert.ok(
@@ -94,11 +94,11 @@ for (const [lang, source] of Object.entries(pages)) {
       'employer door (1) must be azul and business door (2) verde',
     );
     assert.ok(
-      source.includes('.doors .door{border-left:2px solid var(--borde,var(--line-2))}'),
+      source.includes('.doors .door{border-top:3px solid var(--borde,var(--line-2))}'),
       'doors need a 2px left border fed by --borde',
     );
     assert.ok(
-      source.includes('.doors .door:hover{border-left-color:var(--borde)}'),
+      source.includes('.doors .door:hover{border-top-color:var(--borde)}'),
       'the door keeps its accent border on hover',
     );
     assert.ok(
@@ -138,7 +138,7 @@ it('the redesign adds no hex color literals to its own accent block', () => {
 it('keeps each accent border colored on hover, like the original .feat cards (ES + EN)', () => {
   for (const file of ['index.html', path.join('en', 'index.html')]) {
     const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
-    assert.match(source, /\.case\.card:hover\{[^}]*border-left-color:var\(--borde\)/, `${file}: case rows keep their accent on hover`);
-    assert.match(source, /\.svc a\.card\.serv:hover\{[^}]*border-left-color:var\(--borde\)/, `${file}: service cards keep their accent on hover`);
+    assert.match(source, /\.case\.card:hover\{[^}]*border-top-color:var\(--borde\)/, `${file}: case rows keep their accent on hover`);
+    assert.match(source, /\.svc a\.card\.serv:hover\{[^}]*border-top-color:var\(--borde\)/, `${file}: service cards keep their accent on hover`);
   }
 });
