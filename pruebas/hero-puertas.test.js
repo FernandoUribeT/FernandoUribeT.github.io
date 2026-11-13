@@ -49,11 +49,11 @@ for (const page of pages) {
       doors[1].includes(page.name === 'spanish' ? 'Si tienes un negocio' : 'If you run a business'),
       'business door heading missing',
     );
-    const iCarrusel = header.indexOf('<div class="carrusel');
+    const iDemo = header.search(/class="demo[\s"]/);
     const iDoors = header.indexOf('<div class="doors');
     const iStats = header.indexOf('<div class="stats rv">');
-    assert.ok(iCarrusel > -1 && iDoors > -1 && iStats > -1, 'hero blocks present');
-    assert.ok(iCarrusel < iDoors && iDoors < iStats, 'doors sit below the carousel and before the stats');
+    assert.ok(iDemo > -1 && iDoors > -1 && iStats > -1, 'hero blocks present');
+    assert.ok(iDemo < iDoors && iDoors < iStats, 'doors sit below the hero demo and before the stats');
   });
 
   it(`hero doors: employer door routes to experiencia and both CV PDFs (${page.name})`, () => {
