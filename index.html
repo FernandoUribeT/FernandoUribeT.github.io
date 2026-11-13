@@ -400,6 +400,24 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
   to { opacity: 1; translate: none; }
 }
 </style>
+<style>
+/* T3 — casos: una sola estructura para cada proyecto (S3) */
+#proyectos .grid{grid-template-columns:1fr}
+.case{display:grid;grid-template-columns:260px 1fr 1fr 1fr;gap:24px}
+.case h3{font:700 1.1875rem/1.25 var(--display);margin:0;letter-spacing:-.01em;color:var(--fg)}
+.case .badge{display:inline-block;font:700 .6875rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:4px 8px;border-radius:7px;margin-bottom:10px}
+.case .badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.case .head .tags{margin-top:12px}
+.case dl{display:contents}
+.case .col{min-width:0}
+.case dt{font:600 .6875rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.case dd{margin:0;color:var(--fg-dim);font-size:.9062rem}
+.case .res dd{color:var(--accent-2)}
+.case a.more{display:inline-block;margin-top:12px;font:600 .875rem/1.4 var(--mono);color:var(--accent);text-underline-offset:3px}
+.case a.more:hover{text-decoration:underline}
+@media(max-width:980px){.case{grid-template-columns:1fr 1fr}.case .head{grid-column:1/-1}}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -527,74 +545,133 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
       <p class="pie-dia" aria-live="polite">Calendario de viajes · nueve eventos de ejemplo, arrastre directo y ficha informativa</p>
     </div>
     <div class="grid">
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Laravel 13 · PHP 8.5 · PHPUnit · SQLite</p>
-            <p>Servicio multiempresa que le dice al despachador qué unidades pueden salir hoy y cuáles están detenidas por mantenimiento. Construido bajo una sola regla: <b>las reglas de negocio no dependen del framework</b>.</p>
-            <p>Las 12 pruebas de dominio corren en <b>2 ms</b> porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s. Esa diferencia es el argumento completo, y está medida en el README.</p>
-            <p>Incluye aislamiento por empresa con un scope global que falla cerrado, detalle que responde 404 —no 403— ante un id ajeno, y una prueba que manda <code>company_id</code> en el formulario para demostrar que se ignora.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">Pointer Events</span><span class="tag">demo interactivo</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Ver de un vistazo qué evento es cada uno —citas, salidas, entregas o despachos— con su tipo, fecha, cliente, unidad y operador.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Una demo independiente con nueve eventos ficticios. Haz clic en uno para consultarlo en una ficha breve de solo lectura; arrastra un evento a otro día —el destino se ilumina antes de soltarlo y las fechas pasadas se rechazan—; filtra por cliente, unidad u operador y ajusta los colores por tipo de evento.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Nueve eventos ficticios que se consultan, arrastran, filtran y colorean por tipo, en una ficha breve de solo lectura.</dd><a class="more" href="/demos/calendario/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Python · pytest · CLI</p>
-            <p>Extrae los documentos que el Diario Oficial de la Federación publica cada día y los entrega como JSON.</p>
-            <p>Está construido sobre una regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente. Documenté tres defectos reproducibles del sitio origen, entre ellos un certificado TLS vencido.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">clasificación y validación cruzada</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Revisar que cada documento subido por un proveedor sea el que dice ser y le pertenezca de verdad.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>El sistema extrae el texto del documento, decide de qué documento se trata y valida que le pertenezca. La demo deja cambiar entre la validación ingenua y la endurecida; los primeros tres documentos reproducen defectos reales de producción: un acta clasificada como CURP porque la trae impresa, un acuse del SAT tomado por comprobante de domicilio y una INE auténtica pero de otra persona.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Cambias entre la validación ingenua y la endurecida y ves en vivo qué pasa con los tres documentos que reproducen defectos reales de producción.</dd><a class="more" href="/demos/expedientes/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/calendario/" tabindex="-1" aria-hidden="true"><img src="/img/calendario.webp" data-base="/img/calendario" alt="" width="900" height="556" loading="lazy"></a>
-          <h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3>
-          <p class="tech">JavaScript sin librerías · Pointer Events · demo interactivo</p>
-            <p>Esta demo independiente muestra nueve eventos ficticios de citas, salidas, entregas y despachos. Haz clic en uno para consultar su tipo, fecha, cliente, unidad y operador en una ficha breve de solo lectura.</p>
-            <p>Arrastra un evento para moverlo directamente a otro día: el destino se ilumina antes de soltarlo y las fechas pasadas se rechazan. También puedes filtrar por cliente, unidad u operador y ajustar los colores por tipo de evento.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">canvas</span><span class="tag">módulo del que soy autor único</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Que una falla crítica en una unidad se detecte sin depender de que alguien la reporte, y que no se pueda cerrar una revisión incompleta ni sin firma.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Módulo del que soy autor único: el operador revisa la unidad punto por punto y firma en pantalla. Marca una falla crítica y la unidad se bloquea sola; una revisión a medias guardada como terminada genera confianza falsa, que es peor que no tener revisión, así que no se cierra incompleta ni sin firma.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>En la demo, marca una falla crítica y la unidad se bloquea sola; no se cierra ninguna revisión incompleta ni sin firma.</dd><a class="more" href="/demos/revision/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/expedientes/" tabindex="-1" aria-hidden="true"><img src="/img/expedientes.webp" data-base="/img/expedientes" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3>
-          <p class="tech">JavaScript sin librerías · clasificación y validación cruzada</p>
-            <p>Un proveedor sube documentos y el sistema extrae el texto, decide de qué documento se trata y valida que le pertenezca. <b>Puedes cambiar entre la validación ingenua y la endurecida</b> y ver la diferencia en vivo.</p>
-            <p>Los primeros tres documentos son los defectos reales que encontré en producción: un acta de nacimiento clasificada como CURP porque la trae impresa, un acuse del SAT tomado por comprobante de domicilio, y una INE auténtica pero de otra persona.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/qr/">Identificador QR de unidades</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">codificador QR escrito desde cero</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Generar códigos QR que sigan siendo legibles aunque lleven un logo encima, sin depender de ninguna librería.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Escribí el codificador completo desde cero: corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras. En la demo pones un logo al centro y mueves el nivel de corrección. El veredicto relee el lienzo, cuenta las palabras de código que el logo daña de verdad y las compara contra lo que cada bloque puede corregir; lo contrasté contra zxing-cpp, el decodificador detrás de los escáneres de teléfono, en las 76 combinaciones de nivel y tamaño de logo.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>En la demo ves hasta dónde aguanta el código con un logo al centro y el nivel de corrección que muevas, comparado contra un decodificador real.</dd><a class="more" href="/demos/qr/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/revision/" tabindex="-1" aria-hidden="true"><img src="/img/revision.webp" data-base="/img/revision" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3>
-          <p class="tech">JavaScript sin librerías · canvas · módulo del que soy autor único</p>
-            <p>El operador revisa la unidad punto por punto y firma en pantalla. <b>Marca una falla crítica y la unidad se bloquea sola</b>, sin que nadie tenga que reportarla.</p>
-            <p>Tampoco se puede cerrar una revisión incompleta ni sin firma: una revisión a medias guardada como terminada genera confianza falsa, que es peor que no tener revisión.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Laravel 13</span><span class="tag">PHP 8.5</span><span class="tag">PHPUnit</span><span class="tag">SQLite</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Un despachador, en un servicio multiempresa, necesita saber qué unidades pueden salir hoy y cuáles están detenidas por mantenimiento.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Servicio bajo una sola regla: las reglas de negocio no dependen del framework. Las 12 pruebas de dominio corren en 2 ms porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s. Aislamiento por empresa con un scope global que falla cerrado, que responde 404 —no 403— ante un id ajeno, y una prueba que manda <code>company_id</code> en el formulario para demostrar que se ignora.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Las 12 pruebas de dominio corren en 2 ms y las 24 de integración tardan 1.6 s; esa diferencia está medida en el README.</dd><a class="more" href="https://github.com/FernandoUribeT/fleet-maintenance">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/qr/" tabindex="-1" aria-hidden="true"><img src="/img/qr.webp" data-base="/img/qr" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/qr/">Identificador QR de unidades</a></h3>
-          <p class="tech">JavaScript sin librerías · codificador QR escrito desde cero</p>
-            <p>El código QR de esa página no sale de ninguna librería: escribí el codificador completo, con corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras. <b>Pon un logo al centro y mueve el nivel de corrección</b> para ver hasta dónde aguanta.</p>
-            <p>El veredicto no es una simulación: relee el lienzo, cuenta las palabras de código que el logo daña de verdad y las compara contra lo que cada bloque puede corregir. Lo contrasté contra zxing-cpp, el decodificador que hay detrás de los escáneres de teléfono, en las 76 combinaciones de nivel y tamaño de logo.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">CLI</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Obtener los documentos que el Diario Oficial de la Federación publica cada día y entregarlos como JSON.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Un CLI con pytest que extrae los documentos diarios del Diario Oficial y los entrega como JSON, bajo una regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Documenté tres defectos reproducibles del sitio origen —entre ellos un certificado TLS vencido— y el scraper está construido para fallar ruidosamente antes que devolver datos incorrectos en silencio.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-scraper">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">n8n · automatización</p>
-            <p>Lo ejecuta cada mañana y filtra la gaceta contra una lista de temas.</p>
-            <p>Distingue entre «no pude llegar a la fuente» y «llegué y los datos están mal»: dos fallas con urgencias distintas que casi toda automatización reporta igual.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">n8n</span><span class="tag">automatización</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Distinguir, en una automatización diaria, entre «no pude llegar a la fuente» y «llegué y los datos están mal»: dos fallas con urgencias distintas que casi toda automatización reporta igual.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Automatización en n8n que se ejecuta cada mañana y filtra la gaceta contra una lista de temas.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Distingue «no pude llegar a la fuente» de «llegué y los datos están mal», en lugar de reportar ambas igual.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-watch">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>ODS 9 e Innovación</h3>
-          <p class="tech">HTML · CSS · JavaScript · accesibilidad · 2025</p>
-            <p>Sitio informativo sobre industria sostenible e infraestructura inteligente, construido con la accesibilidad como eje: barra con siete adaptaciones que controla quien lo visita —modo oscuro, alto contraste, tamaño de texto, cambio de tipografía, ocultar imágenes y resaltar enlaces— sobre una estructura semántica con <code>nav</code>, <code>main</code>, <code>header</code> y <code>footer</code>.</p>
-            <p>La barra de accesibilidad de este portafolio nace de ese trabajo, y la puedes usar aquí mismo con el botón de abajo a la derecha.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>ODS 9 e Innovación</h3>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">accesibilidad</span><span class="tag">2025</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Un sitio informativo sobre industria sostenible e infraestructura inteligente que se controle y se entienda con la accesibilidad como eje desde el diseño.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Barra con siete adaptaciones que controla quien lo visita —modo oscuro, alto contraste, tamaño de texto, cambio de tipografía, ocultar imágenes y resaltar enlaces— sobre una estructura semántica con <code>nav</code>, <code>main</code>, <code>header</code> y <code>footer</code>.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>La barra de accesibilidad de este portafolio nace de ese trabajo y la puedes usar aquí mismo con el botón de abajo a la derecha.</dd></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Unity · Vuforia · C# · AR</p>
-            <p>Simulador con realidad aumentada usado como evaluación: los estudiantes identifican las piezas de un modelo 3D, lo desarman en secuencia y lo vuelven a ensamblar, sumando y restando puntos.</p>
-            <p>Máquina de estados por fases, arquitectura por componentes y envío automático de resultados a Google Forms.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Unity</span><span class="tag">Vuforia</span><span class="tag">C#</span><span class="tag">AR</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Evaluar que los estudiantes identifiquen las piezas de un modelo 3D, lo desarmen en secuencia y lo vuelvan a ensamblar.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Simulador con realidad aumentada: los estudiantes identifican las piezas, desarman en secuencia y reensamblan, sumando y restando puntos. Máquina de estados por fases, arquitectura por componentes y envío automático de resultados a Google Forms.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Se usa como evaluación y envía los resultados automáticamente a Google Forms.</dd><a class="more" href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">PHP · MySQL</p>
-            <p>Proyecto de curso sobre MVC en PHP puro. El enrutador y la capa ActiveRecord vienen del material del curso; lo mío es el dominio: usuarios, servicios y el flujo de reserva de citas. Lo dejo aquí porque es donde vi por dentro lo que un framework esconde, y eso es justo lo que aproveché al pasar a Laravel.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Ver por dentro lo que un framework esconde, construyendo en PHP puro el dominio de una aplicación de citas.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Proyecto de curso sobre MVC en PHP puro: el enrutador y la capa ActiveRecord vienen del material del curso; lo mío es el dominio —usuarios, servicios y el flujo de reserva de citas—.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Es donde vi por dentro lo que un framework esconde, que es justo lo que aproveché al pasar a Laravel.</dd><a class="more" href="https://github.com/FernandoUribeT/appsalon-mvc-php">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>Pulsera de monitoreo cardiaco</h3>
-          <p class="tech">C/C++ · IoT</p>
-            <p>Dispositivo vestible para monitoreo continuo del ritmo cardiaco en pacientes con demencia senil. Lectura de sensores y procesamiento de datos biométricos.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>Pulsera de monitoreo cardiaco</h3>
+            <div class="tags"><span class="tag">C/C++</span><span class="tag">IoT</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Monitorear de forma continua el ritmo cardiaco de pacientes con demencia senil.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Dispositivo vestible con lectura de sensores y procesamiento de datos biométricos.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Monitorea el ritmo cardiaco de forma continua y procesa los datos biométricos leídos por el sensor.</dd></div>
+          </dl>
         </article>
     </div>
   </section>
@@ -739,7 +816,7 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
    estaba, que es correcta, solo con mas aire. */
 (function(){
   var FILA=4;
-  var zonas=[{sel:'.grid',hueco:16},{sel:'.feats',hueco:12}];
+  var zonas=[{sel:'.feats',hueco:12}];
   function acomodaUna(g,hueco){
     try{
       var cs=[].slice.call(g.children);

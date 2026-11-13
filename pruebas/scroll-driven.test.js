@@ -54,14 +54,16 @@ for (const [lang, source] of Object.entries(pages)) {
   });
 
   it(`${lang}: card reveal never shrinks or pushes a card into its neighbour`, () => {
-    // The masonry script sizes rows with getBoundingClientRect(), which includes scale,
-    // and leaves a 16px gap ({sel:'.grid',hueco:16}) between stacked cards.
+    // The case rows no longer use the .grid masonry (uniform Problema / Qué hice /
+    // Resultado rows replace it); remaining masonry is the experience feats zone.
     const frame = (scrollBlock(source) ?? '').match(/@keyframes asoma-card\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
     assert.ok(frame, 'expected @keyframes asoma-card');
     assert.doesNotMatch(frame, /\bscale\s*:/);
-    assert.match(source, /\{sel:'\.grid',hueco:16\}/);
+    // The .grid masonry zone was intentionally removed; only .feats keeps masonry.
+    assert.doesNotMatch(source, /\{sel:'\.grid',hueco:16\}/);
+    assert.match(source, /\{sel:'\.feats',hueco:12\}/);
     for (const [, px] of frame.matchAll(/translate:\s*0\s+(\d+)px/g)) {
-      assert.ok(Number(px) <= 16, `card translate ${px}px must not exceed the 16px masonry gap`);
+      assert.ok(Number(px) <= 16, `card translate ${px}px must not exceed the 16px gap`);
     }
   });
 

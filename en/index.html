@@ -404,8 +404,26 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
   to { opacity: 1; translate: none; }
 }
 </style>
+<style>
+/* T3 — casos: una sola estructura para cada proyecto (S3) */
+#proyectos .grid{grid-template-columns:1fr}
+.case{display:grid;grid-template-columns:260px 1fr 1fr 1fr;gap:24px}
+.case h3{font:700 1.1875rem/1.25 var(--display);margin:0;letter-spacing:-.01em;color:var(--fg)}
+.case .badge{display:inline-block;font:700 .6875rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:4px 8px;border-radius:7px;margin-bottom:10px}
+.case .badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.case .head .tags{margin-top:12px}
+.case dl{display:contents}
+.case .col{min-width:0}
+.case dt{font:600 .6875rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.case dd{margin:0;color:var(--fg-dim);font-size:.9062rem}
+.case .res dd{color:var(--accent-2)}
+.case a.more{display:inline-block;margin-top:12px;font:600 .875rem/1.4 var(--mono);color:var(--accent);text-underline-offset:3px}
+.case a.more:hover{text-decoration:underline}
+@media(max-width:980px){.case{grid-template-columns:1fr 1fr}.case .head{grid-column:1/-1}}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+</style>
 </head>
-<body>
+<body>"}, {
 <div class="luces" aria-hidden="true"><i></i><i></i><i></i></div>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -531,74 +549,133 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
       <p class="pie-dia" aria-live="polite">Trip calendar · nine sample events, direct drag, and a compact info card</p>
     </div>
     <div class="grid">
-        <article class="card hero-card rv" data-tag="Live demo">
-          <a class="shot" href="/demos/calendar/" tabindex="-1" aria-hidden="true"><img src="/img/calendar.webp" data-base="/img/calendar" alt="" width="900" height="556" loading="lazy"></a>
-          <h3><a href="/demos/calendar/">Trip scheduling calendar</a></h3>
-          <p class="tech">Vanilla JavaScript · Pointer Events · interactive demo</p>
-            <p>This standalone demo shows nine fictional appointments, departures, deliveries, and dispatches. Click an event to see its type, date, client, unit, and driver in a compact read-only card.</p>
-            <p>Drag an event directly to another day: the destination highlights before release, and past dates are rejected. You can also filter by client, unit, or driver and customize colors by event type.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Live demo</span>
+            <h3><a href="/demos/calendar/">Trip scheduling calendar</a></h3>
+            <div class="tags"><span class="tag">Vanilla JavaScript</span><span class="tag">Pointer Events</span><span class="tag">interactive demo</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>See at a glance what each event is —appointments, departures, deliveries, or dispatches— with its type, date, client, unit, and driver.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A standalone demo with nine fictional events. Click one to read it in a compact read-only card; drag an event directly to another day —the destination highlights before release and past dates are rejected—; filter by client, unit, or driver and customize colors by event type.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>Nine fictional events you can consult, drag, filter, and color by type in a compact read-only card.</dd><a class="more" href="/demos/calendar/">Try the demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Live demo">
-          <a class="shot" href="/demos/records/" tabindex="-1" aria-hidden="true"><img src="/img/expedientes.webp" data-base="/img/expedientes" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/records/">Document validation with OCR</a></h3>
-          <p class="tech">Vanilla JavaScript · classification and cross-validation</p>
-            <p>A supplier uploads documents and the system extracts the text, decides which document it is, and validates that it belongs to them. <b>Switch between naive and hardened validation</b> and watch the difference live.</p>
-            <p>The first three documents are the real defects I found in production: a birth certificate classified as a CURP document because it has one printed on it, a tax filing receipt taken for proof of address, and a genuine ID belonging to someone else.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Live demo</span>
+            <h3><a href="/demos/records/">Document validation with OCR</a></h3>
+            <div class="tags"><span class="tag">Vanilla JavaScript</span><span class="tag">classification and cross-validation</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Check that each document a supplier uploads is what it claims to be and genuinely belongs to them.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>The system extracts the document's text, decides which document it is, and validates that it belongs to them. The demo lets you switch between naive and hardened validation; the first three documents reproduce real defects found in production: a birth certificate classified as a CURP document because it has one printed on it, a tax filing receipt taken for proof of address, and a genuine ID belonging to someone else.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>Switch between naive and hardened validation and watch live what happens to the three documents that reproduce real production defects.</dd><a class="more" href="/demos/records/">Try the demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Live demo">
-          <a class="shot" href="/demos/inspection/" tabindex="-1" aria-hidden="true"><img src="/img/revision.webp" data-base="/img/revision" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/inspection/">Vehicle inspection with signature and lockout</a></h3>
-          <p class="tech">Vanilla JavaScript · canvas · a module I am the sole author of</p>
-            <p>The driver checks the unit item by item and signs on screen. <b>Mark a critical fault and the unit locks itself</b>, without anyone having to report it.</p>
-            <p>An incomplete or unsigned inspection cannot be closed either: a half-done inspection saved as complete creates false confidence, which is worse than having no inspection at all.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Live demo</span>
+            <h3><a href="/demos/inspection/">Vehicle inspection with signature and lockout</a></h3>
+            <div class="tags"><span class="tag">Vanilla JavaScript</span><span class="tag">canvas</span><span class="tag">a module I am the sole author of</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>A critical fault in a unit must be caught without depending on someone reporting it, and an incomplete or unsigned inspection must not be closable.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A module I am the sole author of: the driver checks the unit item by item and signs on screen. Mark a critical fault and the unit locks itself; a half-done inspection saved as complete creates false confidence, worse than having no inspection at all, so an incomplete or unsigned one cannot be closed.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>In the demo, mark a critical fault and the unit locks itself; no incomplete or unsigned inspection can be closed.</dd><a class="more" href="/demos/inspection/">Try the demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Live demo">
-          <a class="shot" href="/demos/qr-en/" tabindex="-1" aria-hidden="true"><img src="/img/qr.webp" data-base="/img/qr" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/qr-en/">Fleet QR identifiers</a></h3>
-          <p class="tech">JavaScript, no libraries · QR encoder written from scratch</p>
-            <p>The QR on that page comes from no library: I wrote the whole encoder, with Reed–Solomon correction, block interleaving and all eight masks. <b>Put a logo in the centre and move the correction level</b> to see how much damage it survives.</p>
-            <p>The verdict is not a simulation: it reads the canvas back, counts the codewords the logo genuinely damages and compares them against what each block can correct. I checked it against zxing-cpp, the decoder behind phone scanners, across all 76 combinations of level and logo size.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Live demo</span>
+            <h3><a href="/demos/qr-en/">Fleet QR identifiers</a></h3>
+            <div class="tags"><span class="tag">JavaScript, no libraries</span><span class="tag">QR encoder written from scratch</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Generate QR codes that stay readable even with a logo on top, from no library.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>I wrote the whole encoder —Reed–Solomon correction, block interleaving and all eight masks. In the demo put a logo in the centre and move the correction level. The verdict reads the canvas back, counts the codewords the logo genuinely damages and compares them against what each block can correct; I checked it against zxing-cpp, the decoder behind phone scanners, across all 76 combinations of level and logo size.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>In the demo you see how much damage the code survives with a centred logo and the correction level you choose, cross-checked against a real decoder.</dd><a class="more" href="/demos/qr-en/">Try the demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Featured">
-          <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Laravel 13 &middot; PHP 8.5 &middot; PHPUnit &middot; SQLite</p>
-            <p>A multi-tenant service that tells a dispatcher which units can go out today and which are held back for service. Built to a single rule: <b>business rules do not depend on the framework</b>.</p>
-            <p>The 12 domain tests run in <b>2 ms</b> because they touch neither Laravel nor the database; the 24 integration tests take 1.6 s. That gap is the whole argument, and it is measured in the README.</p>
-            <p>It includes per-company isolation through a global scope that fails closed, a detail page answering 404 &mdash; not 403 &mdash; for another carrier's id, and a test that posts <code>company_id</code> to prove the form cannot pick its own tenant.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Featured</span>
+            <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Laravel 13</span><span class="tag">PHP 8.5</span><span class="tag">PHPUnit</span><span class="tag">SQLite</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>A dispatcher in a multi-tenant service needs to know which units can go out today and which are held back for service.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A service built to a single rule: business rules do not depend on the framework. The 12 domain tests run in 2 ms because they touch neither Laravel nor the database; the 24 integration tests take 1.6 s. Per-company isolation through a global scope that fails closed, a detail page answering 404 —not 403— for another carrier's id, and a test that posts <code>company_id</code> to prove the form cannot pick its own tenant.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>The 12 domain tests run in 2 ms and the 24 integration tests take 1.6 s; that gap is the whole argument, and it is measured in the README.</dd><a class="more" href="https://github.com/FernandoUribeT/fleet-maintenance">View the code</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Featured">
-          <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Python · pytest · CLI</p>
-            <p>Extracts the documents published daily by Mexico's official government gazette and emits them as JSON.</p>
-            <p>Built on one rule: a scraper that silently returns wrong data is worse than one that fails loudly. I documented three reproducible defects in the source site, including an expired TLS certificate.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Featured</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">CLI</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Obtain the documents Mexico's official government gazette publishes daily and emit them as JSON.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A pytest CLI that extracts the gazette's daily documents and emits them as JSON, built on one rule: a scraper that silently returns wrong data is worse than one that fails loudly.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>I documented three reproducible defects in the source site —including an expired TLS certificate— and the scraper is built to fail loudly rather than silently return wrong data.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-scraper">View the code</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Featured">
-          <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">n8n · automation</p>
-            <p>Runs it every morning and filters the gazette against a watchlist.</p>
-            <p>Separates "I could not reach the source" from "I reached it and the data is wrong": two failures with different urgency that most automations report identically.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Featured</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">n8n</span><span class="tag">automation</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Tell "I could not reach the source" from "I reached it and the data is wrong": two failures with different urgency that most automations report identically.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>An n8n automation that runs every morning and filters the gazette against a watchlist.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>It separates "I could not reach the source" from "I reached it and the data is wrong", instead of reporting both identically.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-watch">View the code</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>SDG 9 and Innovation</h3>
-          <p class="tech">HTML · CSS · JavaScript · accessibility · 2025</p>
-            <p>Informational site on sustainable industry and smart infrastructure, built with accessibility at its core: a toolbar with seven visitor-controlled adaptations — dark mode, high contrast, text size, font switching, hide images and highlight links — on a semantic structure using <code>nav</code>, <code>main</code>, <code>header</code> and <code>footer</code>.</p>
-            <p>The accessibility toolbar on this portfolio grew out of that work, and you can use it right here with the button at the bottom right.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>SDG 9 and Innovation</h3>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">accessibility</span><span class="tag">2025</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>An informational site on sustainable industry and smart infrastructure that is controllable and understandable, with accessibility at its core from the design.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A toolbar with seven visitor-controlled adaptations —dark mode, high contrast, text size, font switching, hide images and highlight links— on a semantic structure using <code>nav</code>, <code>main</code>, <code>header</code> and <code>footer</code>.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>The accessibility toolbar on this portfolio grew out of that work, and you can use it right here with the button at the bottom right.</dd></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Unity · Vuforia · C# · AR</p>
-            <p>Augmented-reality simulator used to assess students: they identify the parts of a 3D model, disassemble it in sequence and reassemble it, gaining and losing points.</p>
-            <p>Phase-based state machine, component-driven architecture and automatic submission of results to Google Forms.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Unity</span><span class="tag">Vuforia</span><span class="tag">C#</span><span class="tag">AR</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Assess that students identify the parts of a 3D model, disassemble it in sequence and reassemble it.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>An augmented-reality simulator: students identify the parts, disassemble in sequence and reassemble, gaining and losing points. Phase-based state machine, component-driven architecture and automatic submission of results to Google Forms.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>It is used to assess students and sends the results automatically to Google Forms.</dd><a class="more" href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">View the code</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">PHP · MySQL</p>
-            <p>A course project on plain-PHP MVC. The router and the ActiveRecord layer come from the course material; mine is the domain: users, services and the appointment booking flow. It stays here because it is where I saw the inside of what a framework hides &mdash; which is exactly what I leaned on when moving to Laravel.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>See the inside of what a framework hides, building the domain of an appointment app in plain PHP.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A course project on plain-PHP MVC: the router and the ActiveRecord layer come from the course material; mine is the domain —users, services and the appointment booking flow.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>It is where I saw the inside of what a framework hides, which is exactly what I leaned on when moving to Laravel.</dd><a class="more" href="https://github.com/FernandoUribeT/appsalon-mvc-php">View the code</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>Heart-rate monitoring wearable</h3>
-          <p class="tech">C/C++ · IoT</p>
-            <p>Wearable device for continuous heart-rate monitoring of patients with senile dementia. Sensor reading and biometric data processing.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>Heart-rate monitoring wearable</h3>
+            <div class="tags"><span class="tag">C/C++</span><span class="tag">IoT</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problem</dt><dd>Continuously monitor the heart rate of patients with senile dementia.</dd></div>
+            <div class="col"><dt>What I did</dt><dd>A wearable device with sensor reading and biometric data processing.</dd></div>
+            <div class="col res"><dt>Result</dt><dd>It monitors the heart rate continuously and processes the sensor's biometric data.</dd></div>
+          </dl>
         </article>
     </div>
   </section>
@@ -731,7 +808,7 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
    estaba, que es correcta, solo con mas aire. */
 (function(){
   var FILA=4;
-  var zonas=[{sel:'.grid',hueco:16},{sel:'.feats',hueco:12}];
+  var zonas=[{sel:'.feats',hueco:12}];
   function acomodaUna(g,hueco){
     try{
       var cs=[].slice.call(g.children);
