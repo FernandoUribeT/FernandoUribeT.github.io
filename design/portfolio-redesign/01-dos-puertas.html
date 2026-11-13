@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirección 01 · Dos puertas — Fernando Uribe Trujillo</title>
+<style>
+:root{--bg:#04060a;--bg-2:#0a0d13;--card:#1e2530;--card-2:#252d3a;--panel:#0f131b;--line:#333d4c;--line-2:#475268;--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;--accent-2:#ffd166;--glow:rgba(240,180,41,.14);--sombra:rgba(0,0,0,.85);--velo:rgba(10,12,17,.82);--ease:cubic-bezier(.22,.61,.36,1);--verde:#3ba55d;--azul:#4d9fff;--rojo:#ff6f5e;--wa:#25d366;--wa-txt:#0b2f19;--tinta:#161d2a;--tinta-linea:#2b3547;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--display:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:61px}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.65 var(--body)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:#1a1204;padding:10px 14px;border-radius:10px;font-weight:700;z-index:9}
+.skip:focus{top:12px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.eyebrow{font:600 .6875rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+/* nav */
+.top{position:sticky;top:0;z-index:5;background:var(--velo);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font:800 1rem var(--display);display:flex;gap:7px;align-items:center;text-decoration:none}
+.brand i{width:9px;height:9px;background:var(--accent);border-radius:2px}
+.top ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.top ul a{font:.75rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--fg-dim);text-decoration:none;padding:10px;border-radius:8px;display:block}
+.top ul a:hover{color:var(--fg);background:var(--card)}
+.top .lang{border:1px solid var(--line-2)}
+/* hero */
+.hero{padding:72px 0 40px}
+.hero h1{font:800 clamp(2rem,6.2vw,3.125rem)/1.06 var(--display);letter-spacing:-.032em;margin:0;max-width:20ch}
+.hero h1 span{color:var(--accent)}
+.hero .meta{font:.875rem var(--mono);color:var(--fg-dim);margin:16px 0 0}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+.door{position:relative;border:1px solid var(--line);border-radius:18px;padding:30px;background:linear-gradient(155deg,var(--card-2),var(--card));display:flex;flex-direction:column;gap:14px;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s}
+.door:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:0 14px 40px -18px var(--sombra)}
+.door .who{font:700 .6875rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim)}
+.door h2{font:700 1.75rem/1.15 var(--display);margin:0;letter-spacing:-.02em}
+.door ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.door li{display:flex;gap:10px;color:var(--fg-dim)}
+.door li::before{content:"";flex:none;width:7px;height:7px;margin-top:.62em;border-radius:2px;background:var(--accent)}
+.door .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:10px;border:1px solid var(--line-2);color:var(--fg);font:600 .9375rem var(--body);text-decoration:none;background:transparent;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1204}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:var(--wa-txt)}
+.proof{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:28px;font:.8125rem var(--mono);color:var(--fg-dim)}
+.proof b{color:var(--fg);font:700 1.125rem var(--display);margin-right:6px}
+/* sections */
+section.blk{border:1px solid var(--line);border-radius:18px;padding:44px 30px;margin-top:26px;background:var(--bg-2)}
+section.tint{background:var(--tinta);border-color:var(--tinta-linea)}
+.blk-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:26px}
+.blk-head h2{font:700 clamp(1.3125rem,3vw,1.8125rem)/1.2 var(--display);margin:0}
+.blk-head p{margin:0;color:var(--fg-dim);max-width:46ch}
+/* cases — one structure for every case */
+.case{display:grid;grid-template-columns:260px 1fr 1fr 1fr;gap:24px;padding:24px 0;border-top:1px solid var(--line)}
+.case:first-of-type{border-top:0;padding-top:0}
+.case h3{font:700 1.1875rem/1.25 var(--display);margin:0 0 8px}
+.case .badge{display:inline-block;font:700 .6875rem var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:4px 8px;border-radius:7px;margin-bottom:10px}
+.case .badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.case dl{display:contents}
+.case dt{font:600 .6875rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:6px}
+.case dd{margin:0;color:var(--fg)}
+.case .col{min-width:0}
+.case .res dd{color:var(--accent-2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font:.7812rem var(--mono);border:1px solid var(--line-2);border-radius:7px;padding:2px 8px;color:var(--fg-dim)}
+.case a.more{display:inline-block;margin-top:12px;font:600 .875rem var(--body);color:var(--accent);text-underline-offset:3px}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.svc h3{font:700 1.0625rem var(--display);margin:0 0 6px}
+.svc p{margin:0;color:var(--fg-dim);font-size:.9375rem}
+.price{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:22px;padding:18px 20px;border:1px dashed var(--line-2);border-radius:14px}
+.price strong{font:700 1.25rem var(--display);color:var(--accent)}
+/* footer */
+footer{margin:26px 0 0;padding:56px 0 110px;border-top:1px solid var(--line)}
+footer h2{font:700 clamp(1.3125rem,3vw,1.8125rem) var(--display);margin:0 0 18px}
+footer .acts{display:flex;flex-wrap:wrap;gap:10px}
+footer small{display:block;margin-top:28px;color:var(--fg-dim);font:.8125rem var(--mono)}
+.fab{position:fixed;bottom:18px;width:52px;height:52px;border-radius:50%;border:0;display:grid;place-items:center;font:700 .875rem var(--body);box-shadow:0 10px 28px -8px var(--sombra);cursor:pointer}
+.fab.wa{left:18px;background:var(--wa);color:var(--wa-txt)}
+.fab.a11y{right:18px;background:var(--accent);color:#1a1204}
+@media (max-width:980px){.case{grid-template-columns:1fr 1fr}.case .head{grid-column:1/-1}.svc{grid-template-columns:1fr 1fr}}
+@media (max-width:680px){.top ul li:not(:last-child){display:none}.doors,.svc,.case{grid-template-columns:1fr}section.blk{padding:34px 18px;border-radius:14px}.blk-head,.price{flex-direction:column;align-items:flex-start}.hero{padding-top:44px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#main"><i aria-hidden="true"></i>FUT</a>
+    <nav aria-label="Principal"><ul>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#trayectoria">Trayectoria</a></li>
+      <li><a class="lang" href="#main" lang="en">EN</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <section class="hero" aria-labelledby="h1">
+    <p class="eyebrow">Ing. Fernando Uribe Trujillo · Manzanillo, Colima</p>
+    <h1 id="h1">Software para transporte y facturación <span>que sí llega a producción.</span></h1>
+    <p class="meta">Desarrollador Full Stack · CFDI 4.0 · Carta Porte · Disponible para trabajo remoto</p>
+
+    <div class="doors">
+      <article class="door" aria-labelledby="d1">
+        <span class="who">Si buscas contratar</span>
+        <h2 id="d1">Un full stack que ya trabajó en un SaaS de transporte real</h2>
+        <ul>
+          <li>169 aportaciones en Velor Innovation, feb–jul 2026</li>
+          <li>Autor único de 45 de 71 componentes del portal de proveedores</li>
+          <li>Laravel, PHP, MySQL, PHPUnit con TDD</li>
+        </ul>
+        <div class="acts">
+          <a class="btn primary" href="#trayectoria">Ver trayectoria</a>
+          <a class="btn" href="#main">Descargar CV</a>
+        </div>
+      </article>
+      <article class="door" aria-labelledby="d2">
+        <span class="who">Si tienes un negocio</span>
+        <h2 id="d2">Le quito trámite a tu operación: facturas, expedientes y unidades</h2>
+        <ul>
+          <li>Facturación electrónica CFDI 4.0 y Carta Porte</li>
+          <li>Expedientes digitales con OCR y vigencias</li>
+          <li>Calendario de viajes y revisión vehicular</li>
+        </ul>
+        <div class="acts">
+          <a class="btn primary" href="#servicios">Ver servicios y precios</a>
+          <a class="btn wa" href="#main">WhatsApp</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="proof" aria-label="Datos verificables">
+      <span><b>169</b>aportaciones</span>
+      <span><b>45/71</b>componentes autor único</span>
+      <span><b>11</b>repos públicos</span>
+      <span><b>9.46</b>promedio, Universidad de Colima</span>
+    </div>
+  </section>
+
+  <section class="blk tint" id="casos" aria-labelledby="casos-h">
+    <div class="blk-head">
+      <div><p class="eyebrow">Casos</p><h2 id="casos-h">Problema, qué hice y resultado</h2></div>
+      <p>Cada caso tiene la misma estructura para que se lea en diez segundos. Las demos usan datos de ejemplo.</p>
+    </div>
+
+    <article class="case">
+      <div class="col head"><span class="badge">Demo en vivo</span><h3>Revisión vehicular</h3><div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">Firma</span></div></div>
+      <dl>
+        <div class="col"><dt>Problema</dt><dd>Una unidad con falla podía salir a ruta porque la revisión era un papel.</dd></div>
+        <div class="col"><dt>Qué hice</dt><dd>Checklist digital con firma; una falla crítica marca la unidad como no disponible.</dd></div>
+        <div class="col res"><dt>Resultado</dt><dd>La unidad se bloquea sola hasta que se corrige. Autor único del módulo.</dd><a class="more" href="#casos">Probar la demo</a></div>
+      </dl>
+    </article>
+
+    <article class="case">
+      <div class="col head"><span class="badge alt">Destacado</span><h3>Facturación electrónica</h3><div class="tags"><span class="tag">CFDI 4.0</span><span class="tag">Carta Porte</span><span class="tag">XML</span></div></div>
+      <dl>
+        <div class="col"><dt>Problema</dt><dd>Los traslados necesitan complemento Carta Porte válido ante el SAT.</dd></div>
+        <div class="col"><dt>Qué hice</dt><dd>Generación de CFDI 4.0 con Carta Porte e idCCP con UUID RFC 4122 v4.</dd></div>
+        <div class="col res"><dt>Resultado</dt><dd>Comprobantes con el identificador que exige la especificación del SAT.</dd><a class="more" href="#casos">Leer el caso</a></div>
+      </dl>
+    </article>
+
+    <article class="case">
+      <div class="col head"><span class="badge">Demo en vivo</span><h3>Validación de expedientes con OCR</h3><div class="tags"><span class="tag">OCR</span><span class="tag">JS</span></div></div>
+      <dl>
+        <div class="col"><dt>Problema</dt><dd>Revisar a mano constancias y licencias de cada proveedor.</dd></div>
+        <div class="col"><dt>Qué hice</dt><dd>Lectura OCR y verificación cruzada; la demo compara validación ingenua y endurecida.</dd></div>
+        <div class="col res"><dt>Resultado</dt><dd>Ves en vivo qué documentos pasan y por qué se rechazan.</dd><a class="more" href="#casos">Probar la demo</a></div>
+      </dl>
+    </article>
+
+    <article class="case">
+      <div class="col head"><span class="badge alt">Rendimiento</span><h3>Consultas N+1</h3><div class="tags"><span class="tag">Eloquent</span><span class="tag">MySQL</span></div></div>
+      <dl>
+        <div class="col"><dt>Problema</dt><dd>Listados que hacían una consulta por cada fila.</dd></div>
+        <div class="col"><dt>Qué hice</dt><dd>Carga anticipada de relaciones con Eloquent.</dd></div>
+        <div class="col res"><dt>Resultado</dt><dd>El listado se resuelve con un número fijo de consultas.</dd><a class="more" href="#casos">Leer el caso</a></div>
+      </dl>
+    </article>
+  </section>
+
+  <section class="blk" id="servicios" aria-labelledby="svc-h">
+    <div class="blk-head">
+      <div><p class="eyebrow">Para negocios</p><h2 id="svc-h">Servicios</h2></div>
+      <p>Para transportistas, agencias y negocios locales de Manzanillo y alrededores.</p>
+    </div>
+    <div class="svc">
+      <article><h3>Facturación electrónica</h3><p>CFDI 4.0, Carta Porte, timbrado y cancelaciones.</p></article>
+      <article><h3>Expedientes digitales</h3><p>OCR, verificación cruzada y aviso de vigencias.</p></article>
+      <article><h3>Operación y logística</h3><p>Calendario, revisión con firma y bloqueo automático.</p></article>
+      <article><h3>Sitios y sistemas a medida</h3><p>Lo que tu operación necesita, sin plantillas.</p></article>
+      <article><h3>Automatización de procesos</h3><p>Tareas repetitivas convertidas en flujos.</p></article>
+      <article><h3>Soporte y mantenimiento</h3><p>Cambios del SAT y ajustes después de entregar.</p></article>
+    </div>
+    <div class="price"><span>Pago 50/50 por etapas · el código es tuyo</span><strong>Desde $8,000 MXN</strong><a class="btn primary" href="#servicios">Cotizar por WhatsApp</a></div>
+  </section>
+
+  <section class="blk" id="trayectoria" aria-labelledby="tr-h">
+    <div class="blk-head">
+      <div><p class="eyebrow">Para empleadores</p><h2 id="tr-h">Trayectoria</h2></div>
+      <p>Lo que hice, con quién y cómo se puede comprobar.</p>
+    </div>
+    <article class="case">
+      <div class="col head"><h3>Velor Innovation</h3><p style="margin:0;color:var(--fg-dim);font:.8125rem var(--mono)">Feb – Jul 2026 · 169 aportaciones</p></div>
+      <dl>
+        <div class="col"><dt>Rol</dt><dd>Desarrollador Full Stack en un SaaS multiempresa de administración de transporte.</dd></div>
+        <div class="col"><dt>Módulos</dt><dd>Calendario y asignación, portal de proveedores, autorrellenado de CSF, revisión vehicular, facturación.</dd></div>
+        <div class="col res"><dt>Evidencia</dt><dd>45 de 71 componentes como autor único.</dd></div>
+      </dl>
+    </article>
+    <article class="case">
+      <div class="col head"><h3>Universidad de Colima</h3><p style="margin:0;color:var(--fg-dim);font:.8125rem var(--mono)">Ingeniería de Software · Campus El Naranjo</p></div>
+      <dl>
+        <div class="col"><dt>Promedio</dt><dd>9.46</dd></div>
+        <div class="col"><dt>Stack</dt><dd>PHP, JS, SQL, Python, Kotlin, C, C++.</dd></div>
+        <div class="col res"><dt>Pruebas</dt><dd>PHPUnit, TDD y Pint.</dd></div>
+      </dl>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>¿Tienes una vacante o un sistema que arreglar?</h2>
+    <div class="acts">
+      <a class="btn primary" href="#main">Escríbeme</a>
+      <a class="btn wa" href="#main">WhatsApp</a>
+      <a class="btn" href="#main">GitHub</a>
+      <a class="btn" href="#main">LinkedIn</a>
+    </div>
+    <small>Este sitio está escrito a mano: un archivo HTML, sin frameworks ni dependencias.</small>
+  </div>
+</footer>
+<button class="fab wa" type="button" aria-label="Escribir por WhatsApp">WA</button>
+<button class="fab a11y" type="button" aria-label="Opciones de accesibilidad">Aa</button>
+</body>
+</html>
