@@ -331,6 +331,34 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
 #proyectos::after,#formacion::after,#proyectos::before,#formacion::before{display:none}
 #experiencia,#stack{background:var(--panel);border:0;border-radius:0;margin-top:0;overflow:hidden;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}
 </style>
+<style id="scroll-driven">
+/* Scroll-driven animations (progressive enhancement).
+   Browsers without animation-timeline keep the IntersectionObserver reveal (.rv/.in).
+   Keyframes use translate/scale, never transform, so .card:hover keeps its lift. */
+@supports (animation-timeline: view()) {
+  /* overflow:hidden would turn the section into the scroll container view() tracks. */
+  #proyectos { overflow: clip; }
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.a11y-quieto) nav::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+      background: var(--accent); transform-origin: 0 50%; pointer-events: none;
+      animation: lectura linear both;
+      animation-timeline: scroll(root);
+    }
+    html:not(.a11y-quieto).js #proyectos .card.rv:not(.in) { transform: none; }
+    html:not(.a11y-quieto).js #proyectos .card.rv {
+      animation: asoma-card linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+@keyframes lectura { from { scale: 0 1; } to { scale: 1 1; } }
+@keyframes asoma-card {
+  from { opacity: 0; translate: 0 48px; scale: .96; }
+  to { opacity: 1; translate: none; scale: none; }
+}
+</style>
 </head>
 <body>
 <div class="luces" aria-hidden="true"><i></i><i></i><i></i></div>

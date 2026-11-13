@@ -327,6 +327,34 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
 <script>document.documentElement.classList.add('js');</script>
 <noscript><style>.js .rv{opacity:1!important;transform:none!important}</style></noscript><style>.feats>.note span{max-width:none}.feats>.note{max-width:none;text-wrap:pretty}</style><style>.feat,.feat:hover{border-left-color:var(--line)!important}.feat{border-top-color:var(--tono,var(--line-2))}</style><style>.feats>.feat:nth-child(1){--tono:var(--accent)}.feats>.feat:nth-child(2){--tono:var(--azul)}.feats>.feat:nth-child(3){--tono:var(--verde)}.feats>.feat:nth-child(4){--tono:var(--rojo)}.feats>.feat:nth-child(5){--tono:var(--violeta)}.feats>.feat:nth-child(6){--tono:var(--cian)}.feats>.feat:nth-child(7){--tono:var(--accent)}.feat{border:1px solid var(--line);border-top:3px solid var(--tono,var(--line-2));border-radius:10px;transition:border-color .25s var(--ease),transform .25s var(--ease),background .25s var(--ease)}.feat:hover{border-left-color:var(--line);transform:translateY(-2px);background:var(--card-2)}.feat b{color:var(--tono,var(--fg))}.feat .feat-ico{color:var(--tono,var(--accent))}</style><style>.luces{position:fixed;inset:0;left:0;width:auto;transform:none;z-index:-1}header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;clip-path:none;padding:40px 0}@supports not (height:100svh){header{min-height:100vh}}#proyectos,#formacion{background:transparent;border:0;border-radius:0;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);margin-top:0}#proyectos::after,#formacion::after{display:none}#proyectos::before,#formacion::before{display:none}#experiencia,#stack{background:var(--panel);border:0;border-radius:0;margin-top:0;overflow:hidden;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}</style>
 <style>header .luces i:nth-child(1){width:64vw;height:64vw;left:-14vw;top:-46%}header .luces i:nth-child(2){width:46vw;height:46vw;right:-10vw;top:-8%;opacity:.6}header .luces i:nth-child(3){width:40vw;height:40vw;left:22vw;bottom:-58%;opacity:.5}</style>
+<style id="scroll-driven">
+/* Scroll-driven animations (progressive enhancement).
+   Browsers without animation-timeline keep the IntersectionObserver reveal (.rv/.in).
+   Keyframes use translate/scale, never transform, so .card:hover keeps its lift. */
+@supports (animation-timeline: view()) {
+  /* overflow:hidden would turn the section into the scroll container view() tracks. */
+  #proyectos { overflow: clip; }
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.a11y-quieto) nav::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+      background: var(--accent); transform-origin: 0 50%; pointer-events: none;
+      animation: lectura linear both;
+      animation-timeline: scroll(root);
+    }
+    html:not(.a11y-quieto).js #proyectos .card.rv:not(.in) { transform: none; }
+    html:not(.a11y-quieto).js #proyectos .card.rv {
+      animation: asoma-card linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+@keyframes lectura { from { scale: 0 1; } to { scale: 1 1; } }
+@keyframes asoma-card {
+  from { opacity: 0; translate: 0 48px; scale: .96; }
+  to { opacity: 1; translate: none; scale: none; }
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
