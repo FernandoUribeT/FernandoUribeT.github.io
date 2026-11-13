@@ -354,9 +354,11 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
   }
 }
 @keyframes lectura { from { scale: 0 1; } to { scale: 1 1; } }
+/* No scale: the masonry script measures getBoundingClientRect(), which includes it.
+   16px matches its gap, so a moving card never reaches the one below. */
 @keyframes asoma-card {
-  from { opacity: 0; translate: 0 48px; scale: .96; }
-  to { opacity: 1; translate: none; scale: none; }
+  from { opacity: 0; translate: 0 16px; }
+  to { opacity: 1; translate: none; }
 }
 </style>
 </head>

@@ -53,6 +53,18 @@ for (const [lang, source] of Object.entries(pages)) {
     for (const frame of frames) assert.doesNotMatch(frame, /\btransform\s*:/);
   });
 
+  it(`${lang}: card reveal never shrinks or pushes a card into its neighbour`, () => {
+    // The masonry script sizes rows with getBoundingClientRect(), which includes scale,
+    // and leaves a 16px gap ({sel:'.grid',hueco:16}) between stacked cards.
+    const frame = (scrollBlock(source) ?? '').match(/@keyframes asoma-card\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
+    assert.ok(frame, 'expected @keyframes asoma-card');
+    assert.doesNotMatch(frame, /\bscale\s*:/);
+    assert.match(source, /\{sel:'\.grid',hueco:16\}/);
+    for (const [, px] of frame.matchAll(/translate:\s*0\s+(\d+)px/g)) {
+      assert.ok(Number(px) <= 16, `card translate ${px}px must not exceed the 16px masonry gap`);
+    }
+  });
+
   it(`${lang}: keeps the IntersectionObserver reveal as the fallback`, () => {
     assert.match(source, /\.js \.rv\{opacity:0;transform:translateY\(18px\)\}/);
     assert.match(source, /\.js \.rv\.in\{opacity:1;transform:none;/);
