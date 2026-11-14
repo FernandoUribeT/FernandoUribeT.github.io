@@ -270,23 +270,35 @@ html.a11y-quieto .fondo-vivo,html.a11y-quieto .luces{display:none}
   }
   var col=paleta();
 
+  /* el canvas se ajusta a la ventana; las particulas se siembran una sola
+     vez y al redimensionar solo se reescalan, para que no parpadeen */
   function medir(){
+    var antes=an, alto=al;
     ratio=Math.min(devicePixelRatio||1,2);
     an=innerWidth; al=innerHeight;
     cv.width=an*ratio; cv.height=al*ratio;
     g.setTransform(ratio,0,0,ratio,0,0);
-    var n=Math.max(16,Math.min(Math.round(an*al/22000),56));
-    P=[];
-    for(var i=0;i<n;i++)P.push({x:Math.random()*an,y:Math.random()*al,
-      vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22});
+    if(!P.length){
+      var n=Math.max(16,Math.min(Math.round(an*al/22000),56));
+      for(var i=0;i<n;i++)P.push({x:Math.random()*an,y:Math.random()*al,
+        vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22});
+    }else if(antes&&alto){
+      for(var k=0;k<P.length;k++){P[k].x*=an/antes; P[k].y*=al/alto;}
+    }
   }
   medir();
-  addEventListener('resize',medir);
+  var espera=0;
+  addEventListener('resize',function(){clearTimeout(espera); espera=setTimeout(medir,150);});
   addEventListener('pointermove',function(e){raton.x=e.clientX;raton.y=e.clientY;});
   addEventListener('pointerleave',function(){raton.x=raton.y=-9999;});
 
+  /* quieto detiene el dibujo; alto contraste oculta el canvas, asi que
+     tampoco tiene sentido seguir dibujando */
+  function apagado(){
+    return R.classList.contains('a11y-quieto')||R.classList.contains('a11y-contraste');
+  }
   function cuadro(){
-    if(R.classList.contains('a11y-quieto')){corriendo=false;return;}
+    if(apagado()){corriendo=false;return;}
     corriendo=true;
     g.clearRect(0,0,an,al);
     var barrido=((t*1.7)%(an+560))-280;
@@ -325,8 +337,10 @@ html.a11y-quieto .fondo-vivo,html.a11y-quieto .luces{display:none}
     if(vivo)requestAnimationFrame(cuadro); else corriendo=false;
   }
 
+  /* corriendo se marca al programar el cuadro, no al dibujarlo: asi dos
+     avisos seguidos nunca arrancan dos ciclos a la vez */
   function despierta(){
-    if(vivo&&!corriendo&&!R.classList.contains('a11y-quieto'))requestAnimationFrame(cuadro);
+    if(vivo&&!corriendo&&!apagado()){corriendo=true;requestAnimationFrame(cuadro);}
   }
   document.addEventListener('visibilitychange',function(){
     vivo=!document.hidden; despierta();
@@ -334,8 +348,7 @@ html.a11y-quieto .fondo-vivo,html.a11y-quieto .luces{display:none}
   if('MutationObserver' in window){
     new MutationObserver(function(){
       col=paleta();
-      if(R.classList.contains('a11y-quieto')){corriendo=false;}
-      else despierta();
+      despierta();
     }).observe(R,{attributes:true,attributeFilter:['class']});
   }
   /* demo-controls.js (defer) aplica las clases de acceso antes de

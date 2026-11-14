@@ -34,8 +34,7 @@ for (const [lang, file] of Object.entries(pages)) {
         'no fondo-vivo code may sit outside a <script>');
     });
 
-    it('stops drawing in quiet mode', () => {
-      assert.match(source, /if\(R\.classList\.contains\('a11y-quieto'\)\)\{corriendo=false;return;\}/);
-    });
+    // quiet / high-contrast behavior is exercised by running the script in
+    // pruebas/fondo-rendimiento.test.js
   });
 }
