@@ -34,7 +34,8 @@ function boot(code, { classes = [] } = {}) {
   let observer = null;
   const winListeners = {};
   const docListeners = {};
-  const ctx = new Proxy({}, { get: () => () => {} });
+  const arcs = [];
+  const ctx = new Proxy({}, { get: (_, name) => (name === 'arc' ? (x, y) => arcs.push({ x, y }) : () => {}) });
   const canvas = { width: 0, height: 0, getContext: () => ctx };
   const sandbox = {
     devicePixelRatio: 1, innerWidth: 1440, innerHeight: 900,
@@ -56,6 +57,7 @@ function boot(code, { classes = [] } = {}) {
   const api = {
     get pendingFrames() { return frames.length; },
     get randomCalls() { return randomCalls; },
+    takeArcs() { return arcs.splice(0); },
     ready() { (docListeners.DOMContentLoaded || []).forEach((fn) => fn()); },
     step() { const queued = frames.splice(0); queued.forEach((fn) => fn()); },
     setClass(c, on) { on ? cls.add(c) : cls.delete(c); observer && observer(); },
@@ -109,6 +111,22 @@ for (const file of pages) {
       b.setClass('a11y-quieto', false);
       b.step();
       assert.equal(b.pendingFrames, 1, 'one loop, not several');
+    });
+
+    it('keeps particles spread after the window shrinks to 0x0 and comes back', () => {
+      const b = boot(code);
+      b.ready();
+      b.resize(0, 0);
+      b.flushTimers();
+      b.resize(1440, 900);
+      b.flushTimers();
+      b.takeArcs();
+      b.step();
+      const arcs = b.takeArcs();
+      assert.ok(arcs.length > 0, 'particles drawn');
+      const meanX = arcs.reduce((sum, a) => sum + a.x, 0) / arcs.length;
+      const meanY = arcs.reduce((sum, a) => sum + a.y, 0) / arcs.length;
+      assert.ok(meanX > 300 && meanY > 200, `particles collapsed to the corner (mean ${meanX.toFixed(1)}, ${meanY.toFixed(1)})`);
     });
 
     it('does not reseed particles on window resize', () => {

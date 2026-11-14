@@ -1221,6 +1221,9 @@ function desplazamientoFoco(link,lang,nav){
      vez y al redimensionar solo se reescalan, para que no parpadeen */
   function medir(){
     var antes=an, alto=al;
+    /* con la ventana en 0x0 (minimizada) no hay nada que medir: reescalar
+       mandaria todas las particulas a la esquina y ahi se quedarian */
+    if(!innerWidth||!innerHeight)return;
     ratio=Math.min(devicePixelRatio||1,2);
     an=innerWidth; al=innerHeight;
     cv.width=an*ratio; cv.height=al*ratio;
