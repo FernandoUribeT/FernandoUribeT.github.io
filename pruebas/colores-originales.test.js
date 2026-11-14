@@ -40,13 +40,18 @@ function waLinks(source) {
 }
 
 for (const [lang, source] of Object.entries(pages)) {
-  it(`${lang}: case rows 1-5 get azul, verde, rojo, violeta, cian and the cycle repeats for all 11`, () => {
-    const rules = nthRules(source, '#proyectos .grid .case:nth-child');
-    const byNth = new Map(rules.map((r) => [r.nth, r.color]));
-    assert.equal(rules.length, 11, 'expected the 11 case rows, each with its accent rule');
-    for (let nth = 1; nth <= 11; nth++) {
-      assert.equal(byNth.get(nth), colorAt(nth), `case nth-child(${nth}) should use ${colorAt(nth)}`);
-    }
+  it(`${lang}: every case keeps its original accent after being grouped into alternating rows`, () => {
+    // Colors follow the original case order (four demos, then seven compacts),
+    // not the new DOM order. Check the selector for each actual position.
+    const positions = [
+      [1, null], [2, null], [3, null], [4, null],
+      [1, 1], [1, 2], [2, 1], [2, 2], [3, 1], [3, 2], [4, 1],
+    ];
+    positions.forEach(([row, compact], i) => {
+      const selector = `#proyectos .grid .bento-fila:nth-child(${row})` +
+        (compact === null ? '>.case' : ` .bento-compacts>.case:nth-child(${compact})`);
+      assert.ok(source.includes(`${selector}{--borde:var(${colorAt(i + 1)})}`), `${selector} should use ${colorAt(i + 1)}`);
+    });
     // the treatment: colored left border (same width/style as .feat) and a small
     // colored accent (the dt label) plus the .feat-style hover background.
     assert.ok(
@@ -135,10 +140,10 @@ it('the redesign adds no hex color literals to its own accent block', () => {
   }
 });
 
-it('keeps each accent border colored on hover, like the original .feat cards (ES + EN)', () => {
+it('keeps the service accent border colored on hover, like the original .feat cards (ES + EN)', () => {
   for (const file of ['index.html', path.join('en', 'index.html')]) {
     const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
-    assert.match(source, /\.case\.card:hover\{[^}]*border-top-color:var\(--borde\)/, `${file}: case rows keep their accent on hover`);
+    // S14 replaces the cases' colored top edge on hover; services are unchanged.
     assert.match(source, /\.svc a\.card\.serv:hover\{[^}]*border-top-color:var\(--borde\)/, `${file}: service cards keep their accent on hover`);
   }
 });

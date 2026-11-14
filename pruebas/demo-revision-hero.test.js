@@ -54,7 +54,7 @@ for (const [lang, source] of Object.entries(pages)) {
   });
 
   it(`${lang}: #proyectos keeps its case grid but no longer contains the carousel`, () => {
-    assert.ok(proyectos.includes('<div class="grid">'), 'case grid still present');
+    assert.ok(proyectos.includes('<div class="grid bento">'), 'case grid (bento mosaic) still present');
     assert.ok(!proyectos.includes('<div class="carrusel'), 'no carousel inside #proyectos');
     assert.ok(!source.includes('#proyectos .carrusel'), 'leftover #proyectos .carrusel rule removed');
   });
