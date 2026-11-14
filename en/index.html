@@ -228,7 +228,6 @@ section:last-of-type{margin-bottom:40px}
 /* two doors: hiring and business */
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
 .door{position:relative;border:1px solid var(--line);border-radius:18px;padding:28px 26px 26px;background:linear-gradient(155deg,var(--card-2),var(--card));display:flex;flex-direction:column;gap:13px;transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
-.door:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:0 14px 40px -18px var(--sombra)}
 .door h2{font:700 clamp(1.25rem,2.6vw,1.5rem)/1.15 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
 .door ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 .door li{display:flex;gap:10px;color:var(--fg-dim);font-size:0.9062rem}
@@ -453,21 +452,21 @@ footer .pie{max-width:62ch;margin-left:auto;margin-right:auto}
 /* Without typed properties or masks, keep a static accent border. */
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
 @keyframes luz-borde{from{--ang:0deg}to{--ang:360deg}}
-#proyectos .case.card{overflow:visible;isolation:isolate;transition:opacity .6s var(--ease),transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
-#proyectos .case.card::after{border-radius:inherit}
-#proyectos .case.card::before{content:"";position:absolute;inset:-3px -1px -1px;border:2px solid var(--borde,var(--line-2));border-radius:inherit;pointer-events:none;z-index:-1;opacity:0}
-#proyectos .case.card:is(:hover,:focus-within){border-color:var(--line-2);border-top-color:transparent;background:var(--card-2);box-shadow:0 14px 40px -18px var(--sombra),0 0 18px -7px var(--borde,var(--line-2))}
+.svc a.card.serv,.doors .door,#proyectos .case.card{overflow:visible;isolation:isolate;transition:opacity .6s var(--ease),transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
+.svc a.card.serv::after,#proyectos .case.card::after{border-radius:inherit}
+.svc a.card.serv::before,.doors .door::before,#proyectos .case.card::before{content:"";position:absolute;inset:-3px -1px -1px;border:2px solid var(--borde,var(--line-2));border-radius:inherit;pointer-events:none;z-index:-1;opacity:0}
+.svc a.card.serv:is(:hover,:focus-visible),.doors .door:is(:hover,:focus-within),#proyectos .case.card:is(:hover,:focus-within){border-color:var(--line-2);border-top-color:transparent;background:var(--card-2);box-shadow:0 14px 40px -18px var(--sombra),0 0 18px -7px var(--borde,var(--line-2))}
 /* Outrank the reveal resets without overriding their translate. */
-html:not(.a11y-quieto) #proyectos .case.card.rv:is(:hover,:focus-within){transform:translateY(-3px)}
-html.a11y-quieto #proyectos .case.card:is(:hover,:focus-within){transform:none}
-@media(prefers-reduced-motion:reduce){html:not(.a11y-quieto) #proyectos .case.card.rv:is(:hover,:focus-within){transform:none}}
-#proyectos .case.card:is(:hover,:focus-within)::before{opacity:1}
+html:not(.a11y-quieto) #servicios .card.serv.rv:is(:hover,:focus-visible),html:not(.a11y-quieto) .doors .door:is(:hover,:focus-within),html:not(.a11y-quieto) #proyectos .case.card.rv:is(:hover,:focus-within){transform:translateY(-3px)}
+html.a11y-quieto .svc a.card.serv:is(:hover,:focus-visible),html.a11y-quieto .doors .door:is(:hover,:focus-within),html.a11y-quieto #proyectos .case.card:is(:hover,:focus-within){transform:none}
+@media(prefers-reduced-motion:reduce){html:not(.a11y-quieto) #servicios .card.serv.rv:is(:hover,:focus-visible),html:not(.a11y-quieto) .doors .door:is(:hover,:focus-within),html:not(.a11y-quieto) #proyectos .case.card.rv:is(:hover,:focus-within){transform:none}}
+.svc a.card.serv:is(:hover,:focus-visible)::before,.doors .door:is(:hover,:focus-within)::before,#proyectos .case.card:is(:hover,:focus-within)::before{opacity:1}
 @supports ((mask-composite:exclude) or (-webkit-mask-composite:xor)){
-html.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{border:0;padding:2px;background:conic-gradient(from var(--ang),transparent 0deg,transparent 280deg,var(--borde,var(--line-2)) 325deg,transparent 360deg);-webkit-mask:linear-gradient(black 0 0) content-box,linear-gradient(black 0 0);-webkit-mask-composite:xor;mask:linear-gradient(black 0 0) content-box,linear-gradient(black 0 0);mask-composite:exclude;animation:luz-borde 3s linear infinite}
-html.a11y-quieto.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{animation:none;background:var(--borde,var(--line-2))}
-@media(prefers-reduced-motion:reduce){html.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{animation:none;background:var(--borde,var(--line-2))}}
+html.ang-animable .svc a.card.serv:is(:hover,:focus-visible)::before,html.ang-animable .doors .door:is(:hover,:focus-within)::before,html.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{border:0;padding:2px;background:conic-gradient(from var(--ang),transparent 0deg,transparent 280deg,var(--borde,var(--line-2)) 325deg,transparent 360deg);-webkit-mask:linear-gradient(black 0 0) content-box,linear-gradient(black 0 0);-webkit-mask-composite:xor;mask:linear-gradient(black 0 0) content-box,linear-gradient(black 0 0);mask-composite:exclude;animation:luz-borde 3s linear infinite}
+html.a11y-quieto.ang-animable .svc a.card.serv:is(:hover,:focus-visible)::before,html.a11y-quieto.ang-animable .doors .door:is(:hover,:focus-within)::before,html.a11y-quieto.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{animation:none;background:var(--borde,var(--line-2))}
+@media(prefers-reduced-motion:reduce){html.ang-animable .svc a.card.serv:is(:hover,:focus-visible)::before,html.ang-animable .doors .door:is(:hover,:focus-within)::before,html.ang-animable #proyectos .case.card:is(:hover,:focus-within)::before{animation:none;background:var(--borde,var(--line-2))}}
 }
-html.a11y-contraste #proyectos .case.card:is(:hover,:focus-within){box-shadow:inset 0 0 0 2px var(--line),0 0 18px -7px var(--borde,var(--line-2))}
+html.a11y-contraste .svc a.card.serv:is(:hover,:focus-visible),html.a11y-contraste .doors .door:is(:hover,:focus-within),html.a11y-contraste #proyectos .case.card:is(:hover,:focus-within){box-shadow:inset 0 0 0 2px var(--line),0 0 18px -7px var(--borde,var(--line-2))}
 .case dt{color:var(--borde,var(--fg-dim))}
 .svc a.card.serv:nth-child(1){--borde:var(--azul)}
 .svc a.card.serv:nth-child(2){--borde:var(--verde)}
@@ -476,12 +475,10 @@ html.a11y-contraste #proyectos .case.card:is(:hover,:focus-within){box-shadow:in
 .svc a.card.serv:nth-child(5){--borde:var(--cian)}
 .svc a.card.serv:nth-child(6){--borde:var(--azul)}
 .svc a.card.serv{border-top:3px solid var(--borde,var(--line-2))}
-.svc a.card.serv:hover{background:var(--card-2);border-top-color:var(--borde)}
 .svc a.card.serv h3{color:var(--borde,var(--fg))}
 .doors .door:nth-child(1){--borde:var(--azul)}
 .doors .door:nth-child(2){--borde:var(--verde)}
 .doors .door{border-top:3px solid var(--borde,var(--line-2))}
-.doors .door:hover{border-top-color:var(--borde)}
 .door li::before{background:var(--borde,var(--accent))}
 </style>
 </head>
@@ -771,7 +768,7 @@ html.a11y-contraste #proyectos .case.card:is(:hover,:focus-within){box-shadow:in
     if(!('IntersectionObserver' in window)){revealAll();}
     else{
       var vh=window.innerHeight||800;
-      els.forEach(function(el,i){var delay=(Math.min(i%7,6)*45)+'ms';el.style.transitionDelay=el.matches('#proyectos .case')?delay+',0ms,0ms,0ms,0ms':delay;});
+      els.forEach(function(el,i){var delay=(Math.min(i%7,6)*45)+'ms';el.style.transitionDelay=el.matches('#proyectos .case')||el.matches('#servicios .card.serv')?delay+',0ms,0ms,0ms,0ms':delay;});
       els.forEach(function(el){ if(el.getBoundingClientRect().top < vh*0.98){ el.classList.add('in'); } });
       var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:.05});
       els.forEach(function(el){ if(!el.classList.contains('in')){ io.observe(el); } });

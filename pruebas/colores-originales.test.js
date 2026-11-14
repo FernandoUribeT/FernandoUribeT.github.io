@@ -80,8 +80,8 @@ for (const [lang, source] of Object.entries(pages)) {
       'service cards need a 2px left border fed by --borde',
     );
     assert.ok(
-      /\.svc a\.card\.serv:hover\{background:var\(--card-2\)[;}]/.test(source),
-      'service cards mirror .feat hover with the card-2 background',
+      source.includes('.svc a.card.serv:is(:hover,:focus-visible)'),
+      'service cards keep their accent treatment on hover and keyboard focus',
     );
     assert.ok(
       source.includes('.svc a.card.serv h3{color:var(--borde,var(--fg))}'),
@@ -103,8 +103,8 @@ for (const [lang, source] of Object.entries(pages)) {
       'doors need a 2px left border fed by --borde',
     );
     assert.ok(
-      source.includes('.doors .door:hover{border-top-color:var(--borde)}'),
-      'the door keeps its accent border on hover',
+      source.includes('.doors .door:is(:hover,:focus-within)'),
+      'the doors keep their accent treatment on hover and keyboard focus',
     );
     assert.ok(
       source.includes('.door li::before{background:var(--borde,var(--accent))}'),
@@ -140,10 +140,9 @@ it('the redesign adds no hex color literals to its own accent block', () => {
   }
 });
 
-it('keeps the service accent border colored on hover, like the original .feat cards (ES + EN)', () => {
+it('hides the service accent edge on hover and keyboard focus for the border light (ES + EN)', () => {
   for (const file of ['index.html', path.join('en', 'index.html')]) {
     const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
-    // S14 replaces the cases' colored top edge on hover; services are unchanged.
-    assert.match(source, /\.svc a\.card\.serv:hover\{[^}]*border-top-color:var\(--borde\)/, `${file}: service cards keep their accent on hover`);
+    assert.match(source, /\.svc a\.card\.serv:is\(:hover,:focus-visible\)[^{]*\{[^}]*border-top-color:transparent/, `${file}: the moving light replaces the service accent edge`);
   }
 });
