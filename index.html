@@ -502,7 +502,7 @@ html.a11y-quieto .panel-luz{display:none}
    canvas fijo tras el contenido. La portada conserva sus propios orbes
    (.luces); aqui solo se anade la reticula, que se apaga con a11y-quieto
    y se oculta en alto contraste, igual que en los demas sitios. */
-.fondo-vivo{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100vw;height:100vh;opacity:.42}html.a11y-contraste .fondo-vivo,html.a11y-quieto .fondo-vivo{display:none}
+.fondo-vivo{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100vw;height:100vh;max-width:none;opacity:.42;background:transparent;border:0;border-radius:0}html.a11y-contraste .fondo-vivo,html.a11y-quieto .fondo-vivo{display:none}
 </style>
 </head>
 <body><canvas class="fondo-vivo" aria-hidden="true"></canvas>

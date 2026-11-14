@@ -98,7 +98,7 @@ html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animatio
    tras el contenido + capa decorativa de orbes (inactiva igual que alla).
    La barra de accesibilidad (clases a11y-claro/contraste/quieto) la trata
    igual que en facturacion. */
-.fondo-vivo{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100vw;height:100vh;opacity:.42}html.a11y-contraste .fondo-vivo{display:none}
+.fondo-vivo{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100vw;height:100vh;max-width:none;opacity:.42;background:transparent;border:0;border-radius:0}html.a11y-contraste .fondo-vivo{display:none}
 .luces{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1;display:none}
 .luces i{position:absolute;display:block;border-radius:50%;will-change:transform;background:radial-gradient(closest-side,var(--luz,#f0b42966),transparent 74%)}
 .luces i:nth-child(1){width:68vw;height:68vw;left:-10vw;top:-26vw;animation:orbe1 26s linear infinite alternate}.luces i:nth-child(2){width:52vw;height:52vw;right:-12vw;top:22vh;opacity:.62;animation:orbe2 34s linear infinite alternate}.luces i:nth-child(3){width:46vw;height:46vw;left:18vw;bottom:-20vw;opacity:.5;animation:orbe3 30s linear infinite alternate}.luces i{animation:none}
