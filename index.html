@@ -497,8 +497,15 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
 html.a11y-quieto .panel-luz{display:none}
 @media(prefers-reduced-motion:reduce){.panel-luz{display:none}}
 </style>
+<style id="fondo-vivo">
+/* Mismo fondo que /servicios/facturacion/ y las demos: reticula viva en un
+   canvas fijo tras el contenido. La portada conserva sus propios orbes
+   (.luces); aqui solo se anade la reticula, que se apaga con a11y-quieto
+   y se oculta en alto contraste, igual que en los demas sitios. */
+.fondo-vivo{position:fixed;inset:0;z-index:-2;pointer-events:none;width:100vw;height:100vh;max-width:none;opacity:.42;background:transparent;border:0;border-radius:0}html.a11y-contraste .fondo-vivo,html.a11y-quieto .fondo-vivo{display:none}
+</style>
 </head>
-<body>
+<body><canvas class="fondo-vivo" aria-hidden="true"></canvas>
 <a class="skip" href="#main">Saltar al contenido</a>
 
 <nav>
@@ -1196,4 +1203,109 @@ function desplazamientoFoco(link,lang,nav){
 })();
 </script>
 <a class="wa-fab" href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20vi%20tu%20portafolio%20y%20quiero%20platicar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Escribirme por WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.36 5.1L2 22l5.2-1.52a9.8 9.8 0 0 0 4.84 1.26h.01c5.43 0 9.84-4.4 9.84-9.84C21.9 6.4 17.48 2 12.04 2Zm5.76 14.06c-.24.68-1.4 1.3-1.94 1.34-.5.05-.98.23-3.3-.7-2.78-1.1-4.54-3.94-4.68-4.12-.14-.18-1.12-1.5-1.12-2.86s.72-2.02.98-2.3c.24-.26.54-.32.72-.32h.52c.16 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.14.12.3.02.48-.1.18-.15.3-.3.46-.14.18-.3.4-.44.53-.14.14-.3.3-.13.6.18.28.78 1.28 1.66 2.07 1.14 1.02 2.1 1.34 2.4 1.48.3.14.47.12.64-.08.18-.2.74-.86.94-1.16.2-.3.4-.24.66-.14.26.1 1.66.78 1.94.92.28.14.47.22.54.34.07.12.07.7-.17 1.38Z"/></svg></a>
+<script>
+(function(){
+  var cv=document.querySelector('.fondo-vivo'); if(!cv)return;
+  var R=document.documentElement, g=cv.getContext('2d');
+
+  var PASO=26, ratio=1, an=0, al=0, P=[], raton={x:-9999,y:-9999}, t=0, vivo=true, corriendo=false;
+
+  function paleta(){
+    return R.classList.contains('a11y-claro')
+      ? {base:'rgba(70,58,32,.13)', vivoC:'194,148,20', punto:'rgba(90,80,60,.5)', linea:'194,148,20'}
+      : {base:'rgba(104,113,138,.14)', vivoC:'240,180,41', punto:'rgba(154,163,182,.45)', linea:'240,180,41'};
+  }
+  var col=paleta();
+
+  /* el canvas se ajusta a la ventana; las particulas se siembran una sola
+     vez y al redimensionar solo se reescalan, para que no parpadeen */
+  function medir(){
+    var antes=an, alto=al;
+    /* con la ventana en 0x0 (minimizada) no hay nada que medir: reescalar
+       mandaria todas las particulas a la esquina y ahi se quedarian */
+    if(!innerWidth||!innerHeight)return;
+    ratio=Math.min(devicePixelRatio||1,2);
+    an=innerWidth; al=innerHeight;
+    cv.width=an*ratio; cv.height=al*ratio;
+    g.setTransform(ratio,0,0,ratio,0,0);
+    if(!P.length){
+      var n=Math.max(16,Math.min(Math.round(an*al/22000),56));
+      for(var i=0;i<n;i++)P.push({x:Math.random()*an,y:Math.random()*al,
+        vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22});
+    }else if(antes&&alto){
+      for(var k=0;k<P.length;k++){P[k].x*=an/antes; P[k].y*=al/alto;}
+    }
+  }
+  medir();
+  var espera=0;
+  addEventListener('resize',function(){clearTimeout(espera); espera=setTimeout(medir,150);});
+  addEventListener('pointermove',function(e){raton.x=e.clientX;raton.y=e.clientY;});
+  addEventListener('pointerleave',function(){raton.x=raton.y=-9999;});
+
+  /* quieto detiene el dibujo; alto contraste oculta el canvas, asi que
+     tampoco tiene sentido seguir dibujando */
+  function apagado(){
+    return R.classList.contains('a11y-quieto')||R.classList.contains('a11y-contraste');
+  }
+  function cuadro(){
+    if(apagado()){corriendo=false;return;}
+    corriendo=true;
+    g.clearRect(0,0,an,al);
+    var barrido=((t*1.7)%(an+560))-280;
+    var cols=Math.ceil(an/PASO), fils=Math.ceil(al/PASO);
+    for(var y=0;y<fils;y++)for(var x=0;x<cols;x++){
+      var cx=x*PASO+PASO/2, cy=y*PASO+PASO/2;
+      var cerca=Math.max(0,1-Math.hypot(cx-raton.x,cy-raton.y)/170);
+      var haz=Math.max(0,1-Math.abs(cx-barrido)/160);
+      var f=Math.max(cerca,haz*0.8);
+      if(f>0.015){
+        var lado=3+f*7;
+        g.fillStyle='rgba('+col.vivoC+','+(0.08+f*0.62)+')';
+        g.fillRect(cx-lado/2,cy-lado/2,lado,lado);
+      }else{
+        g.fillStyle=col.base;
+        g.fillRect(cx-1.5,cy-1.5,3,3);
+      }
+    }
+    for(var i=0;i<P.length;i++){
+      var p=P[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>an)p.vx*=-1;
+      if(p.y<0||p.y>al)p.vy*=-1;
+      for(var j=i+1;j<P.length;j++){
+        var q=P[j], d=Math.hypot(p.x-q.x,p.y-q.y);
+        if(d<120){
+          g.strokeStyle='rgba('+col.linea+','+(0.11*(1-d/120))+')';
+          g.lineWidth=1; g.beginPath(); g.moveTo(p.x,p.y); g.lineTo(q.x,q.y); g.stroke();
+        }
+      }
+      var dm=Math.hypot(p.x-raton.x,p.y-raton.y);
+      g.fillStyle= dm<130 ? 'rgba('+col.vivoC+',.8)' : col.punto;
+      g.beginPath(); g.arc(p.x,p.y,dm<130?2.1:1.3,0,7); g.fill();
+    }
+    t+=1;
+    if(vivo)requestAnimationFrame(cuadro); else corriendo=false;
+  }
+
+  /* corriendo se marca al programar el cuadro, no al dibujarlo: asi dos
+     avisos seguidos nunca arrancan dos ciclos a la vez */
+  function despierta(){
+    if(vivo&&!corriendo&&!apagado()){corriendo=true;requestAnimationFrame(cuadro);}
+  }
+  document.addEventListener('visibilitychange',function(){
+    vivo=!document.hidden; despierta();
+  });
+  if('MutationObserver' in window){
+    new MutationObserver(function(){
+      col=paleta();
+      despierta();
+    }).observe(R,{attributes:true,attributeFilter:['class']});
+  }
+  /* demo-controls.js (defer) aplica las clases de acceso antes de
+     DOMContentLoaded; arrancamos despues para que quieto/contraste ya
+     esten vigentes en el primer frame. */
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',despierta);}
+  else despierta();
+})();
+</script>
 </body>
