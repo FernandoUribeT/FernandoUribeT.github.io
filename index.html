@@ -484,6 +484,19 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
 .doors .door{border-top:3px solid var(--borde,var(--line-2))}
 .door li::before{background:var(--borde,var(--accent))}
 </style>
+<style id="panel-luz">
+/* T21 (S23): destello dorado que recorre los bordes superior e inferior de los
+   paneles de ancho completo que cubren el fondo (#experiencia, #servicios,
+   #stack y footer: mismo var(--panel) y textura de puntos). Capa decorativa
+   aislada: no cambia el layout, no tapa texto, no intercepta el cursor y no
+   toca la textura de section::before/::after. */
+:is(#experiencia,#servicios,#stack)>.panel-luz,footer>.panel-luz{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+:is(#experiencia,#servicios,#stack)>.panel-luz::before,footer>.panel-luz::before{content:"";position:absolute;top:0;left:0;height:1px;width:clamp(140px,22vw,260px);background:linear-gradient(90deg,transparent,var(--accent) 30%,var(--accent) 70%,transparent);box-shadow:0 0 10px var(--glow),0 0 16px -4px var(--accent);animation:luz-panel 6s ease-in-out infinite}
+:is(#experiencia,#servicios,#stack)>.panel-luz::after,footer>.panel-luz::after{content:"";position:absolute;bottom:0;left:0;height:1px;width:clamp(140px,22vw,260px);background:linear-gradient(90deg,transparent,var(--accent) 30%,var(--accent) 70%,transparent);box-shadow:0 0 10px var(--glow),0 0 16px -4px var(--accent);animation:luz-panel 6s ease-in-out infinite reverse}
+@keyframes luz-panel{from{transform:translateX(-100%)}to{transform:translateX(100vw)}}
+html.a11y-quieto .panel-luz{display:none}
+@media(prefers-reduced-motion:reduce){.panel-luz{display:none}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -572,6 +585,7 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
 
 
   <section id="experiencia">
+  <span class="panel-luz" aria-hidden="true"></span>
     <p class="eyebrow rv"><span>Para empleadores</span></p>
     <div class="eyebrow rv"><h2>Experiencia</h2></div>
     <div class="job-head rv">
@@ -702,6 +716,7 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
   <div class="anclaje" aria-hidden="true"></div>
 
   <section id="servicios" aria-labelledby="svc-h">
+  <span class="panel-luz" aria-hidden="true"></span>
     <p class="eyebrow rv"><span>Para negocios</span></p>
     <div class="eyebrow rv"><h2 id="svc-h">Servicios</h2></div>
     <div class="svc">
@@ -718,6 +733,7 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
   <div class="anclaje" aria-hidden="true"></div>
 
   <section id="stack">
+  <span class="panel-luz" aria-hidden="true"></span>
     <div class="eyebrow rv"><h2>Stack</h2></div>
     <div class="stack">
       <div class="row rv"><dt>Lenguajes</dt><dd class="tags"><span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">Kotlin</span><span class="tag">C/C++</span></dd></div>
@@ -757,6 +773,7 @@ html.a11y-contraste #experiencia .job-head>.chip:is(:hover,:focus-within),html.a
 </div>
 
 <footer>
+  <span class="panel-luz" aria-hidden="true"></span>
   <div class="wrap">
     <p class="disp"><span class="dot"></span>Disponible para trabajo remoto</p>
     <h2>¿Tienes una vacante o un sistema que arreglar?</h2>
