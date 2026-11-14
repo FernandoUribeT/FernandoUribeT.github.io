@@ -96,7 +96,8 @@ for (const [lang, file] of Object.entries(pages)) {
     assert.match(animated, /conic-gradient\(from var\(--ang\)/);
     assert.match(animated, /var\(--borde/);
     assert.match(animated, /mask-composite:\s*exclude/);
-    assert.match(animated, /animation:\s*luz-borde\s+3s\s+linear\s+infinite/);
+    assert.match(animated, /animation:\s*luz-borde\s+4s\s+linear\s+infinite/);
+    assert.equal((source.match(/animation:\s*luz-borde\b/g) || []).length, 1, 'all components use the same animation declaration');
     assert.equal((source.match(/@property\s+--ang/g) || []).length, 1);
     assert.equal((source.match(/@keyframes\s+luz-borde/g) || []).length, 1);
     assert.match(source, /CSS\.registerProperty/);
@@ -143,5 +144,71 @@ for (const [lang, file] of Object.entries(pages)) {
     assert.equal(elements[1].style.transitionDelay, '45ms,0ms,0ms,0ms,0ms');
     assert.equal(elements[2].style.transitionDelay, '90ms,0ms,0ms,0ms,0ms');
     assert.equal(elements[3].style.transitionDelay, '135ms');
+  });
+
+  const stat = '.stats .stat';
+  const statActive = `${stat}:is(:hover,:focus-within)`;
+  const statLift = `html:not(.a11y-quieto) ${statActive}`;
+
+  it(`${lang}: all four passive hero stats share the gold border-light fallback`, () => {
+    const header = source.match(/<header>([\s\S]*?)<\/header>/)?.[1] ?? '';
+    const stats = [...header.matchAll(/<div class="stat">([\s\S]*?)<\/div>/g)];
+    assert.equal(stats.length, 4);
+    for (const [, content] of stats) {
+      assert.doesNotMatch(content, /<(?:a|button|input|select|textarea)\b|\btabindex\s*=/i);
+    }
+    const own = sharedRule(source, ['.stat']);
+    assert.match(own, /position:\s*relative/);
+    assert.match(own, /--borde:\s*var\(--accent\)/);
+    assert.match(sharedRule(source, [stat, ...base]), /isolation:\s*isolate/);
+    const ring = sharedRule(source, [stat, ...base].map((selector) => `${selector}::before`));
+    assert.match(ring, /position:\s*absolute/);
+    assert.match(ring, /border:\s*2px solid var\(--borde/);
+    assert.match(ring, /border-radius:\s*inherit/);
+    assert.match(ring, /pointer-events:\s*none/);
+    assert.match(ring, /opacity:\s*0/);
+    assert.match(sharedRule(source, [statActive, ...active].map((selector) => `${selector}::before`)), /opacity:\s*1/);
+    assert.match(source, /\.stats \.stat::before\s*\{\s*inset:\s*-1px\s*;?\s*\}/);
+  });
+
+  it(`${lang}: hover and focus use the existing animated gold ring when supported`, () => {
+    const animated = sharedRule(source, [statActive, ...active].map((selector) => `html.ang-animable ${selector}::before`));
+    assert.match(animated, /conic-gradient\(from var\(--ang\)/);
+    assert.match(animated, /var\(--borde/);
+    assert.match(animated, /mask-composite:\s*exclude/);
+    assert.match(animated, /animation:\s*luz-borde\s+4s\s+linear\s+infinite/);
+    assert.match(source, /@supports\s*\(\(mask-composite:exclude\) or \(-webkit-mask-composite:xor\)\)/);
+    assert.match(source, /CSS\.registerProperty/);
+  });
+
+  it(`${lang}: stat hover and focus lift 3px with the shared shadow and card background`, () => {
+    const surface = sharedRule(source, [stat, ...base]);
+    for (const property of ['transform', 'border-color', 'box-shadow', 'background']) {
+      assert.match(surface, new RegExp(`${property}\\s+\\.25s\\s+var\\(--ease\\)`));
+    }
+    const interaction = sharedRule(source, [statActive, ...active]);
+    assert.match(interaction, /background:\s*var\(--card-2\)/);
+    assert.match(interaction, /box-shadow:\s*0 14px 40px -18px var\(--sombra\),\s*0 0 18px -7px var\(--borde/);
+    assert.match(sharedRule(source, [statLift, ...lift]), /transform:\s*translateY\(-3px\)/);
+    assert.match(source, /\.js \.rv\.in\{opacity:1;transform:none;/);
+    assert.ok(source.indexOf(statLift) > source.indexOf('.js .rv.in{'), 'the lift follows and outranks reveal resets');
+    assert.doesNotMatch(source, /\.stat:hover\s*\{[^}]*border-color:\s*var\(--accent\)/);
+  });
+
+  it(`${lang}: quiet and reduced motion keep a static gold ring without lifting stats`, () => {
+    const quietRing = [statActive, ...active].map((selector) => `html.a11y-quieto.ang-animable ${selector}::before`);
+    const animated = [statActive, ...active].map((selector) => `html.ang-animable ${selector}::before`);
+    for (const rule of [sharedRule(source, quietRing), sharedRule(reducedMotionBlocks(source), animated)]) {
+      assert.match(rule, /animation:\s*none/);
+      assert.match(rule, /background:\s*var\(--borde/);
+    }
+    assert.match(sharedRule(source, [statActive, ...active].map((selector) => `html.a11y-quieto ${selector}`)), /transform:\s*none/);
+    assert.match(sharedRule(reducedMotionBlocks(source), [statLift, ...lift]), /transform:\s*none/);
+  });
+
+  it(`${lang}: contrast preserves the solid stat outline alongside the gold ring`, () => {
+    const contrast = [statActive, ...active].map((selector) => `html.a11y-contraste ${selector}`);
+    assert.match(sharedRule(source, contrast), /inset[^;]*var\(--line\)/);
+    assert.match(source, /html\.a11y-contraste[^{}]*\.stat[^{}]*\{border-width:\s*2px/);
   });
 }
