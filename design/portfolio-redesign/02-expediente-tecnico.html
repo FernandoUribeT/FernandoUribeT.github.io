@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirección 02 · Expediente técnico — Fernando Uribe Trujillo</title>
+<style>
+/* Base: tokens de html.a11y-claro como tema por defecto */
+:root{--bg:#fbfaf7;--bg-2:#f2f0ea;--panel:#f1eee6;--card:#fff;--card-2:#f7f5ef;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--sombra:rgba(70,58,32,.15);--velo:rgba(251,250,247,.88);--ease:cubic-bezier(.22,.61,.36,1);--verde:#1f7a3f;--azul:#1e63c4;--rojo:#c2321f;--tinta:#e8e3d6;--tinta-linea:#cdc6b6;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--display:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.65 var(--body)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;z-index:9}
+.skip:focus{top:12px}
+.layout{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:240px 1fr;gap:56px}
+/* sticky index */
+.index{position:sticky;top:0;align-self:start;height:100vh;padding:36px 0;display:flex;flex-direction:column;gap:22px;border-right:1px solid var(--line);padding-right:24px}
+.brand{font:800 1.125rem/1.2 var(--display);text-decoration:none;letter-spacing:-.01em}
+.brand small{display:block;font:.75rem var(--mono);color:var(--fg-dim);font-weight:400;margin-top:4px}
+.view{border:1px solid var(--line);border-radius:10px;padding:4px;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--panel)}
+.view legend{font:600 .6875rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim);padding:0;margin-bottom:8px}
+.view input{position:absolute;opacity:0}
+.view label{display:block;text-align:center;font:600 .8125rem var(--body);padding:9px 6px;border-radius:7px;cursor:pointer;color:var(--fg-dim)}
+.view input:checked+label{background:var(--card);color:var(--fg);box-shadow:0 1px 0 var(--line-2)}
+.view input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+fieldset.view{margin:0}
+.toc{list-style:none;margin:0;padding:0;counter-reset:f}
+.toc a{display:flex;gap:10px;padding:7px 8px;border-radius:8px;text-decoration:none;font-size:.9375rem;color:var(--fg-dim)}
+.toc a:hover{background:var(--panel);color:var(--fg)}
+.toc a span{font:.75rem var(--mono);color:var(--accent-2);padding-top:3px}
+.index .contact{margin-top:auto;display:grid;gap:8px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:10px;border:1px solid var(--line-2);color:var(--fg);font:600 .9375rem var(--body);text-decoration:none;background:var(--card);transition:transform .2s var(--ease),border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+/* document */
+.doc{padding:56px 0 100px;max-width:760px}
+.eyebrow{font:600 .6875rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin:0 0 14px}
+h1{font:800 clamp(2rem,6.2vw,3.125rem)/1.06 var(--display);letter-spacing:-.032em;margin:0}
+.lede{font-size:1.125rem;color:var(--fg-dim);margin:18px 0 0;max-width:60ch}
+.lede[hidden]{display:none}
+.ficha{margin:30px 0 0;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.ficha div{padding:14px 16px;border-left:1px solid var(--line)}
+.ficha div:first-child{border-left:0}
+.ficha dt{font:.6875rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim)}
+.ficha dd{margin:4px 0 0;font:700 1.25rem var(--display)}
+.folio{margin-top:64px;padding-top:28px;border-top:2px solid var(--fg)}
+.folio header{display:flex;justify-content:space-between;align-items:baseline;gap:18px}
+.folio .num{font:.8125rem var(--mono);color:var(--accent-2)}
+.folio h2{font:700 clamp(1.3125rem,3vw,1.8125rem)/1.2 var(--display);margin:6px 0 0;letter-spacing:-.015em}
+.folio .estado{font:600 .75rem var(--mono);padding:4px 10px;border-radius:999px;background:var(--glow);color:var(--accent-2);white-space:nowrap}
+.meta{display:grid;grid-template-columns:120px 1fr;gap:6px 18px;margin:20px 0;font-size:.9375rem;padding:14px 18px;background:var(--panel);border-radius:10px}
+.meta dt{font:.75rem var(--mono);color:var(--fg-dim);text-transform:uppercase;letter-spacing:.08em;padding-top:3px}
+.meta dd{margin:0}
+.folio h3{font:700 1rem var(--display);margin:22px 0 6px}
+.folio p{margin:0 0 10px;max-width:66ch}
+.folio ol{margin:0;padding-left:20px}
+.folio li{margin-bottom:6px}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 16px;color:var(--fg-dim);font-size:.9375rem;margin-top:16px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{font:.7812rem var(--mono);border:1px solid var(--line-2);border-radius:7px;padding:2px 8px;color:var(--fg-dim);background:var(--card)}
+.tag.t-fuerte{border-color:var(--accent);color:var(--accent-2)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);margin-top:20px}
+.svc div{padding:16px 18px;border-top:1px solid var(--line)}
+.svc div:nth-child(-n+2){border-top:0}
+.svc div:nth-child(odd){border-right:1px solid var(--line)}
+.svc b{display:block;font-family:var(--display)}
+.svc span{color:var(--fg-dim);font-size:.9375rem}
+.cierre{margin-top:64px;padding:30px;background:var(--tinta);border:1px solid var(--tinta-linea);border-radius:18px}
+.cierre h2{font:700 clamp(1.3125rem,3vw,1.8125rem) var(--display);margin:0 0 16px}
+.cierre small{display:block;margin-top:20px;font:.8125rem var(--mono);color:var(--fg-dim)}
+[data-vista="cliente"] .solo-empleo,[data-vista="empleo"] .solo-cliente{display:none}
+@media (max-width:900px){.layout{grid-template-columns:1fr;gap:0}.index{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:24px 0}.index .toc{display:flex;flex-wrap:wrap;gap:4px}.ficha{grid-template-columns:1fr 1fr}.ficha div:nth-child(3){border-left:0}.ficha div:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:560px){.svc{grid-template-columns:1fr}.svc div{border-right:0!important;border-top:1px solid var(--line)!important}.svc div:first-child{border-top:0!important}.meta{grid-template-columns:1fr}.folio header{flex-direction:column}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body data-vista="empleo">
+<a class="skip" href="#doc">Saltar al contenido</a>
+<div class="layout">
+  <aside class="index" aria-label="Índice del expediente">
+    <a class="brand" href="#doc">Fernando Uribe Trujillo<small>Desarrollador Full Stack</small></a>
+    <fieldset class="view">
+      <legend>Leer como</legend>
+      <input type="radio" name="vista" id="v-empleo" value="empleo" checked><label for="v-empleo">Empleador</label>
+      <input type="radio" name="vista" id="v-cliente" value="cliente"><label for="v-cliente">Negocio</label>
+    </fieldset>
+    <nav aria-label="Folios">
+      <ol class="toc">
+        <li><a href="#f1"><span>01</span>Revisión vehicular</a></li>
+        <li><a href="#f2"><span>02</span>Facturación CFDI 4.0</a></li>
+        <li><a href="#f3"><span>03</span>Expedientes con OCR</a></li>
+        <li><a href="#f4"><span>04</span>Identificador QR</a></li>
+        <li><a href="#f5"><span>05</span>Servicios</a></li>
+      </ol>
+    </nav>
+    <div class="contact">
+      <a class="btn primary" href="#cierre">Escríbeme</a>
+      <a class="btn" href="#doc" lang="en">English version</a>
+    </div>
+  </aside>
+
+  <main id="doc" class="doc">
+    <p class="eyebrow">Expediente · Manzanillo, Colima · Remoto</p>
+    <h1>Construyo los sistemas que mueven la papelería del transporte.</h1>
+    <p class="lede solo-empleo">Full stack con experiencia en un SaaS multiempresa de transporte: Laravel, facturación electrónica y pruebas primero. Cada folio dice qué hice, cómo y cómo comprobarlo.</p>
+    <p class="lede solo-cliente">Si tu negocio factura traslados, revisa unidades o junta documentos de proveedores, aquí ves sistemas que ya hice y qué pueden hacer por tu operación.</p>
+    <dl class="ficha" aria-label="Resumen">
+      <div><dt>Aportaciones</dt><dd>169</dd></div>
+      <div><dt>Autor único</dt><dd>45/71</dd></div>
+      <div><dt>Repos públicos</dt><dd>11</dd></div>
+      <div><dt>Promedio</dt><dd>9.46</dd></div>
+    </dl>
+
+    <article class="folio" id="f1" aria-labelledby="f1-h">
+      <header><div><span class="num">Folio 01</span><h2 id="f1-h">Revisión vehicular que bloquea unidades</h2></div><span class="estado">Demo en vivo</span></header>
+      <dl class="meta"><dt>Contexto</dt><dd>Velor Innovation · SaaS de transporte</dd><dt>Rol</dt><dd>Autor único del módulo</dd><dt>Stack</dt><dd>PHP, Laravel, Blade, MySQL</dd></dl>
+      <h3>Problema</h3>
+      <p>La revisión de la unidad antes de salir era un papel. Una falla crítica podía quedar anotada y la unidad salir igual.</p>
+      <h3>Qué hice</h3>
+      <ol><li>Checklist digital con firma de quien revisa.</li><li>Regla: una falla crítica cambia la unidad a no disponible.</li></ol>
+      <p class="note solo-cliente">Para tu flotilla: nadie puede asignar una unidad con falla crítica hasta que alguien la corrige y firma.</p>
+      <p class="note solo-empleo">Módulo completo como autor único dentro de un equipo, en un producto multiempresa.</p>
+      <div class="links"><a class="btn primary" href="#f1">Probar la demo</a></div>
+    </article>
+
+    <article class="folio" id="f2" aria-labelledby="f2-h">
+      <header><div><span class="num">Folio 02</span><h2 id="f2-h">Facturación electrónica con Carta Porte</h2></div><span class="estado">Producción</span></header>
+      <dl class="meta"><dt>Contexto</dt><dd>Velor Innovation</dd><dt>Norma</dt><dd>CFDI 4.0 · Complemento Carta Porte</dd><dt>Detalle</dt><dd>idCCP con UUID RFC 4122 v4</dd></dl>
+      <h3>Problema</h3>
+      <p>Cada traslado necesita un comprobante con complemento Carta Porte y un identificador con el formato que pide el SAT.</p>
+      <h3>Qué hice</h3>
+      <p>Generación del XML del CFDI 4.0 con su complemento y el idCCP en el formato correcto.</p>
+      <div class="tags"><span class="tag">CFDI 4.0</span><span class="tag">Carta Porte</span><span class="tag">XML</span><span class="tag t-fuerte">e.firma</span></div>
+    </article>
+
+    <article class="folio" id="f3" aria-labelledby="f3-h">
+      <header><div><span class="num">Folio 03</span><h2 id="f3-h">Validación de expedientes con OCR</h2></div><span class="estado">Demo en vivo</span></header>
+      <dl class="meta"><dt>Contexto</dt><dd>Portal de proveedores · 45 de 71 componentes como autor único</dd><dt>Stack</dt><dd>OCR, JavaScript, verificación cruzada</dd></dl>
+      <h3>Problema</h3>
+      <p>Revisar a mano constancias y documentos de cada proveedor, y enterarse tarde de los vencidos.</p>
+      <h3>Qué hice</h3>
+      <p>Lectura OCR, autorrellenado desde la CSF y una demo que cambia entre validación ingenua y endurecida para ver qué pasa y qué se rechaza.</p>
+      <div class="links"><a class="btn primary" href="#f3">Probar la demo</a></div>
+    </article>
+
+    <article class="folio" id="f4" aria-labelledby="f4-h">
+      <header><div><span class="num">Folio 04</span><h2 id="f4-h">Identificador QR escrito desde cero</h2></div><span class="estado">Demo en vivo</span></header>
+      <dl class="meta"><dt>Tipo</dt><dd>Proyecto propio</dd><dt>Detalle</dt><dd>Codificador con corrección de errores, sin librerías</dd></dl>
+      <p>Muestra que entiendo lo que hay debajo de una librería: codificación, máscaras y corrección de errores.</p>
+      <div class="links"><a class="btn" href="#f4">Ver demo y código</a></div>
+    </article>
+
+    <section class="folio" id="f5" aria-labelledby="f5-h">
+      <header><div><span class="num">Folio 05</span><h2 id="f5-h">Servicios para negocios</h2></div><span class="estado">Desde $8,000 MXN</span></header>
+      <div class="svc">
+        <div><b>Facturación electrónica</b><span>CFDI 4.0, Carta Porte, timbrado, cancelaciones</span></div>
+        <div><b>Expedientes digitales</b><span>OCR, verificación cruzada, vigencias</span></div>
+        <div><b>Operación y logística</b><span>Calendario, revisión con firma, bloqueo</span></div>
+        <div><b>Sitios y sistemas a medida</b><span>Lo que tu operación necesita</span></div>
+        <div><b>Automatización de procesos</b><span>Tareas repetitivas a flujos</span></div>
+        <div><b>Soporte y mantenimiento</b><span>Cambios del SAT y ajustes</span></div>
+      </div>
+      <p class="note">Cobro 50/50 por etapas. El código queda a tu nombre.</p>
+    </section>
+
+    <section class="cierre" id="cierre" aria-labelledby="c-h">
+      <h2 id="c-h">¿Tienes una vacante o un sistema que arreglar?</h2>
+      <div class="links">
+        <a class="btn primary" href="#cierre">uribetrujillof7@gmail.com</a>
+        <a class="btn" href="#cierre">WhatsApp</a>
+        <a class="btn" href="#cierre">GitHub</a>
+        <a class="btn" href="#cierre">LinkedIn</a>
+        <a class="btn" href="#cierre">CV en PDF</a>
+      </div>
+      <small>Este sitio está escrito a mano: un archivo HTML, sin frameworks ni dependencias.</small>
+    </section>
+  </main>
+</div>
+<script>
+document.querySelectorAll('input[name="vista"]').forEach(function(r){
+  r.addEventListener('change',function(){document.body.dataset.vista=r.value});
+});
+</script>
+</body>
+</html>

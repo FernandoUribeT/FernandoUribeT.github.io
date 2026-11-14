@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "chosen": "01-dos-puertas.html",
+  "handoffs": {
+    "01-dos-puertas.html": {
+      "status": "in_progress",
+      "queued": false,
+      "sentAt": "2026-11-13T04:47:41.581Z",
+      "startedAt": "2026-11-13T04:48:08.674Z",
+      "implementedAt": null,
+      "note": "Mezcla 01 + 03: puertas y casos de la 01, demo de la 03 en la portada. Plan: odd/tasks/portfolio-redesign.md"
+    }
+  }
+}

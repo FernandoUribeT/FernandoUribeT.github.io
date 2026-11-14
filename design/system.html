@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema de diseño — Fernando Uribe Trujillo</title>
+<style>
+:root{--bg:#04060a;--bg-2:#0a0d13;--card:#1e2530;--card-2:#252d3a;--panel:#0f131b;--line:#333d4c;--line-2:#475268;--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;--accent-2:#ffd166;--glow:rgba(240,180,41,.14);--luz:rgba(240,180,41,.38);--sombra:rgba(0,0,0,.85);--velo:rgba(10,12,17,.82);--ease:cubic-bezier(.22,.61,.36,1);
+--azul:#4d9fff;--verde:#3ba55d;--rojo:#ff6f5e;--violeta:#b78cff;--cian:#2ed3dd;--tinta:#161d2a;--tinta-linea:#2b3547;--wa:#25d366;--wa-txt:#0b2f19;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--display:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.65 var(--body)}
+main{max-width:1200px;margin:0 auto;padding:48px 24px 80px}
+h1{font:800 clamp(2rem,6.2vw,3.125rem)/1.06 var(--display);letter-spacing:-.032em;margin:0 0 8px}
+h2{font:700 1.3125rem/1.2 var(--display);margin:0 0 18px}
+.eyebrow{font:600 .6875rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:1.125rem;color:var(--fg-dim);max-width:62ch;margin:0}
+section{border:1px solid var(--line);border-radius:18px;padding:44px 30px;margin-top:26px;background:var(--bg-2)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.sw i{display:block;height:64px}
+.sw p{margin:0;padding:8px 10px;font:.75rem/1.4 var(--mono);color:var(--fg-dim)}
+.sw b{display:block;color:var(--fg);font-weight:600}
+.themes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.theme{border-radius:14px;padding:18px;border:1px solid var(--line)}
+.theme h3{font:700 1rem var(--display);margin:0 0 6px}
+.theme p{margin:0 0 12px;font-size:.875rem}
+.t-claro{background:#fbfaf7;color:#16181d;border-color:#ddd8cd}.t-claro p{color:#4a4f5c}
+.t-contra{background:#000;color:#fff;border:2px solid #fff}
+.t-dark{background:#04060a}
+.type div{display:flex;gap:24px;align-items:baseline;border-bottom:1px solid var(--line);padding:12px 0}
+.type code{font:.75rem var(--mono);color:var(--fg-dim);min-width:230px}
+.row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end}
+.space i{display:block;background:var(--accent);height:14px}
+.space span,.rad span,.sh span{display:block;font:.75rem var(--mono);color:var(--fg-dim);margin-top:6px}
+.rad i{display:block;width:84px;height:64px;background:var(--card);border:1px solid var(--line-2)}
+.sh i{display:block;width:150px;height:84px;background:var(--card);border-radius:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--fg);font:600 .9375rem var(--body);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1204}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:var(--wa-txt)}
+.btn svg{width:15px;height:15px}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+.tag{display:inline-block;font:.7812rem var(--mono);border:1px solid var(--line-2);border-radius:7px;padding:3px 8px;color:var(--fg-dim)}
+.tag.t-fuerte{border-color:var(--accent);color:var(--accent)}
+.chip{display:inline-block;font:.75rem var(--mono);border-radius:999px;padding:4px 11px;background:var(--glow);color:var(--accent-2)}
+.comps{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .25s var(--ease),box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 40px -18px var(--sombra)}
+.card.hero{background:linear-gradient(155deg,var(--card-2),var(--card))}
+.card.hero::before{content:"Demo en vivo";position:absolute;top:0;right:0;background:var(--accent);color:#1a1204;font:700 .6875rem var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:5px 10px;border-radius:0 14px 0 10px}
+.card h3{font:700 1.0625rem/1.3 var(--display);margin:0 0 6px}
+.card p{color:var(--fg-dim);margin:0 0 12px;font-size:.9375rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.stat b{display:block;font:700 1.75rem var(--display);color:var(--accent)}
+.stat span{font-size:.8125rem;color:var(--fg-dim)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 18px;background:var(--velo);border:1px solid var(--line);border-radius:14px;position:relative;overflow:hidden}
+.nav::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:42%;background:var(--accent)}
+.brand{font:800 1rem var(--display);display:flex;gap:6px;align-items:center}
+.brand i{width:9px;height:9px;background:var(--accent);border-radius:2px}
+.nav a{font:.75rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--fg-dim);text-decoration:none;padding:8px 10px;border-radius:8px}
+.nav a.lang{border:1px solid var(--line-2)}
+.fab{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;box-shadow:0 10px 28px -8px var(--sombra);border:0}
+.fab.a11y{background:var(--accent);color:#1a1204}.fab.wa{background:var(--wa);color:var(--wa-txt)}
+.stack{display:grid;gap:14px}
+@media (max-width:760px){.themes,.comps{grid-template-columns:1fr}section{padding:34px 18px;border-radius:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Sincronizado desde index.html</p>
+    <h1>Sistema de diseño del portafolio</h1>
+    <p class="lede">Tokens reales del sitio actual: tema oscuro con dorado, modos de accesibilidad claro, contraste y quieto, tipografía Space Grotesk + sistema + monoespaciada.</p>
+  </header>
+
+  <section aria-labelledby="c1">
+    <h2 id="c1">Color · tema oscuro</h2>
+    <div class="grid">
+      <div class="sw"><i style="background:#04060a"></i><p><b>--bg</b>#04060a</p></div>
+      <div class="sw"><i style="background:#0a0d13"></i><p><b>--bg-2</b>#0a0d13</p></div>
+      <div class="sw"><i style="background:#0f131b"></i><p><b>--panel</b>#0f131b</p></div>
+      <div class="sw"><i style="background:#1e2530"></i><p><b>--card</b>#1e2530</p></div>
+      <div class="sw"><i style="background:#252d3a"></i><p><b>--card-2</b>#252d3a</p></div>
+      <div class="sw"><i style="background:#333d4c"></i><p><b>--line</b>#333d4c</p></div>
+      <div class="sw"><i style="background:#475268"></i><p><b>--line-2</b>#475268</p></div>
+      <div class="sw"><i style="background:#eef0f6"></i><p><b>--fg</b>#eef0f6</p></div>
+      <div class="sw"><i style="background:#9aa3b6"></i><p><b>--fg-dim</b>#9aa3b6</p></div>
+      <div class="sw"><i style="background:#68718a"></i><p><b>--fg-faint</b>#68718a</p></div>
+      <div class="sw"><i style="background:#f0b429"></i><p><b>--accent</b>#f0b429</p></div>
+      <div class="sw"><i style="background:#ffd166"></i><p><b>--accent-2</b>#ffd166</p></div>
+    </div>
+    <h2 style="margin-top:28px">Paleta secundaria</h2>
+    <div class="grid">
+      <div class="sw"><i style="background:#4d9fff"></i><p><b>--azul</b>#4d9fff</p></div>
+      <div class="sw"><i style="background:#3ba55d"></i><p><b>--verde</b>#3ba55d</p></div>
+      <div class="sw"><i style="background:#ff6f5e"></i><p><b>--rojo</b>#ff6f5e</p></div>
+      <div class="sw"><i style="background:#b78cff"></i><p><b>--violeta</b>#b78cff</p></div>
+      <div class="sw"><i style="background:#2ed3dd"></i><p><b>--cian</b>#2ed3dd</p></div>
+      <div class="sw"><i style="background:#161d2a"></i><p><b>--tinta</b>#161d2a</p></div>
+      <div class="sw"><i style="background:#25d366"></i><p><b>--wa</b>#25d366</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="c2">
+    <h2 id="c2">Modos de accesibilidad</h2>
+    <div class="themes">
+      <div class="theme t-dark"><h3>Oscuro (por defecto)</h3><p style="color:#9aa3b6">Fondo #04060a, dorado #f0b429.</p><a class="btn primary" href="#c2">Copiar correo</a></div>
+      <div class="theme t-claro"><h3>a11y-claro</h3><p>Fondo #fbfaf7, dorado #9a6b00, texto #16181d.</p><a class="btn" style="background:#9a6b00;border-color:#9a6b00;color:#fff" href="#c2">Copiar correo</a></div>
+      <div class="theme t-contra"><h3>a11y-contraste</h3><p>Negro, líneas blancas de 2px, amarillo #ffe600.</p><a class="btn" style="background:#ffe600;border:2px solid #ffe600;color:#000" href="#c2">Copiar correo</a></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="c3" class="type">
+    <h2 id="c3">Tipografía</h2>
+    <div><code>h1 · display · clamp(2rem,6.2vw,3.125rem) 800</code><span style="font:800 3.125rem/1.06 var(--display);letter-spacing:-.032em">Fernando Uribe</span></div>
+    <div><code>h2 pie · display · 1.8125rem</code><span style="font:700 1.8125rem var(--display)">¿Tienes una vacante?</span></div>
+    <div><code>h3 trabajo · display · 1.3125rem</code><span style="font:700 1.3125rem var(--display)">Velor Innovation</span></div>
+    <div><code>lede · body · 1.125rem</code><span style="font-size:1.125rem;color:var(--fg-dim)">Facturación electrónica y logística</span></div>
+    <div><code>body · 1rem / 1.65</code><span>Sistemas que le quitan trámite a tu negocio.</span></div>
+    <div><code>rol · mono · .875rem</code><span style="font:.875rem var(--mono)">Desarrollador Full Stack</span></div>
+    <div><code>eyebrow · mono · .6875rem</code><span class="eyebrow">Experiencia</span></div>
+  </section>
+
+  <section aria-labelledby="c4">
+    <h2 id="c4">Espaciado, radios y sombras</h2>
+    <div class="row space">
+      <div><i style="width:8px"></i><span>8</span></div><div><i style="width:10px"></i><span>10</span></div><div><i style="width:14px"></i><span>14</span></div><div><i style="width:18px"></i><span>18</span></div><div><i style="width:24px"></i><span>24</span></div><div><i style="width:26px"></i><span>26</span></div><div><i style="width:30px"></i><span>30</span></div><div><i style="width:44px"></i><span>44</span></div>
+    </div>
+    <div class="row rad" style="margin-top:26px">
+      <div><i style="border-radius:6px"></i><span>6 marca</span></div><div><i style="border-radius:7px"></i><span>7 tag</span></div><div><i style="border-radius:10px"></i><span>10 botón</span></div><div><i style="border-radius:12px"></i><span>12 stat</span></div><div><i style="border-radius:14px"></i><span>14 tarjeta</span></div><div><i style="border-radius:18px"></i><span>18 sección</span></div><div><i style="border-radius:999px;width:110px"></i><span>999 chip</span></div>
+    </div>
+    <div class="row sh" style="margin-top:26px">
+      <div><i style="box-shadow:0 14px 40px -18px var(--sombra);border:1px solid var(--line)"></i><span>tarjeta hover</span></div>
+      <div><i style="box-shadow:0 10px 28px -8px var(--sombra)"></i><span>FAB</span></div>
+      <div><i style="box-shadow:0 20px 50px -14px var(--sombra)"></i><span>panel a11y</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="c5">
+    <h2 id="c5">Componentes</h2>
+    <div class="stack">
+      <nav class="nav" aria-label="Ejemplo de navegación"><span class="brand"><i></i>FUT</span><span><a href="#c5">Experiencia</a><a href="#c5">Proyectos</a><a href="#c5">Stack</a><a class="lang" href="#c5" lang="en">EN</a></span></nav>
+      <div class="row">
+        <a class="btn primary" href="#c5">Copiar correo</a>
+        <a class="btn" href="#c5">GitHub</a>
+        <a class="btn wa" href="#c5">WhatsApp</a>
+        <span class="tag">Laravel</span><span class="tag t-fuerte">TDD</span><span class="chip">CFDI 4.0</span>
+      </div>
+      <div class="comps">
+        <article class="card hero"><h3>Revisión vehicular</h3><p>Marca una falla crítica y la unidad se bloquea sola.</p><div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag t-fuerte">Autor único</span></div></article>
+        <div class="row"><div class="stat"><b>169</b><span>aportaciones</span></div><div class="stat"><b>45/71</b><span>componentes autor único</span></div><div class="stat"><b>9.46</b><span>promedio</span></div></div>
+      </div>
+      <div class="row"><button class="fab wa" aria-label="WhatsApp">WA</button><button class="fab a11y" aria-label="Accesibilidad">Aa</button></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

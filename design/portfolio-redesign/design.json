@@ -1,0 +1,9 @@
+{
+  "title": "Portfolio redesign",
+  "brief": "Full redesign of Fernando Uribe Trujillo's portfolio serving both employers/recruiters and local business clients (transport, agencies, Manzanillo businesses: CFDI 4.0, Carta Porte, digital records). Must keep a11y modes, ES/EN parity and scroll-driven reveal.",
+  "artboards": [
+    { "file": "01-dos-puertas.html", "title": "Dos puertas", "tradeoff": "Keeps the dark/gold identity and routes each audience in the first screen; cases use one problem/what I did/result grid. Adds a choice up front and is the least surprising visually.", "width": 1440, "height": 900 },
+    { "file": "02-expediente-tecnico.html", "title": "Expediente técnico", "tradeoff": "Light editorial case files with a sticky index and an Employer/Business reading switch; most credible depth for recruiters. Slowest to scan and drops the dark identity by default.", "width": 1440, "height": 900 },
+    { "file": "03-demo-primero.html", "title": "Demo primero", "tradeoff": "The hero is a working vehicle-inspection demo plus a bento of demos; shows instead of tells, strongest for clients. Heavier to build and maintain, and the person reads more like a product.", "width": 1440, "height": 900 }
+  ]
+}
