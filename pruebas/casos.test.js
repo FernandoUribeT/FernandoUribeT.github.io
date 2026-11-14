@@ -102,3 +102,10 @@ for (const [lang, p] of Object.entries(pages)) {
     }
   });
 }
+it('keeps case field labels on a readable token, not --fg-faint', () => {
+  for (const file of ['index.html', path.join('en', 'index.html')]) {
+    const source = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    const rule = source.match(/\.case dt\{([^}]*)\}/)?.[1] ?? '';
+    assert.match(rule, /color:var\(--fg-dim\)/, `${file}: .case dt should use --fg-dim`);
+  }
+});
