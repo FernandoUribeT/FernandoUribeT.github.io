@@ -59,8 +59,8 @@ for (const [lang, source] of Object.entries(pages)) {
       'case rows need a 2px left border fed by --borde',
     );
     assert.ok(
-      /\.case\.card:hover\{background:var\(--card-2\)[;}]/.test(source),
-      'case rows mirror .feat hover with the card-2 background',
+      /#proyectos \.case\.card:is\(:hover,:focus-within\)\{[^}]*background:var\(--card-2\)[;}]/.test(source),
+      'case rows mirror .feat hover and keyboard focus with the card-2 background',
     );
     assert.ok(
       source.includes('.case dt{color:var(--borde,var(--fg-dim))}'),
