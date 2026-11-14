@@ -3,12 +3,12 @@
   "chosen": "01-dos-puertas.html",
   "handoffs": {
     "01-dos-puertas.html": {
-      "status": "in_progress",
+      "status": "implemented",
       "queued": false,
       "sentAt": "2026-11-13T04:47:41.581Z",
       "startedAt": "2026-11-13T04:48:08.674Z",
-      "implementedAt": null,
-      "note": "Mezcla 01 + 03: puertas y casos de la 01, demo de la 03 en la portada. Plan: odd/tasks/portfolio-redesign.md"
+      "implementedAt": "2026-11-13T05:20:59.546Z",
+      "note": "Mezcla 01+03 implementada en index.html y en/index.html (2d24036..11e1d7e). 259/259 pruebas; S1–S6 PASS en navegador."
     }
   }
 }
