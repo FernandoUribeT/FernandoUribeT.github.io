@@ -65,7 +65,7 @@ for (const [lang, file] of Object.entries(pages)) {
     assert.match(animatedRing, /conic-gradient\(from var\(--ang\)/);
     assert.match(animatedRing, /var\(--borde/);
     assert.match(animatedRing, /mask-composite:\s*exclude/);
-    assert.match(animatedRing, /animation:\s*luz-borde\s+3s\s+linear\s+infinite/);
+    assert.match(animatedRing, /animation:\s*luz-borde\s+4s\s+linear\s+infinite/);
 
     const quiet = cssRule(source, `html.a11y-quieto.ang-animable ${active}::before`);
     const reduced = cssRule(reducedMotionBlocks(source), animated);
