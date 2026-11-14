@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirección 03 · Tarjetas con vista previa — Casos más visibles</title>
+<style>
+:root{--bg:#04060a;--bg-2:#0a0d13;--card:#1e2530;--card-2:#252d3a;--panel:#0f131b;--line:#333d4c;--line-2:#475268;--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;--accent-2:#ffd166;--glow:rgba(240,180,41,.14);--sombra:rgba(0,0,0,.85);--velo:rgba(10,12,17,.82);--ease:cubic-bezier(.22,.61,.36,1);--azul:#4d9fff;--verde:#3ba55d;--rojo:#ff6f5e;--violeta:#b78cff;--cian:#2ed3dd;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--display:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:61px}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.65 var(--body)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:#1a1204;padding:10px 14px;border-radius:10px;font-weight:700;z-index:9}
+.skip:focus{top:12px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+/* nav */
+.top{position:sticky;top:0;z-index:5;background:var(--velo);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font:800 1rem var(--display);display:flex;gap:7px;align-items:center;text-decoration:none}
+.brand i{width:9px;height:9px;background:var(--accent);border-radius:2px}
+.top ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.top ul a{font:.75rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--fg-dim);text-decoration:none;padding:10px;border-radius:8px;display:block}
+.top ul a:hover{color:var(--fg);background:var(--card)}
+.top ul a.act{color:var(--accent)}
+.top .lang{border:1px solid var(--line-2)}
+/* intro */
+.intro{padding:46px 0 8px}
+.eyebrow{font:600 .6875rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.intro h1{font:800 clamp(2rem,5vw,2.75rem)/1.08 var(--display);letter-spacing:-.032em;margin:0;max-width:18ch}
+.intro p{margin:14px 0 0;color:var(--fg-dim);max-width:58ch}
+.intro .dir{font:.75rem var(--mono);color:var(--fg-faint);margin-top:10px}
+/* tarjetas */
+#casos{padding:26px 0 90px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-top:3px solid var(--borde,var(--line-2));border-radius:14px;background:var(--card);overflow:hidden;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s,background .25s}
+.card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 40px -18px var(--sombra);background:var(--card-2)}
+.media{position:relative;border-bottom:1px solid var(--line);aspect-ratio:16/9;background:var(--bg-2);overflow:hidden}
+.media svg{display:block;width:100%;height:100%}
+.media .chip{position:absolute;left:10px;bottom:10px;font:700 .5625rem var(--mono);letter-spacing:.06em;padding:3px 7px;border-radius:6px;background:var(--accent);color:#1a1204}
+.body{padding:16px 16px 14px;display:flex;flex-direction:column;flex:1}
+.badge{display:inline-block;font:700 .625rem var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:3px 7px;border-radius:6px;width:fit-content;margin-bottom:8px}
+.badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.card h3{font:700 1.0625rem/1.25 var(--display);margin:0 0 4px;letter-spacing:-.01em}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.card .res{margin:0 0 6px;font:700 .9375rem/1.4 var(--display);color:var(--accent-2)}
+.card .prob1{font:.8125rem/1.5 var(--body);color:var(--fg-dim);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .tags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0;margin-top:auto;padding-top:10px}
+.tag{font:.6563rem var(--mono);border:1px solid var(--line-2);border-radius:7px;padding:2px 7px;color:var(--fg-dim)}
+/* detalle colapsable: comprensión accesible sin JS */
+details.ver{margin-top:12px;border-top:1px dashed var(--line-2);padding-top:10px}
+details.ver summary{cursor:pointer;font:700 .8125rem var(--body);color:var(--accent);list-style:none;min-height:30px;display:flex;align-items:center;gap:7px}
+details.ver summary::-webkit-details-marker{display:none}
+details.ver summary::after{content:"+";font:700 1rem var(--mono);color:var(--accent);transition:transform .2s var(--ease)}
+details.ver[open] summary::after{transform:rotate(45deg)}
+details.ver .cuerpo{display:grid;gap:10px;margin-top:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+details.ver .cuerpo p{margin:0;font:.8125rem/1.55 var(--body);color:var(--fg-dim)}
+details.ver .cuerpo p b{display:block;font:700 .6563rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:2px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 15px;border-radius:10px;border:1px solid var(--line-2);color:var(--fg);font:600 .8438rem var(--body);text-decoration:none;background:transparent;cursor:pointer;margin-top:12px;justify-content:center;transition:transform .2s var(--ease),border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1204}
+.btn.primary:hover{border-color:var(--accent-2)}
+.btn svg{flex:none;width:14px;height:14px}
+/* micro-mocks */
+.mini{margin-top:8px;display:grid;gap:3px}
+.mini i{display:block;height:8px;border-radius:4px;background:var(--panel);border:1px solid var(--line)}
+.mini i.c{background:var(--c)}
+.mini .seg{display:flex;gap:4px}
+/* nota */
+.note{margin:26px 0 0;padding:14px 16px;border:1px dashed var(--line-2);border-radius:12px;font:.8125rem var(--mono);color:var(--fg-dim);background:var(--bg-2)}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){
+.top ul{display:none}
+.intro{padding:34px 0 4px}
+.intro h1{font-size:1.75rem}
+#casos{padding:18px 0 60px}
+.grid{grid-template-columns:1fr;gap:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#casos">Saltar al contenido</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#casos"><i aria-hidden="true"></i>FUT</a>
+    <nav aria-label="Principal"><ul>
+      <li><a class="act" href="#casos">Casos</a></li>
+      <li><a href="#casos">Servicios</a></li>
+      <li><a href="#casos">Trayectoria</a></li>
+      <li><a class="lang" href="#casos" lang="en">EN</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" aria-labelledby="h1">
+    <p class="eyebrow">Proyectos</p>
+    <h1 id="h1">Casos más visibles</h1>
+    <p>Cuadrícula uniforme de tarjetas con la captura arriba, el resultado como titular y una línea del problema. “Ver detalle” despliega el problema y “qué hice” completos, sin cambiar la página.</p>
+    <p class="dir">Dirección 03 · Tarjetas con vista previa — las capturas son mocks estilizados dibujados en el propio archivo; en el sitio van los .webp existentes.</p>
+  </section>
+
+  <section id="casos" aria-label="Casos">
+    <div class="grid">
+
+      <article class="card" style="--borde:var(--azul)">
+        <div class="media" role="img" aria-label="Miniatura del calendario de viajes con eventos de colores">
+          <span class="chip">Demo en vivo</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0a0d13"/>
+            <rect x="18" y="20" width="200" height="14" rx="7" fill="#252d3a"/>
+            <g fill="#0a0d13" stroke="#333d4c">
+              <rect x="18" y="46" width="51" height="66" rx="5"/><rect x="74" y="46" width="51" height="66" rx="5"/><rect x="130" y="46" width="51" height="66" rx="5"/><rect x="186" y="46" width="51" height="66" rx="5"/><rect x="242" y="46" width="51" height="66" rx="5"/><rect x="298" y="46" width="51" height="66" rx="5"/><rect x="354" y="46" width="28" height="66" rx="5"/>
+              <rect x="18" y="118" width="51" height="66" rx="5"/><rect x="74" y="118" width="51" height="66" rx="5"/><rect x="130" y="118" width="51" height="66" rx="5"/><rect x="186" y="118" width="51" height="66" rx="5"/><rect x="242" y="118" width="51" height="66" rx="5"/><rect x="298" y="118" width="51" height="66" rx="5"/><rect x="354" y="118" width="28" height="66" rx="5"/>
+            </g>
+            <rect x="30" y="62" width="20" height="9" rx="4.5" fill="#4d9fff"/><rect x="242" y="62" width="20" height="9" rx="4.5" fill="#3ba55d"/><rect x="298" y="62" width="20" height="9" rx="4.5" fill="#f0b429"/><rect x="186" y="62" width="20" height="9" rx="4.5" fill="#ff6f5e"/>
+            <rect x="30" y="136" width="20" height="9" rx="4.5" fill="#2ed3dd"/><rect x="130" y="136" width="20" height="9" rx="4.5" fill="#b78cff"/><rect x="354" y="136" width="20" height="9" rx="4.5" fill="#4d9fff"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge">Demo en vivo</span>
+          <h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3>
+          <p class="res">Nueve eventos que se consultan, arrastran, filtran y colorean por tipo.</p>
+          <p class="prob1">Ver de un vistazo qué evento es cada uno —citas, salidas, entregas o despachos—.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Ver de un vistazo qué evento es cada uno —citas, salidas, entregas o despachos— con su tipo, fecha, cliente, unidad y operador.</p>
+              <p><b>Qué hice</b>Una demo independiente con nueve eventos ficticios. Haz clic en uno para consultarlo en una ficha breve de solo lectura; arrastra un evento a otro día —el destino se ilumina antes de soltarlo y las fechas pasadas se rechazan—; filtra por cliente, unidad u operador y ajusta los colores por tipo de evento.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">Pointer Events</span></div>
+          <a class="btn primary" href="/demos/calendario/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card" style="--borde:var(--verde)">
+        <div class="media" role="img" aria-label="Miniatura de la validación de expedientes con estado OK y defecto">
+          <span class="chip">Demo en vivo</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0a0d13"/>
+            <rect x="18" y="20" width="210" height="14" rx="7" fill="#252d3a"/>
+            <rect x="18" y="62" width="160" height="9" rx="4.5" fill="#333d4c"/>
+            <rect x="188" y="58" width="44" height="13" rx="6.5" fill="#ff6f5e"/>
+            <rect x="18" y="86" width="160" height="9" rx="4.5" fill="#333d4c"/>
+            <rect x="188" y="82" width="44" height="13" rx="6.5" fill="#ff6f5e"/>
+            <rect x="18" y="110" width="160" height="9" rx="4.5" fill="#333d4c"/>
+            <rect x="188" y="106" width="44" height="13" rx="6.5" fill="#ff6f5e"/>
+            <rect x="18" y="148" width="180" height="12" rx="6" fill="#333d4c"/>
+            <rect x="212" y="146" width="90" height="16" rx="8" fill="none" stroke="#f0b429" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge">Demo en vivo</span>
+          <h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3>
+          <p class="res">Cambia entre validación ingenua y endurecida y ve en vivo los tres defectos reales.</p>
+          <p class="prob1">Revisar que cada documento subido por un proveedor sea el que dice ser y le pertenezca.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Revisar que cada documento subido por un proveedor sea el que dice ser y le pertenezca de verdad.</p>
+              <p><b>Qué hice</b>El sistema extrae el texto del documento, decide de qué documento se trata y valida que le pertenezca. La demo deja cambiar entre la validación ingenua y la endurecida; los primeros tres documentos reproducen defectos reales de producción: un acta clasificada como CURP porque la trae impresa, un acuse del SAT tomado por comprobante de domicilio y una INE auténtica pero de otra persona.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">validación cruzada</span></div>
+          <a class="btn primary" href="/demos/expedientes/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card" style="--borde:var(--rojo)">
+        <div class="media" role="img" aria-label="Miniatura de la revisión vehicular con una unidad bloqueada">
+          <span class="chip">Demo en vivo</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0a0d13"/>
+            <rect x="18" y="20" width="170" height="14" rx="7" fill="#252d3a"/>
+            <rect x="18" y="52" width="364" height="24" rx="6" fill="#0a0d13" stroke="#333d4c"/>
+            <rect x="30" y="60" width="110" height="8" rx="4" fill="#252d3a"/><path d="M352 64l8 0" stroke="#3ba55d" stroke-width="5" stroke-linecap="round"/>
+            <rect x="18" y="82" width="364" height="24" rx="6" fill="#0a0d13" stroke="#333d4c"/>
+            <rect x="30" y="90" width="110" height="8" rx="4" fill="#252d3a"/><path d="M352 94l8 0" stroke="#3ba55d" stroke-width="5" stroke-linecap="round"/>
+            <rect x="18" y="112" width="364" height="24" rx="6" fill="#0a0d13" stroke="#ff6f5e"/>
+            <rect x="30" y="120" width="130" height="8" rx="4" fill="#252d3a"/><rect x="288" y="117" width="78" height="14" rx="7" fill="#ff6f5e"/>
+            <rect x="18" y="160" width="150" height="12" rx="6" fill="#333d4c"/>
+            <rect x="18" y="184" width="364" height="16" rx="8" fill="none" stroke="#f0b429" stroke-dasharray="6 5"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge">Demo en vivo</span>
+          <h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3>
+          <p class="res">Marca una falla crítica y la unidad se bloquea sola.</p>
+          <p class="prob1">Que una falla crítica se detecte sin depender de que alguien la reporte y no se cierre una revisión incompleta ni sin firma.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Que una falla crítica en una unidad se detecte sin depender de que alguien la reporte, y que no se pueda cerrar una revisión incompleta ni sin firma.</p>
+              <p><b>Qué hice</b>Módulo del que soy autor único: el operador revisa la unidad punto por punto y firma en pantalla. Marca una falla crítica y la unidad se bloquea sola; una revisión a medias guardada como terminada genera confianza falsa, que es peor que no tener revisión, así que no se cierra incompleta ni sin firma.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">canvas</span></div>
+          <a class="btn primary" href="/demos/revision/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card" style="--borde:var(--violeta)">
+        <div class="media" role="img" aria-label="Miniatura de un código QR con un logo al centro">
+          <span class="chip">Demo en vivo</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0a0d13"/>
+            <g transform="translate(12,34)">
+              <g fill="#eef0f6"><rect x="0" y="0" width="130" height="130" rx="10"/>
+                <g fill="#04060a"><rect x="0" y="0" width="8" height="8"/><rect x="34" y="0" width="8" height="8"/><rect x="0" y="34" width="8" height="8"/><rect x="34" y="34" width="8" height="8"/>
+                <rect x="0" y="0" width="26" height="26" fill="#04060a"/><rect x="6" y="6" width="14" height="14" fill="#eef0f6"/><rect x="0" y="26" width="26" height="8" fill="#04060a"/><rect x="26" y="0" width="8" height="26" fill="#04060a"/>
+                <rect x="96" y="0" width="34" height="26" fill="#04060a"/><rect x="104" y="8" width="18" height="10" fill="#eef0f6"/><rect x="96" y="26" width="34" height="8" fill="#04060a"/><rect x="96" y="0" width="8" height="26" fill="#04060a"/>
+                <rect x="0" y="96" width="26" height="34" fill="#04060a"/><rect x="6" y="104" width="14" height="18" fill="#eef0f6"/><rect x="0" y="96" width="8" height="34" fill="#04060a"/><rect x="26" y="96" width="8" height="34" fill="#04060a"/>
+                <rect x="44" y="40" width="8" height="8"/><rect x="68" y="32" width="8" height="8"/><rect x="44" y="68" width="8" height="8"/><rect x="76" y="70" width="8" height="8"/><rect x="32" y="54" width="8" height="8"/><rect x="56" y="52" width="8" height="8"/><rect x="96" y="46" width="8" height="8"/><rect x="80" y="90" width="8" height="8"/><rect x="44" y="86" width="8" height="8"/><rect x="66" y="82" width="8" height="8"/><rect x="56" y="98" width="8" height="8"/><rect x="102" y="80" width="8" height="8"/><rect x="88" y="62" width="8" height="8"/><rect x="110" y="58" width="8" height="8"/></g>
+                <rect x="53" y="53" width="24" height="24" rx="4" fill="#f0b429"/>
+              </g>
+            </g>
+            <rect x="160" y="46" width="120" height="12" rx="6" fill="#252d3a"/>
+            <rect x="160" y="72" width="180" height="12" rx="6" fill="#252d3a"/>
+            <rect x="160" y="98" width="150" height="12" rx="6" fill="#333d4c"/>
+            <rect x="160" y="130" width="200" height="12" rx="6" fill="#333d4c"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge">Demo en vivo</span>
+          <h3><a href="/demos/qr/">Identificador QR de unidades</a></h3>
+          <p class="res">Aguanta un logo al centro, contra un decodificador real.</p>
+          <p class="prob1">Generar códigos QR que sigan siendo legibles aunque lleven un logo encima, sin dependencias.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Generar códigos QR que sigan siendo legibles aunque lleven un logo encima, sin depender de ninguna librería.</p>
+              <p><b>Qué hice</b>Escribí el codificador completo desde cero: corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras. En la demo pones un logo al centro y mueves el nivel de corrección. El veredicto relee el lienzo, cuenta las palabras de código que el logo daña de verdad y las compara contra lo que cada bloque puede corregir; lo contrasté contra zxing-cpp, el decodificador detrás de los escáneres de teléfono, en las 76 combinaciones de nivel y tamaño de logo.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">codificador desde cero</span></div>
+          <a class="btn primary" href="/demos/qr/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card" style="--borde:var(--cian)">
+        <div class="media" role="img" aria-label="Miniatura de la salida de pruebas en una terminal">
+          <span class="chip">Destacado</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0f131b"/>
+            <rect x="18" y="18" width="364" height="30" rx="8" fill="#1e2530"/>
+            <circle cx="34" cy="33" r="5" fill="#475268"/><circle cx="52" cy="33" r="5" fill="#475268"/><circle cx="70" cy="33" r="5" fill="#475268"/>
+            <rect x="18" y="64" width="240" height="12" rx="6" fill="#252d3a"/>
+            <rect x="266" y="64" width="70" height="12" rx="6" fill="#3ba55d"/>
+            <rect x="18" y="90" width="200" height="12" rx="6" fill="#252d3a"/>
+            <rect x="226" y="90" width="70" height="12" rx="6" fill="#3ba55d"/>
+            <rect x="18" y="116" width="180" height="12" rx="6" fill="#333d4c"/>
+            <rect x="18" y="150" width="364" height="44" rx="8" fill="#1e2530" stroke="#333d4c"/>
+            <rect x="34" y="164" width="220" height="9" rx="4.5" fill="#3ba55d"/>
+            <rect x="34" y="180" width="160" height="9" rx="4.5" fill="#475268"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge alt">Destacado</span>
+          <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a></h3>
+          <p class="res">12 pruebas de dominio en 2 ms, 24 de integración en 1.6 s — medido en el README.</p>
+          <p class="prob1">Un despachador, en un servicio multiempresa, necesita saber qué unidades pueden salir hoy y cuáles están detenidas.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Un despachador, en un servicio multiempresa, necesita saber qué unidades pueden salir hoy y cuáles están detenidas por mantenimiento.</p>
+              <p><b>Qué hice</b>Servicio bajo una sola regla: las reglas de negocio no dependen del framework. Las 12 pruebas de dominio corren en 2 ms porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s. Aislamiento por empresa con un scope global que falla cerrado, que responde 404 —no 403— ante un id ajeno, y una prueba que manda <code>company_id</code> en el formulario para demostrar que se ignora.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">Laravel 13</span><span class="tag">PHP 8.5</span><span class="tag">PHPUnit</span><span class="tag">SQLite</span></div>
+          <a class="btn" href="https://github.com/FernandoUribeT/fleet-maintenance">Ver el código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card" style="--borde:var(--azul)">
+        <div class="media" role="img" aria-label="Miniatura de la salida de un scraper en una terminal">
+          <span class="chip">Destacado</span>
+          <svg viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="0" y="0" width="400" height="225" fill="#0f131b"/>
+            <rect x="18" y="18" width="364" height="30" rx="8" fill="#1e2530"/>
+            <circle cx="34" cy="33" r="5" fill="#475268"/><circle cx="52" cy="33" r="5" fill="#475268"/><circle cx="70" cy="33" r="5" fill="#475268"/>
+            <rect x="18" y="64" width="120" height="12" rx="6" fill="#252d3a"/>
+            <rect x="18" y="90" width="330" height="12" rx="6" fill="#333d4c"/>
+            <rect x="18" y="116" width="200" height="12" rx="6" fill="#3ba55d"/>
+            <rect x="18" y="150" width="250" height="12" rx="6" fill="#333d4c"/>
+            <rect x="18" y="176" width="110" height="12" rx="6" fill="#3ba55d"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="badge alt">Destacado</span>
+          <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a></h3>
+          <p class="res">Falla ruidosamente antes que devolver un dato incorrecto en silencio.</p>
+          <p class="prob1">Obtener los documentos que el Diario Oficial de la Federación publica cada día y entregarlos como JSON.</p>
+          <details class="ver">
+            <summary>Ver detalle</summary>
+            <div class="cuerpo">
+              <p><b>Problema</b>Obtener los documentos que el Diario Oficial de la Federación publica cada día y entregarlos como JSON.</p>
+              <p><b>Qué hice</b>Un CLI con pytest que extrae los documentos diarios del Diario Oficial y los entrega como JSON, bajo una regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente.</p>
+            </div>
+          </details>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">CLI</span></div>
+          <a class="btn" href="https://github.com/FernandoUribeT/dof-scraper">Ver el código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <p class="note">Cuadrícula uniforme: el “ver detalle” usa <code>&lt;details&gt;</code> nativo — accesible por teclado, sin JavaScript — y guarda el texto completo del problema y “qué hice”. Los casos sin captura usan el mismo tile de terminal.</p>
+  </section>
+</main>
+</body>
+</html>

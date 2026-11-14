@@ -1,0 +1,10 @@
+{
+  "title": "Casos más visibles",
+  "brief": "Tres direcciones para que las tarjetas de caso de #proyectos dejen de verse simples y cargadas de texto: fila con captura, bento destacado y tarjetas con vista previa, usando solo tokens de design/system.md y contenido real de las tarjetas existentes.",
+  "feature": "odd/tasks/portfolio-redesign.md",
+  "artboards": [
+    { "file": "01-fila-con-captura.html", "title": "Fila con captura", "tradeoff": "La captura a la izquierda da presencia y la demo se ve de inmediato, pero cada fila crece en alto y la lista es larga al hacer scroll; los casos sin captura necesitan un tile de terminal que compite con el resto.", "width": 1440, "height": 900 },
+    { "file": "02-bento-destacado.html", "title": "Bento destacado", "tradeoff": "Jerarquía de mosaico con una demo protagonista en grande; el problema queda oculto hasta el hover/foco y los tres repos caben en tiles compactos, lo que deja el contenido profundo fuera del vistazo inicial.", "width": 1440, "height": 900 },
+    { "file": "03-tarjetas-con-vista-previa.html", "title": "Tarjetas con vista previa", "tradeoff": "Cuadrícula uniforme y escaneable con el detalle completo tras un <details> nativo accesible, pero cada tarjeta es pequeña y la demo no se ve en grande sin clic; menos despliegue que la fila con captura.", "width": 1440, "height": 900 }
+  ]
+}

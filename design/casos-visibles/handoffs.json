@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "chosen": "02-bento-destacado.html",
+  "handoffs": {
+    "02-bento-destacado.html": {
+      "status": "implemented",
+      "queued": false,
+      "sentAt": "2026-11-14T02:02:17.767Z",
+      "startedAt": null,
+      "implementedAt": "2026-11-14T02:09:50.110Z",
+      "feature": "odd/tasks/portfolio-redesign.md",
+      "note": "Bento en #proyectos ES + EN, capturas reales; 303/303. Sin commit.",
+      "previewUrl": "http://127.0.0.1:8765/#proyectos"
+    }
+  }
+}

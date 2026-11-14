@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirección 01 · Fila con captura — Casos más visibles</title>
+<style>
+:root{--bg:#04060a;--bg-2:#0a0d13;--card:#1e2530;--card-2:#252d3a;--panel:#0f131b;--line:#333d4c;--line-2:#475268;--fg:#eef0f6;--fg-dim:#9aa3b6;--fg-faint:#68718a;--accent:#f0b429;--accent-2:#ffd166;--glow:rgba(240,180,41,.14);--sombra:rgba(0,0,0,.85);--velo:rgba(10,12,17,.82);--ease:cubic-bezier(.22,.61,.36,1);--azul:#4d9fff;--verde:#3ba55d;--rojo:#ff6f5e;--violeta:#b78cff;--cian:#2ed3dd;--tinta:#161d2a;--tinta-linea:#2b3547;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--display:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI","Liberation Sans",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:61px}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.65 var(--body)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:#1a1204;padding:10px 14px;border-radius:10px;font-weight:700;z-index:9}
+.skip:focus{top:12px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+/* nav */
+.top{position:sticky;top:0;z-index:5;background:var(--velo);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font:800 1rem var(--display);display:flex;gap:7px;align-items:center;text-decoration:none}
+.brand i{width:9px;height:9px;background:var(--accent);border-radius:2px}
+.top ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.top ul a{font:.75rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--fg-dim);text-decoration:none;padding:10px;border-radius:8px;display:block}
+.top ul a:hover{color:var(--fg);background:var(--card)}
+.top ul a.act{color:var(--accent)}
+.top .lang{border:1px solid var(--line-2)}
+/* intro */
+.intro{padding:46px 0 8px;position:relative}
+.eyebrow{font:600 .6875rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.intro h1{font:800 clamp(2rem,5vw,2.75rem)/1.08 var(--display);letter-spacing:-.032em;margin:0;max-width:18ch}
+.intro p{margin:14px 0 0;color:var(--fg-dim);max-width:58ch}
+.intro .dir{font:.75rem var(--mono);color:var(--fg-faint);margin-top:10px}
+/* filas */
+#casos{padding:26px 0 90px}
+.fila{position:relative;display:grid;grid-template-columns:minmax(340px,45%) 1fr;gap:22px;padding:18px;margin-top:18px;border:1px solid var(--line);border-top:3px solid var(--borde,var(--line-2));border-radius:14px;background:var(--card);transition:transform .25s var(--ease),border-color .25s,box-shadow .25s,background .25s}
+.fila:first-of-type{margin-top:0}
+.fila:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 14px 40px -18px var(--sombra);background:var(--card-2)}
+/* captura */
+.shot{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line-2);aspect-ratio:16/10;background:var(--bg-2);display:grid;place-items:stretch}
+.shot .mdl{position:absolute;inset:0}
+/* mock genérico */
+.mdl{font:600 .625rem/1 var(--mono);color:var(--fg-dim);display:flex;flex-direction:column;gap:0;padding:10px 12px}
+.mdl b{color:var(--fg)}
+/* calendario */
+.cal{display:flex;flex-direction:column}
+.cal-h{display:flex;align-items:center;gap:6px;font:700 .6875rem var(--mono);color:var(--fg);padding-bottom:6px;border-bottom:1px solid var(--line)}
+.cal-h .do{width:7px;height:7px;border-radius:2px;background:var(--accent)}
+.cal-d{display:grid;grid-template-columns:repeat(7,1fr);font:600 .5rem var(--mono);color:var(--fg-faint);text-align:center;padding:5px 0 2px}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:1fr;gap:3px;flex:1}
+.cal-g .d{position:relative;border:1px solid var(--line);border-radius:3px;background:var(--panel);display:flex;align-items:flex-end;padding:2px 3px;font:600 .5rem var(--mono);color:var(--fg-dim)}
+.cal-g .d i{position:absolute;left:3px;right:3px;bottom:3px;height:4px;border-radius:2px;background:var(--c)}
+.cal-g .d.hoy{outline:1px solid var(--accent)}
+.cal-ley{display:flex;flex-wrap:wrap;gap:8px;padding-top:6px;border-top:1px solid var(--line);margin-top:6px;font:600 .5rem var(--mono);color:var(--fg-faint);align-items:center}
+.cal-ley i{width:6px;height:6px;border-radius:2px;background:var(--c);margin-right:3px;display:inline-block}
+/* ocr */
+.ocr .doc{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 7px;border:1px solid var(--line);border-radius:6px;background:var(--panel);margin-top:6px}
+.ocr .doc b{font:600 .59375rem var(--mono);color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{flex:none;font:700 .5rem/1 var(--mono);padding:3px 6px;border-radius:5px;letter-spacing:.06em}
+.chip.ok{color:#0b2f19;background:var(--verde)}
+.chip.fail{color:var(--rojo);border:1px solid var(--rojo)}
+.ocr .seg{display:flex;gap:4px;margin-top:8px;align-items:center;font:600 .5rem var(--mono)}
+.ocr .seg i{font-style:normal;padding:3px 7px;border:1px solid var(--line);border-radius:5px;color:var(--fg-dim)}
+.ocr .seg i.on{color:#1a1204;background:var(--accent);border-color:var(--accent);font-weight:700}
+.ocr .ver{font:600 .5625rem var(--mono);color:var(--accent-2);margin-top:8px}
+/* revisión */
+.rev .unit{display:flex;align-items:center;gap:7px;font:700 .6875rem var(--mono);color:var(--fg)}
+.rev .unit i{width:8px;height:8px;border-radius:2px;background:var(--rojo)}
+.rev .chk{display:grid;gap:4px;margin-top:7px}
+.rev .it{display:flex;align-items:center;justify-content:space-between;font:600 .5625rem var(--mono);color:var(--fg-dim);padding:3px 7px;border:1px solid var(--line);border-radius:5px;background:var(--panel)}
+.rev .it.ok{color:var(--verde)}
+.rev .it.falla{color:var(--rojo);border-color:rgba(255,111,94,.5)}
+.rev .bloqueo{margin-top:7px;padding:6px 8px;border-radius:6px;background:rgba(255,111,94,.12);border:1px solid var(--rojo);color:var(--rojo);font:700 .59375rem var(--mono);letter-spacing:.04em}
+.rev .firma{margin-top:7px;padding:6px 8px;border-radius:6px;border:1px dashed var(--accent);color:var(--accent-2);font:600 .5625rem var(--mono)}
+/* QR */
+.qr{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;align-items:center}
+.qr svg{width:100%;height:auto;display:block;background:var(--fg);border-radius:6px;padding:4px}
+.qr .qmeta{display:flex;flex-direction:column;gap:7px}
+.qr .qmeta span{font:600 .5625rem var(--mono);color:var(--fg-dim);border:1px solid var(--line);border-radius:5px;padding:5px 7px;background:var(--panel)}
+.qr .qmeta b{color:var(--accent-2);font-weight:700}
+/* terminal */
+.term{background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.term .bar{display:flex;gap:5px;align-items:center;padding:6px 9px;border-bottom:1px solid var(--line)}
+.term .bar i{width:7px;height:7px;border-radius:50%;background:var(--line-2)}
+.term pre{margin:0;padding:8px 11px;font:600 .59375rem/1.7 var(--mono);color:var(--fg-dim);white-space:pre-wrap}
+.term pre .ok{color:var(--verde)}
+.term pre .acc{color:var(--accent)}
+.term pre .z{color:var(--fg)}
+/* info */
+.info{display:flex;flex-direction:column;min-width:0}
+.info .topline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.badge{font:700 .6875rem var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:4px 8px;border-radius:7px}
+.badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.info h3{font:700 1.1875rem/1.25 var(--display);margin:0;letter-spacing:-.01em}
+.info h3 a{text-decoration:none}
+.info h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.res{margin:8px 0 0;font:700 1.3125rem/1.25 var(--display);color:var(--accent-2);letter-spacing:-.015em}
+.hice{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:3px}
+.hice li{position:relative;padding-left:14px;font:.8438rem/1.45 var(--body);color:var(--fg-dim)}
+.hice li::before{content:"";position:absolute;left:1px;top:.55em;width:6px;height:6px;border-radius:1.5px;background:var(--borde,var(--accent))}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:10px;flex-wrap:wrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:.6875rem var(--mono);border:1px solid var(--line-2);border-radius:7px;padding:2px 8px;color:var(--fg-dim)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:10px;border:1px solid var(--line-2);color:var(--fg);font:600 .9375rem var(--body);text-decoration:none;background:transparent;cursor:pointer;transition:transform .2s var(--ease),border-color .2s var(--ease)}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1204}
+.btn.primary:hover{border-color:var(--accent-2)}
+.btn svg{flex:none;width:15px;height:15px}
+/* nota */
+.note{margin:26px 0 0;padding:14px 16px;border:1px dashed var(--line-2);border-radius:12px;font:.8125rem var(--mono);color:var(--fg-dim);background:var(--bg-2)}
+@media (max-width:900px){.fila{grid-template-columns:1fr}.shot{max-width:420px}}
+@media (max-width:620px){
+.top ul{display:none}
+.intro{padding:34px 0 4px}
+.intro h1{font-size:1.75rem}
+#casos{padding:18px 0 60px}
+.fila{padding:14px;gap:14px;border-radius:12px}
+.info h3{font-size:1.0625rem}
+.res{font-size:1.125rem}
+.foot{align-items:flex-start;flex-direction:column}
+.shot{max-width:none;aspect-ratio:16/9}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#casos">Saltar al contenido</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#casos"><i aria-hidden="true"></i>FUT</a>
+    <nav aria-label="Principal"><ul>
+      <li><a class="act" href="#casos">Casos</a></li>
+      <li><a href="#casos">Servicios</a></li>
+      <li><a href="#casos">Trayectoria</a></li>
+      <li><a class="lang" href="#casos" lang="en">EN</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" aria-labelledby="h1">
+    <p class="eyebrow">Proyectos</p>
+    <h1 id="h1">Casos más visibles</h1>
+    <p>Cada caso abre con su captura a la izquierda, el resultado como titular en dorado y “Qué hice” resumido en tres balas. Las etiquetas van en una sola línea y la demo tiene su botón real.</p>
+    <p class="dir">Dirección 01 · Fila con captura — las capturas son mocks estilizados dibujados en el propio archivo; en el sitio van los .webp existentes.</p>
+  </section>
+
+  <section id="casos" aria-label="Casos">
+
+    <article class="fila" style="--borde:var(--azul)">
+      <div class="shot" role="img" aria-label="Miniatura del calendario de asignación de viajes con eventos de colores por tipo">
+        <div class="mdl cal">
+          <div class="cal-h"><span>Feb · 2026</span><span class="do" aria-hidden="true"></span></div>
+          <div class="cal-d"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+          <div class="cal-g">
+            <span class="d">9</span><span class="d">10</span><span class="d">11</span><span class="d">12</span><span class="d">13<i style="--c:var(--azul)"></i></span><span class="d">14</span><span class="d">15</span>
+            <span class="d">16</span><span class="d">17</span><span class="d">18<i style="--c:var(--verde)"></i></span><span class="d">19</span><span class="d">20<i style="--c:var(--rojo)"></i></span><span class="d">21<i style="--c:var(--violeta)"></i></span><span class="d hoy">22</span>
+          </div>
+          <div class="cal-ley"><span><i style="--c:var(--azul)"></i>Cita</span><span><i style="--c:var(--verde)"></i>Salida</span><span><i style="--c:var(--rojo)"></i>Entrega</span><span><i style="--c:var(--violeta)"></i>Despacho</span></div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge">Demo en vivo</span><h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3></div>
+        <p class="res">Nueve eventos que se consultan, arrastran, filtran y colorean por tipo.</p>
+        <ul class="hice">
+          <li>Nueve eventos ficticios: haz clic y se consulta en una ficha breve de solo lectura.</li>
+          <li>Arrastra a otro día; el destino se ilumina antes de soltar y las fechas pasadas se rechazan.</li>
+          <li>Filtra por cliente, unidad u operador y ajusta los colores por tipo de evento.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">Pointer Events</span><span class="tag">demo interactivo</span></div>
+          <a class="btn primary" href="/demos/calendario/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="fila" style="--borde:var(--verde)">
+      <div class="shot" role="img" aria-label="Miniatura del panel de validación de expedientes con chips de defecto">
+        <div class="mdl ocr">
+          <div class="seg"><i class="on">Ingenua</i><i>Endurecida</i></div>
+          <div class="doc"><b>acta-clasificada-curp.pdf</b><span class="chip fail">DEFECTO</span></div>
+          <div class="doc"><b>acuse-sat-domicilio.pdf</b><span class="chip fail">DEFECTO</span></div>
+          <div class="doc"><b>ine-otra-persona.pdf</b><span class="chip fail">DEFECTO</span></div>
+          <p class="ver">Validación endurecida · 3 defectos reales de producción</p>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge">Demo en vivo</span><h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3></div>
+        <p class="res">Cambia entre validación ingenua y endurecida y ve en vivo los tres defectos reales.</p>
+        <ul class="hice">
+          <li>Extrae el texto del documento, decide cuál es y valida que le pertenezca.</li>
+          <li>La demo deja cambiar entre la validación ingenua y la endurecida.</li>
+          <li>Tres documentos reproducen defectos reales: acta como CURP, acuse del SAT como comprobante de domicilio e INE auténtica de otra persona.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">clasificación y validación cruzada</span></div>
+          <a class="btn primary" href="/demos/expedientes/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="fila" style="--borde:var(--rojo)">
+      <div class="shot" role="img" aria-label="Miniatura de la revisión vehicular con una unidad bloqueada por falla crítica">
+        <div class="mdl rev">
+          <div class="unit"><i aria-hidden="true"></i><span>ECO-14 · Revisión vehicular</span></div>
+          <div class="chk">
+            <span class="it ok">Frenos · OK</span>
+            <span class="it ok">Llantas · OK</span>
+            <span class="it ok">Luces · OK</span>
+            <span class="it falla">Documentos a bordo · FALLA</span>
+          </div>
+          <div class="bloqueo">⚠ Unidad bloqueada</div>
+          <div class="firma">Firmar en pantalla para cerrar</div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge">Demo en vivo</span><h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3></div>
+        <p class="res">Marca una falla crítica y la unidad se bloquea sola.</p>
+        <ul class="hice">
+          <li>El operador revisa la unidad punto por punto y firma en pantalla.</li>
+          <li>Marca una falla crítica y la unidad se bloquea sola.</li>
+          <li>Una revisión a medias no se cierra incompleta ni sin firma.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">canvas</span><span class="tag">módulo del que soy autor único</span></div>
+          <a class="btn primary" href="/demos/revision/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="fila" style="--borde:var(--violeta)">
+      <div class="shot" role="img" aria-label="Miniatura de un código QR con un logo al centro">
+        <div class="mdl qr">
+          <svg viewBox="0 0 21 21" aria-hidden="true">
+            <rect x="0" y="0" width="21" height="21" fill="#04060a"/>
+            <g fill="#04060a">
+              <path d="M0 0h6v6H2V2h2v2H2v2H0z"/><rect x="0" y="0" width="6" height="6" fill="#eef0f6"/><rect x="1" y="1" width="2" height="2" fill="#04060a"/><rect x="3" y="1" width="2" height="2" fill="#04060a"/><rect x="1" y="3" width="2" height="2" fill="#04060a"/><rect x="3" y="3" width="2" height="2" fill="#04060a"/>
+              <path d="M15 0h6v6h-2V2h-2v2h-2z" fill="#eef0f6"/><rect x="15" y="1" width="2" height="2" fill="#04060a"/><rect x="17" y="3" width="2" height="2" fill="#04060a"/><rect x="19" y="1" width="2" height="2" fill="#04060a"/><rect x="17" y="1" width="2" height="2" fill="#04060a"/>
+              <path d="M0 15h6v6H2v-2h2v-2H0z" fill="#eef0f6"/><rect x="1" y="15" width="2" height="2" fill="#04060a"/><rect x="3" y="17" width="2" height="2" fill="#04060a"/><rect x="1" y="19" width="2" height="2" fill="#04060a"/>
+            </g>
+            <g fill="#eef0f6">
+              <rect x="7" y="1" width="2" height="2"/><rect x="11" y="2" width="1" height="2"/><rect x="8" y="5" width="2" height="1"/><rect x="12" y="5" width="2" height="2"/><rect x="6" y="8" width="2" height="2"/><rect x="10" y="8" width="2" height="1"/><rect x="13" y="7" width="2" height="2"/><rect x="4" y="10" width="2" height="2"/><rect x="8" y="11" width="2" height="1"/><rect x="12" y="12" width="2" height="2"/><rect x="2" y="13" width="2" height="2"/><rect x="6" y="14" width="1" height="2"/><rect x="10" y="13" width="2" height="2"/><rect x="14" y="11" width="2" height="2"/><rect x="7" y="16" width="2" height="2"/><rect x="11" y="15" width="2" height="1"/><rect x="13" y="13" width="2" height="2"/><rect x="15" y="8" width="2" height="1"/><rect x="5" y="17" width="2" height="2"/><rect x="9" y="18" width="2" height="1"/><rect x="12" y="17" width="2" height="2"/>
+            </g>
+            <rect x="8" y="8" width="5" height="5" rx="1" fill="#f0b429"/>
+          </svg>
+          <div class="qmeta"><span>Nivel de corrección: <b>Alta</b></span><span>Logo al centro: <b>puesto</b></span><span>Veredicto: <b>reeditado</b></span></div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge">Demo en vivo</span><h3><a href="/demos/qr/">Identificador QR de unidades</a></h3></div>
+        <p class="res">Aguanta un logo al centro; el veredicto relee el lienzo y lo compara contra un decodificador real.</p>
+        <ul class="hice">
+          <li>Codificador escrito desde cero: corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras.</li>
+          <li>En la demo pones un logo al centro y mueves el nivel de corrección.</li>
+          <li>El veredicto cuenta lo que el logo daña de verdad y lo compara contra lo que cada bloque puede corregir, contrastado con zxing-cpp.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">codificador QR escrito desde cero</span></div>
+          <a class="btn primary" href="/demos/qr/">Probar la demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="fila" style="--borde:var(--cian)">
+      <div class="shot" role="img" aria-label="Miniatura de la salida de pruebas de fleet-maintenance en una terminal">
+        <div class="mdl term">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <pre><span class="acc">$</span> phpunit --testsuite dominio
+<span class="z">12 tests</span> · <span class="ok">2 ms</span>
+<span class="acc">$</span> phpunit --testsuite integracion
+<span class="z">24 tests</span> · <span class="ok">1.6 s</span></pre>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge alt">Destacado</span><h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a></h3></div>
+        <p class="res">12 pruebas de dominio en 2 ms y 24 de integración en 1.6 s — medido en el README.</p>
+        <ul class="hice">
+          <li>Servicio bajo una sola regla: las reglas de negocio no dependen del framework.</li>
+          <li>Las 12 pruebas de dominio corren en 2 ms porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s.</li>
+          <li>Aislamiento por empresa con un scope global que falla cerrado: responde 404 —no 403— ante un id ajeno.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">Laravel 13</span><span class="tag">PHP 8.5</span><span class="tag">PHPUnit</span><span class="tag">SQLite</span></div>
+          <a class="btn" href="https://github.com/FernandoUribeT/fleet-maintenance">Ver el código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="fila" style="--borde:var(--azul)">
+      <div class="shot" role="img" aria-label="Miniatura de la salida del scraper del Diario Oficial en una terminal">
+        <div class="mdl term">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <pre><span class="acc">$</span> dof scrape --hoy
+→ <span class="z">JSON listo</span>
+<span class="acc">3 defectos documentados</span> (TLS vencido…)
+<span class="ok">Falla ruidosa &gt; dato incorrecto</span></pre>
+        </div>
+      </div>
+      <div class="info">
+        <div class="topline"><span class="badge alt">Destacado</span><h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a></h3></div>
+        <p class="res">Falla ruidosamente antes que devolver un dato incorrecto en silencio.</p>
+        <ul class="hice">
+          <li>Un CLI con pytest que extrae los documentos diarios del Diario Oficial y los entrega como JSON.</li>
+          <li>Regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente.</li>
+          <li>Documentó tres defectos reproducibles del sitio origen, entre ellos un certificado TLS vencido.</li>
+        </ul>
+        <div class="foot">
+          <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">CLI</span></div>
+          <a class="btn" href="https://github.com/FernandoUribeT/dof-scraper">Ver el código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <p class="note">Misma idea para los casos sin captura: un tile de terminal o icono en vez de screenshot. Los números y hechos vienen del texto actual de cada tarjeta.</p>
+  </section>
+</main>
+</body>
+</html>
