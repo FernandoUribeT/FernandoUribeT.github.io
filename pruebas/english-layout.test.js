@@ -24,3 +24,10 @@ it('keeps English portfolio section layout aligned with Spanish', () => {
     );
   }
 });
+
+it('starts both pages with markup, not stray text, right after <body>', () => {
+  for (const [name, source] of [['spanish', spanish], ['english', english]]) {
+    const afterBody = source.split(/<body[^>]*>/)[1] ?? '';
+    assert.match(afterBody, /^\s*</, `${name} page has stray text after <body>`);
+  }
+});

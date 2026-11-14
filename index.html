@@ -159,6 +159,8 @@ section:last-of-type{margin-bottom:40px}
 @media(max-width:640px){section{padding:34px 18px;border-radius:14px;margin-top:18px}}
 .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:30px}
 .eyebrow h2{font:700 0.6875rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--fg-faint);white-space:nowrap}
+.eyebrow span{font:700 0.6875rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--fg-faint);white-space:nowrap}
+.eyebrow + .eyebrow{margin-top:-16px}
 .eyebrow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
 
 /* job */
@@ -271,13 +273,13 @@ html.a11y-quieto .door{transition:none}
 /* adaptaciones */
 html.a11y-txt1{font-size:112.5%}
 html.a11y-txt2{font-size:128.125%}
-html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
+html.a11y-fuente body,html.a11y-fuente .role,html.a11y-fuente .chip,html.a11y-fuente .sub,html.a11y-fuente .tech,html.a11y-fuente .job-sub,html.a11y-fuente .eyebrow h2,html.a11y-fuente .eyebrow span,html.a11y-fuente .tag,html.a11y-fuente .stat b{font-family:Verdana,Tahoma,"DejaVu Sans",sans-serif!important;letter-spacing:.02em;word-spacing:.09em}
 html.a11y-fuente body{line-height:1.85}
 html.a11y-links a:not(.btn):not(.brand):not(.skip):not(.saltar):not(.wa-fab){text-decoration:underline!important;text-underline-offset:3px;background:rgba(240,180,41,.16);border-radius:3px;padding:0 2px}
 html.a11y-quieto *,html.a11y-quieto *::before,html.a11y-quieto *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 html.a11y-quieto .rv{opacity:1!important;transform:none!important}
 html.a11y-contraste{--panel:#000;--card-2:#000;--sombra:transparent;--tinte:transparent;--velo:#000;--bg:#000;--bg-2:#000;--card:#000;--line:#fff;--line-2:#fff;--fg:#fff;--fg-dim:#fff;--fg-faint:#ffe680;--accent:#ffe600;--glow:transparent;--luz:transparent;--accent-soft:#000}
-html.a11y-contraste .feat,html.a11y-contraste .card,html.a11y-contraste .stat,html.a11y-contraste .cert,html.a11y-contraste .a11y-panel{border-width:2px}
+html.a11y-contraste .feat,html.a11y-contraste .card,html.a11y-contraste .stat,html.a11y-contraste .cert,html.a11y-contraste .a11y-panel,html.a11y-contraste .price{border-width:2px}
 html.a11y-contraste .luces,html.a11y-contraste .card::after{display:none}
 html.a11y-contraste .btn.primary,html.a11y-contraste .a11y-btn{background:#ffe600;color:#000}
 html.a11y-claro{--panel:#f1eee6;--card-2:#f7f5ef;--sombra:rgba(70,58,32,.15);--tinte:rgba(0,0,0,.022);--velo:rgba(251,250,247,.88);--bg:#fbfaf7;--bg-2:#f2f0ea;--card:#fff;--line:#ddd8cd;--line-2:#c3bcae;--fg:#16181d;--fg-dim:#4a4f5c;--fg-faint:#6d7382;--accent:#9a6b00;--accent-2:#7d5600;--glow:rgba(154,107,0,.09);--luz:rgba(154,107,0,.12);--accent-soft:rgba(154,107,0,.09)}
@@ -368,7 +370,7 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
 #proyectos .carrusel{max-width:900px;margin:0 auto 18px}
 </style>
 <script>document.documentElement.classList.add('js');</script>
-<noscript><style>.js .rv{opacity:1!important;transform:none!important}</style></noscript><style>.feats>.note span{max-width:none}.feats>.note{max-width:none;text-wrap:pretty}</style><style>.feat,.feat:hover{border-left-color:var(--line)!important}.feat{border-top-color:var(--tono,var(--line-2))}</style><style>.feats>.feat:nth-child(1){--tono:var(--accent)}.feats>.feat:nth-child(2){--tono:var(--azul)}.feats>.feat:nth-child(3){--tono:var(--verde)}.feats>.feat:nth-child(4){--tono:var(--rojo)}.feats>.feat:nth-child(5){--tono:var(--violeta)}.feats>.feat:nth-child(6){--tono:var(--cian)}.feats>.feat:nth-child(7){--tono:var(--accent)}.feat{border:1px solid var(--line);border-top:3px solid var(--tono,var(--line-2));border-radius:10px;transition:border-color .25s var(--ease),transform .25s var(--ease),background .25s var(--ease)}.feat:hover{border-left-color:var(--line);transform:translateY(-2px);background:var(--card-2)}.feat b{color:var(--tono,var(--fg))}.feat .feat-ico{color:var(--tono,var(--accent))}</style><style>.luces{position:fixed;inset:0;left:0;width:auto;transform:none;z-index:-1}header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;clip-path:none;padding:40px 0}@supports not (height:100svh){header{min-height:100vh}}#proyectos,#formacion{background:transparent;border:0;border-radius:0;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);margin-top:0}#proyectos::after,#formacion::after{display:none}#proyectos::before,#formacion::before{display:none}#experiencia,#stack{background:var(--panel);border:0;border-radius:0;margin-top:0;overflow:hidden;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}</style>
+<noscript><style>.js .rv{opacity:1!important;transform:none!important}</style></noscript><style>.feats>.note span{max-width:none}.feats>.note{max-width:none;text-wrap:pretty}</style><style>.feat,.feat:hover{border-left-color:var(--line)!important}.feat{border-top-color:var(--tono,var(--line-2))}</style><style>.feats>.feat:nth-child(1){--tono:var(--accent)}.feats>.feat:nth-child(2){--tono:var(--azul)}.feats>.feat:nth-child(3){--tono:var(--verde)}.feats>.feat:nth-child(4){--tono:var(--rojo)}.feats>.feat:nth-child(5){--tono:var(--violeta)}.feats>.feat:nth-child(6){--tono:var(--cian)}.feats>.feat:nth-child(7){--tono:var(--accent)}.feat{border:1px solid var(--line);border-top:3px solid var(--tono,var(--line-2));border-radius:10px;transition:border-color .25s var(--ease),transform .25s var(--ease),background .25s var(--ease)}.feat:hover{border-left-color:var(--line);transform:translateY(-2px);background:var(--card-2)}.feat b{color:var(--tono,var(--fg))}.feat .feat-ico{color:var(--tono,var(--accent))}</style><style>.luces{position:fixed;inset:0;left:0;width:auto;transform:none;z-index:-1}header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;clip-path:none;padding:40px 0}@supports not (height:100svh){header{min-height:100vh}}#proyectos,#formacion{background:transparent;border:0;border-radius:0;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);margin-top:0}#proyectos::after,#formacion::after{display:none}#proyectos::before,#formacion::before{display:none}#experiencia,#stack{background:var(--panel);border:0;border-radius:0;margin-top:0;overflow:hidden;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}#servicios{background:var(--panel);border:0;border-radius:0;margin-top:0;overflow:hidden;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}</style>
 <style>header .luces i:nth-child(1){width:64vw;height:64vw;left:-14vw;top:-46%}header .luces i:nth-child(2){width:46vw;height:46vw;right:-10vw;top:-8%;opacity:.6}header .luces i:nth-child(3){width:40vw;height:40vw;left:22vw;bottom:-58%;opacity:.5}</style>
 <style id="scroll-driven">
 /* Scroll-driven animations (progressive enhancement).
@@ -400,6 +402,38 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
   to { opacity: 1; translate: none; }
 }
 </style>
+<style>
+/* T3 — casos: una sola estructura para cada proyecto (S3) */
+#proyectos .grid{grid-template-columns:1fr}
+.case{display:grid;grid-template-columns:260px 1fr 1fr 1fr;gap:24px}
+.case h3{font:700 1.1875rem/1.25 var(--display);margin:0;letter-spacing:-.01em;color:var(--fg)}
+.case .badge{display:inline-block;font:700 .6875rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:#1a1204;padding:4px 8px;border-radius:7px;margin-bottom:10px}
+.case .badge.alt{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.case .head .tags{margin-top:12px}
+.case dl{display:contents}
+.case .col{min-width:0}
+.case dt{font:600 .6875rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-faint);margin-bottom:6px}
+.case dd{margin:0;color:var(--fg-dim);font-size:.9062rem}
+.case .res dd{color:var(--accent-2)}
+.case a.more{display:inline-block;margin-top:12px;font:600 .875rem/1.4 var(--mono);color:var(--accent);text-underline-offset:3px}
+.case a.more:hover{text-decoration:underline}
+@media(max-width:980px){.case{grid-template-columns:1fr 1fr}.case .head{grid-column:1/-1}}
+@media(max-width:680px){.case{grid-template-columns:1fr}}
+</style>
+<style>
+/* T4 — servicios en la portada (S4) */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc a.card{text-decoration:none;padding:20px 22px}
+.svc h3{font:700 1.0625rem/1.3 var(--display);color:var(--fg);margin:0 0 8px}
+.svc p{margin:0;color:var(--fg-dim);font-size:.9062rem}
+.svc a.card:hover h3{color:var(--accent)}
+.price{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:22px;padding:18px 20px;border:1px dashed var(--line-2);border-radius:14px;background:var(--bg-2)}
+.price span{color:var(--fg-dim);font:500 .875rem/1.5 var(--mono)}
+.price strong{font:700 1.25rem/1 var(--display);color:var(--accent);white-space:nowrap}
+.price .btn{flex:none}
+@media(max-width:980px){.svc{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.svc{grid-template-columns:1fr}.price{flex-direction:column;align-items:flex-start}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -408,8 +442,9 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
   <div class="wrap">
     <a class="brand" href="#top">FUT<span aria-hidden="true"></span></a>
     <div class="navlinks">
-      <a href="#experiencia">Experiencia</a>
-      <a href="#proyectos">Proyectos</a>
+      <a href="#proyectos">Casos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#experiencia">Trayectoria</a>
       <a href="#stack">Stack</a>
       <a href="#formacion">Formación</a>
       <a class="lang" href="/en/">EN</a>
@@ -493,6 +528,7 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
 
 
   <section id="experiencia">
+    <p class="eyebrow rv"><span>Para empleadores</span></p>
     <div class="eyebrow rv"><h2>Experiencia</h2></div>
     <div class="job-head rv">
       <h3>Velor Innovation</h3><span class="chip">Feb – Jul 2026 · 169 aportaciones</span>
@@ -527,76 +563,151 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
       <p class="pie-dia" aria-live="polite">Calendario de viajes · nueve eventos de ejemplo, arrastre directo y ficha informativa</p>
     </div>
     <div class="grid">
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Laravel 13 · PHP 8.5 · PHPUnit · SQLite</p>
-            <p>Servicio multiempresa que le dice al despachador qué unidades pueden salir hoy y cuáles están detenidas por mantenimiento. Construido bajo una sola regla: <b>las reglas de negocio no dependen del framework</b>.</p>
-            <p>Las 12 pruebas de dominio corren en <b>2 ms</b> porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s. Esa diferencia es el argumento completo, y está medida en el README.</p>
-            <p>Incluye aislamiento por empresa con un scope global que falla cerrado, detalle que responde 404 —no 403— ante un id ajeno, y una prueba que manda <code>company_id</code> en el formulario para demostrar que se ignora.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">Pointer Events</span><span class="tag">demo interactivo</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Ver de un vistazo qué evento es cada uno —citas, salidas, entregas o despachos— con su tipo, fecha, cliente, unidad y operador.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Una demo independiente con nueve eventos ficticios. Haz clic en uno para consultarlo en una ficha breve de solo lectura; arrastra un evento a otro día —el destino se ilumina antes de soltarlo y las fechas pasadas se rechazan—; filtra por cliente, unidad u operador y ajusta los colores por tipo de evento.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Nueve eventos ficticios que se consultan, arrastran, filtran y colorean por tipo, en una ficha breve de solo lectura.</dd><a class="more" href="/demos/calendario/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Python · pytest · CLI</p>
-            <p>Extrae los documentos que el Diario Oficial de la Federación publica cada día y los entrega como JSON.</p>
-            <p>Está construido sobre una regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente. Documenté tres defectos reproducibles del sitio origen, entre ellos un certificado TLS vencido.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">clasificación y validación cruzada</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Revisar que cada documento subido por un proveedor sea el que dice ser y le pertenezca de verdad.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>El sistema extrae el texto del documento, decide de qué documento se trata y valida que le pertenezca. La demo deja cambiar entre la validación ingenua y la endurecida; los primeros tres documentos reproducen defectos reales de producción: un acta clasificada como CURP porque la trae impresa, un acuse del SAT tomado por comprobante de domicilio y una INE auténtica pero de otra persona.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Cambias entre la validación ingenua y la endurecida y ves en vivo qué pasa con los tres documentos que reproducen defectos reales de producción.</dd><a class="more" href="/demos/expedientes/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/calendario/" tabindex="-1" aria-hidden="true"><img src="/img/calendario.webp" data-base="/img/calendario" alt="" width="900" height="556" loading="lazy"></a>
-          <h3><a href="/demos/calendario/">Calendario de asignación de viajes</a></h3>
-          <p class="tech">JavaScript sin librerías · Pointer Events · demo interactivo</p>
-            <p>Esta demo independiente muestra nueve eventos ficticios de citas, salidas, entregas y despachos. Haz clic en uno para consultar su tipo, fecha, cliente, unidad y operador en una ficha breve de solo lectura.</p>
-            <p>Arrastra un evento para moverlo directamente a otro día: el destino se ilumina antes de soltarlo y las fechas pasadas se rechazan. También puedes filtrar por cliente, unidad u operador y ajustar los colores por tipo de evento.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">canvas</span><span class="tag">módulo del que soy autor único</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Que una falla crítica en una unidad se detecte sin depender de que alguien la reporte, y que no se pueda cerrar una revisión incompleta ni sin firma.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Módulo del que soy autor único: el operador revisa la unidad punto por punto y firma en pantalla. Marca una falla crítica y la unidad se bloquea sola; una revisión a medias guardada como terminada genera confianza falsa, que es peor que no tener revisión, así que no se cierra incompleta ni sin firma.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>En la demo, marca una falla crítica y la unidad se bloquea sola; no se cierra ninguna revisión incompleta ni sin firma.</dd><a class="more" href="/demos/revision/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/expedientes/" tabindex="-1" aria-hidden="true"><img src="/img/expedientes.webp" data-base="/img/expedientes" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/expedientes/">Validación de expedientes con OCR</a></h3>
-          <p class="tech">JavaScript sin librerías · clasificación y validación cruzada</p>
-            <p>Un proveedor sube documentos y el sistema extrae el texto, decide de qué documento se trata y valida que le pertenezca. <b>Puedes cambiar entre la validación ingenua y la endurecida</b> y ver la diferencia en vivo.</p>
-            <p>Los primeros tres documentos son los defectos reales que encontré en producción: un acta de nacimiento clasificada como CURP porque la trae impresa, un acuse del SAT tomado por comprobante de domicilio, y una INE auténtica pero de otra persona.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge">Demo en vivo</span>
+            <h3><a href="/demos/qr/">Identificador QR de unidades</a></h3>
+            <div class="tags"><span class="tag">JavaScript sin librerías</span><span class="tag">codificador QR escrito desde cero</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Generar códigos QR que sigan siendo legibles aunque lleven un logo encima, sin depender de ninguna librería.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Escribí el codificador completo desde cero: corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras. En la demo pones un logo al centro y mueves el nivel de corrección. El veredicto relee el lienzo, cuenta las palabras de código que el logo daña de verdad y las compara contra lo que cada bloque puede corregir; lo contrasté contra zxing-cpp, el decodificador detrás de los escáneres de teléfono, en las 76 combinaciones de nivel y tamaño de logo.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>En la demo ves hasta dónde aguanta el código con un logo al centro y el nivel de corrección que muevas, comparado contra un decodificador real.</dd><a class="more" href="/demos/qr/">Probar la demo</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/revision/" tabindex="-1" aria-hidden="true"><img src="/img/revision.webp" data-base="/img/revision" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/revision/">Revisión vehicular con firma y bloqueo</a></h3>
-          <p class="tech">JavaScript sin librerías · canvas · módulo del que soy autor único</p>
-            <p>El operador revisa la unidad punto por punto y firma en pantalla. <b>Marca una falla crítica y la unidad se bloquea sola</b>, sin que nadie tenga que reportarla.</p>
-            <p>Tampoco se puede cerrar una revisión incompleta ni sin firma: una revisión a medias guardada como terminada genera confianza falsa, que es peor que no tener revisión.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/fleet-maintenance">fleet-maintenance</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Laravel 13</span><span class="tag">PHP 8.5</span><span class="tag">PHPUnit</span><span class="tag">SQLite</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Un despachador, en un servicio multiempresa, necesita saber qué unidades pueden salir hoy y cuáles están detenidas por mantenimiento.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Servicio bajo una sola regla: las reglas de negocio no dependen del framework. Las 12 pruebas de dominio corren en 2 ms porque no tocan Laravel ni la base de datos; las 24 de integración tardan 1.6 s. Aislamiento por empresa con un scope global que falla cerrado, que responde 404 —no 403— ante un id ajeno, y una prueba que manda <code>company_id</code> en el formulario para demostrar que se ignora.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Las 12 pruebas de dominio corren en 2 ms y las 24 de integración tardan 1.6 s; esa diferencia está medida en el README.</dd><a class="more" href="https://github.com/FernandoUribeT/fleet-maintenance">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Demo en vivo">
-          <a class="shot" href="/demos/qr/" tabindex="-1" aria-hidden="true"><img src="/img/qr.webp" data-base="/img/qr" alt="" width="900" height="465" loading="lazy"></a>
-          <h3><a href="/demos/qr/">Identificador QR de unidades</a></h3>
-          <p class="tech">JavaScript sin librerías · codificador QR escrito desde cero</p>
-            <p>El código QR de esa página no sale de ninguna librería: escribí el codificador completo, con corrección Reed–Solomon, entrelazado de bloques y las ocho máscaras. <b>Pon un logo al centro y mueve el nivel de corrección</b> para ver hasta dónde aguanta.</p>
-            <p>El veredicto no es una simulación: relee el lienzo, cuenta las palabras de código que el logo daña de verdad y las compara contra lo que cada bloque puede corregir. Lo contrasté contra zxing-cpp, el decodificador que hay detrás de los escáneres de teléfono, en las 76 combinaciones de nivel y tamaño de logo.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-scraper">dof-scraper</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">CLI</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Obtener los documentos que el Diario Oficial de la Federación publica cada día y entregarlos como JSON.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Un CLI con pytest que extrae los documentos diarios del Diario Oficial y los entrega como JSON, bajo una regla: un scraper que devuelve datos incorrectos en silencio es peor que uno que falla ruidosamente.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Documenté tres defectos reproducibles del sitio origen —entre ellos un certificado TLS vencido— y el scraper está construido para fallar ruidosamente antes que devolver datos incorrectos en silencio.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-scraper">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card hero-card rv" data-tag="Destacado">
-          <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">n8n · automatización</p>
-            <p>Lo ejecuta cada mañana y filtra la gaceta contra una lista de temas.</p>
-            <p>Distingue entre «no pude llegar a la fuente» y «llegué y los datos están mal»: dos fallas con urgencias distintas que casi toda automatización reporta igual.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <span class="badge alt">Destacado</span>
+            <h3><a href="https://github.com/FernandoUribeT/dof-watch">dof-watch</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">n8n</span><span class="tag">automatización</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Distinguir, en una automatización diaria, entre «no pude llegar a la fuente» y «llegué y los datos están mal»: dos fallas con urgencias distintas que casi toda automatización reporta igual.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Automatización en n8n que se ejecuta cada mañana y filtra la gaceta contra una lista de temas.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Distingue «no pude llegar a la fuente» de «llegué y los datos están mal», en lugar de reportar ambas igual.</dd><a class="more" href="https://github.com/FernandoUribeT/dof-watch">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>ODS 9 e Innovación</h3>
-          <p class="tech">HTML · CSS · JavaScript · accesibilidad · 2025</p>
-            <p>Sitio informativo sobre industria sostenible e infraestructura inteligente, construido con la accesibilidad como eje: barra con siete adaptaciones que controla quien lo visita —modo oscuro, alto contraste, tamaño de texto, cambio de tipografía, ocultar imágenes y resaltar enlaces— sobre una estructura semántica con <code>nav</code>, <code>main</code>, <code>header</code> y <code>footer</code>.</p>
-            <p>La barra de accesibilidad de este portafolio nace de ese trabajo, y la puedes usar aquí mismo con el botón de abajo a la derecha.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>ODS 9 e Innovación</h3>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">accesibilidad</span><span class="tag">2025</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Un sitio informativo sobre industria sostenible e infraestructura inteligente que se controle y se entienda con la accesibilidad como eje desde el diseño.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Barra con siete adaptaciones que controla quien lo visita —modo oscuro, alto contraste, tamaño de texto, cambio de tipografía, ocultar imágenes y resaltar enlaces— sobre una estructura semántica con <code>nav</code>, <code>main</code>, <code>header</code> y <code>footer</code>.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>La barra de accesibilidad de este portafolio nace de ese trabajo y la puedes usar aquí mismo con el botón de abajo a la derecha.</dd></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">Unity · Vuforia · C# · AR</p>
-            <p>Simulador con realidad aumentada usado como evaluación: los estudiantes identifican las piezas de un modelo 3D, lo desarman en secuencia y lo vuelven a ensamblar, sumando y restando puntos.</p>
-            <p>Máquina de estados por fases, arquitectura por componentes y envío automático de resultados a Google Forms.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">simulador-ensamblaje-unity</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">Unity</span><span class="tag">Vuforia</span><span class="tag">C#</span><span class="tag">AR</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Evaluar que los estudiantes identifiquen las piezas de un modelo 3D, lo desarmen en secuencia y lo vuelvan a ensamblar.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Simulador con realidad aumentada: los estudiantes identifican las piezas, desarman en secuencia y reensamblan, sumando y restando puntos. Máquina de estados por fases, arquitectura por componentes y envío automático de resultados a Google Forms.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Se usa como evaluación y envía los resultados automáticamente a Google Forms.</dd><a class="more" href="https://github.com/FernandoUribeT/simulador-ensamblaje-unity">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
-          <p class="tech">PHP · MySQL</p>
-            <p>Proyecto de curso sobre MVC en PHP puro. El enrutador y la capa ActiveRecord vienen del material del curso; lo mío es el dominio: usuarios, servicios y el flujo de reserva de citas. Lo dejo aquí porque es donde vi por dentro lo que un framework esconde, y eso es justo lo que aproveché al pasar a Laravel.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3><a href="https://github.com/FernandoUribeT/appsalon-mvc-php">appsalon-mvc-php</a><svg class="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></h3>
+            <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Ver por dentro lo que un framework esconde, construyendo en PHP puro el dominio de una aplicación de citas.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Proyecto de curso sobre MVC en PHP puro: el enrutador y la capa ActiveRecord vienen del material del curso; lo mío es el dominio —usuarios, servicios y el flujo de reserva de citas—.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Es donde vi por dentro lo que un framework esconde, que es justo lo que aproveché al pasar a Laravel.</dd><a class="more" href="https://github.com/FernandoUribeT/appsalon-mvc-php">Ver el código</a></div>
+          </dl>
         </article>
-        <article class="card rv">
-          <h3>Pulsera de monitoreo cardiaco</h3>
-          <p class="tech">C/C++ · IoT</p>
-            <p>Dispositivo vestible para monitoreo continuo del ritmo cardiaco en pacientes con demencia senil. Lectura de sensores y procesamiento de datos biométricos.</p>
+        <article class="case card rv">
+          <div class="col head">
+            <h3>Pulsera de monitoreo cardiaco</h3>
+            <div class="tags"><span class="tag">C/C++</span><span class="tag">IoT</span></div>
+          </div>
+          <dl>
+            <div class="col"><dt>Problema</dt><dd>Monitorear de forma continua el ritmo cardiaco de pacientes con demencia senil.</dd></div>
+            <div class="col"><dt>Qué hice</dt><dd>Dispositivo vestible con lectura de sensores y procesamiento de datos biométricos.</dd></div>
+            <div class="col res"><dt>Resultado</dt><dd>Monitorea el ritmo cardiaco de forma continua y procesa los datos biométricos leídos por el sensor.</dd></div>
+          </dl>
         </article>
     </div>
+  </section>
+
+  <div class="anclaje" aria-hidden="true"></div>
+
+  <section id="servicios" aria-labelledby="svc-h">
+    <p class="eyebrow rv"><span>Para negocios</span></p>
+    <div class="eyebrow rv"><h2 id="svc-h">Servicios</h2></div>
+    <div class="svc">
+      <a class="card serv rv" href="/servicios/facturacion/"><h3>Facturación electrónica</h3><p>Que tu sistema emita CFDI 4.0 y Carta Porte solo, sin capturar dos veces ni pelear con el SAT.</p></a>
+      <a class="card serv rv" href="/servicios/expedientes/"><h3>Expedientes digitales</h3><p>Tus proveedores suben su documentación y el sistema revisa que esté completa, vigente y que sea de quien dice ser.</p></a>
+      <a class="card serv rv" href="/servicios/operacion/"><h3>Operación y logística</h3><p>Programación de viajes, revisión de unidades y control de flota, con las reglas de tu negocio aplicadas antes de guardar.</p></a>
+      <a class="card serv rv" href="/servicios/web/"><h3>Sitios y sistemas a medida</h3><p>Desde una página que explique bien a qué te dedicas, hasta un sistema interno para dejar de trabajar en Excel.</p></a>
+      <a class="card serv rv" href="/servicios/automatizacion/"><h3>Automatización de procesos</h3><p>Esa tarea que alguien hace a mano todos los días: copiar datos, revisar un portal, mandar reportes.</p></a>
+      <a class="card serv rv" href="/servicios/soporte/"><h3>Soporte y mantenimiento</h3><p>Para que lo que ya funciona siga funcionando cuando el SAT cambie las reglas o crezca tu operación.</p></a>
+    </div>
+    <div class="price"><span>Pago 50/50 por etapas · el código es tuyo</span><strong>Desde $8,000 MXN</strong><a class="btn primary" href="/servicios/">Ver servicios y precios</a><a class="btn wa" href="https://wa.me/525659304558?text=Hola%20Fernando%2C%20vi%20tu%20portafolio%20y%20quiero%20platicar%20sobre%20un%20proyecto." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.86.5 3.6 1.36 5.1L2 22l5.2-1.52a9.8 9.8 0 0 0 4.84 1.26h.01c5.43 0 9.84-4.4 9.84-9.84C21.9 6.4 17.48 2 12.04 2Zm5.76 14.06c-.24.68-1.4 1.3-1.94 1.34-.5.05-.98.23-3.3-.7-2.78-1.1-4.54-3.94-4.68-4.12-.14-.18-1.12-1.5-1.12-2.86s.72-2.02.98-2.3c.24-.26.54-.32.72-.32h.52c.16 0 .4-.06.62.48.24.58.8 2 .87 2.14.07.14.12.3.02.48-.1.18-.15.3-.3.46-.14.18-.3.4-.44.53-.14.14-.3.3-.13.6.18.28.78 1.28 1.66 2.07 1.14 1.02 2.1 1.34 2.4 1.48.3.14.47.12.64-.08.18-.2.74-.86.94-1.16.2-.3.4-.24.66-.14.26.1 1.66.78 1.94.92.28.14.47.22.54.34.07.12.07.7-.17 1.38Z"/></svg>WhatsApp</a></div>
   </section>
 
   <div class="anclaje" aria-hidden="true"></div>
@@ -739,7 +850,7 @@ html.a11y-contraste .demo,html.a11y-contraste .seg,html.a11y-contraste .unit .es
    estaba, que es correcta, solo con mas aire. */
 (function(){
   var FILA=4;
-  var zonas=[{sel:'.grid',hueco:16},{sel:'.feats',hueco:12}];
+  var zonas=[{sel:'.feats',hueco:12}];
   function acomodaUna(g,hueco){
     try{
       var cs=[].slice.call(g.children);
